@@ -153,15 +153,15 @@ from accessify import private,protected
 class Point:
     def __init__(self,x=0,y=0):
         self.__x=self.__y=0
-        if self.check_value(x) and self.check_value(y):
+        if self.__check_value(x) and self.__check_value(y):
             self.__x=x
             self.__y=y
-    # @private #чтобы сделать метод приватным(более защищённым) для дурачков,кто вызывает pt._Point__x
+    @private #чтобы сделать метод приватным(более защищённым по сравнению с __) для дурачков,кто вызывает pt._Point__check_value()
     @classmethod
-    def check_value(cls,x):
+    def __check_value(cls,x):
         return type(x) in (int,float)
     def set_coord(self,x,y):
-        if self.check_value(x) and self.check_value(y):
+        if self.__check_value(x) and self.__check_value(y):
             self.__x=x
             self.__y=y
         else:

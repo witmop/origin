@@ -175,42 +175,56 @@ from accessify import private,protected
 # #__ можно обращаться только внутри класса print(pt.__y,py.__x) не будет работать
 
 
-class Point:
-    max_coord=100
-    min_coord=0
+# class Point:
+#     max_coord=100
+#     min_coord=0
 
-    def __init__(self,x,y):
-        self.x=x
-        self.y=y
+#     def __init__(self,x,y):
+#         self.x=x
+#         self.y=y
 
-    def set_coord(self,x,y):
-        self.x=x
-        self.y=y
+#     def set_coord(self,x,y):
+#         self.x=x
+#         self.y=y
 
-    def __getattribute__(self, item): #вызывается при обращении к атрибутам через экземпляры классов
-        if item == "x":
-            raise ValueError("доступ запрещён")
-        else:
-            return object.__getattribute__(self,item)
+#     def __getattribute__(self, item): #вызывается при обращении к атрибутам через экземпляры классов
+#         if item == "x":
+#             raise ValueError("доступ запрещён")
+#         else:
+#             return object.__getattribute__(self,item)
 
-    def __setattr__(self, name, value):#вызывает при присваивании атрибутов экземпляру класса
-        if name=="z":
-            raise AttributeError("Недопустимое имя атрибута")
-        else:
-            print("__setattr__")
-            object.__setattr__(self,name,value)
-            # self.x=value функция зациклиться
-            # self.__dict__[name]=value можно и так, но object лучше
+#     def __setattr__(self, name, value):#вызывает при присваивании атрибутов экземпляру класса
+#         if name=="z":
+#             raise AttributeError("Недопустимое имя атрибута")
+#         else:
+#             print("__setattr__")
+#             object.__setattr__(self,name,value)
+#             # self.x=value функция зациклиться
+#             # self.__dict__[name]=value можно и так, но object лучше
     
-    def __getattr__(self, name): # при обращении к несуществуещему атрибуту будет вызываться (чтобы не было ошибки)
-        return False
+#     def __getattr__(self, name): # при обращении к несуществуещему атрибуту будет вызываться (чтобы не было ошибки)
+#         return False
 
-    def __delattr__(self, name):#вызывается при удалении атрибута
-        print("dellattr")
-        object.__delattr__(self,name)
+#     def __delattr__(self, name):#вызывается при удалении атрибута
+#         print("dellattr")
+#         object.__delattr__(self,name)
     
-pt1=Point(1,2)
-pt1.y=5
-del pt1.x
-print(pt1.__dict__)
-# print(pt1.z)
+# pt1=Point(1,2)
+# pt1.y=5
+# del pt1.x
+# print(pt1.__dict__)
+# # print(pt1.z)
+
+
+# Моносотояние
+
+class ThreadData:
+    __shared_attrs={"name":"thread_1","data":{},"id":1}
+
+    def __init__(self):
+        self.__dict__ = self.__shared_attrs #при создании нового объекта класса его коллекция дикт будет ссылаться на __shared_attrs
+
+th1=ThreadData()
+th2=ThreadData()
+th2.id=3 #меняется у всех экземпляров класса
+th1.atter_new="new_attr"#добавляется всем экземплярам класса

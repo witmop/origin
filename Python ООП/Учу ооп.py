@@ -150,26 +150,67 @@ from accessify import private,protected
 
 
 
+# class Point:
+#     def __init__(self,x=0,y=0):
+#         self.__x=self.__y=0
+#         if self.__check_value(x) and self.__check_value(y):
+#             self.__x=x
+#             self.__y=y
+#     @private #чтобы сделать метод приватным(более защищённым по сравнению с __) для дурачков,кто вызывает pt._Point__check_value()
+#     @classmethod
+#     def __check_value(cls,x):
+#         return type(x) in (int,float)
+#     def set_coord(self,x,y):
+#         if self.__check_value(x) and self.__check_value(y):
+#             self.__x=x
+#             self.__y=y
+#         else:
+#             raise ValueError ("Координаты должны быть числами")
+#     def get_coord(self):
+#         return self.__x,self.__y
+# pt=Point(1,2)
+# pt.set_coord(10,20)
+# print(pt.check_value(5))
+# #_ одно нижнее подчёркивание лишь предостерегает, не запрещает (внутрення служебная переменная)
+# #__ можно обращаться только внутри класса print(pt.__y,py.__x) не будет работать
+
+
 class Point:
-    def __init__(self,x=0,y=0):
-        self.__x=self.__y=0
-        if self.__check_value(x) and self.__check_value(y):
-            self.__x=x
-            self.__y=y
-    @private #чтобы сделать метод приватным(более защищённым по сравнению с __) для дурачков,кто вызывает pt._Point__check_value()
-    @classmethod
-    def __check_value(cls,x):
-        return type(x) in (int,float)
+    max_coord=100
+    min_coord=0
+
+    def __init__(self,x,y):
+        self.x=x
+        self.y=y
+
     def set_coord(self,x,y):
-        if self.__check_value(x) and self.__check_value(y):
-            self.__x=x
-            self.__y=y
+        self.x=x
+        self.y=y
+
+    def __getattribute__(self, item): #вызывается при обращении к атрибутам через экземпляры классов
+        if item == "x":
+            raise ValueError("доступ запрещён")
         else:
-            raise ValueError ("Координаты должны быть числами")
-    def get_coord(self):
-        return self.__x,self.__y
-pt=Point(1,2)
-pt.set_coord(10,20)
-print(pt.check_value(5))
-#_ одно нижнее подчёркивание лишь предостерегает, не запрещает (внутрення служебная переменная)
-#__ можно обращаться только внутри класса print(pt.__y,py.__x) не будет работать
+            return object.__getattribute__(self,item)
+
+    def __setattr__(self, name, value):#вызывает при присваивании атрибутов экземпляру класса
+        if name=="z":
+            raise AttributeError("Недопустимое имя атрибута")
+        else:
+            print("__setattr__")
+            object.__setattr__(self,name,value)
+            # self.x=value функция зациклиться
+            # self.__dict__[name]=value можно и так, но object лучше
+    
+    def __getattr__(self, name): # при обращении к несуществуещему атрибуту будет вызываться (чтобы не было ошибки)
+        return False
+
+    def __delattr__(self, name):#вызывается при удалении атрибута
+        print("dellattr")
+        object.__delattr__(self,name)
+    
+pt1=Point(1,2)
+pt1.y=5
+del pt1.x
+print(pt1.__dict__)
+# print(pt1.z)

@@ -218,13 +218,49 @@ from accessify import private,protected
 
 # Моносотояние
 
-class ThreadData:
-    __shared_attrs={"name":"thread_1","data":{},"id":1}
+# class ThreadData:
+#     __shared_attrs={"name":"thread_1","data":{},"id":1}
 
-    def __init__(self):
-        self.__dict__ = self.__shared_attrs #при создании нового объекта класса его коллекция дикт будет ссылаться на __shared_attrs
+#     def __init__(self):
+#         self.__dict__ = self.__shared_attrs #при создании нового объекта класса его коллекция дикт будет ссылаться на __shared_attrs
 
-th1=ThreadData()
-th2=ThreadData()
-th2.id=3 #меняется у всех экземпляров класса
-th1.atter_new="new_attr"#добавляется всем экземплярам класса
+# th1=ThreadData()
+# th2=ThreadData()
+# th2.id=3 #меняется у всех экземпляров класса
+# th1.atter_new="new_attr"#добавляется всем экземплярам класса
+
+
+#Атрибут свойства property
+class Person:
+    def __init__(self,name,old):
+        self.__name=name
+        self.__old=old
+    @property #обязательно сначала getter
+    def old(self): #раньше была get_old
+        return self.__old
+    @old.setter #из название верхней фукнции
+    def old(self,old):#раньше была set_old
+        self.__old=old
+                            # теперь можно убрать old=property() и также обращаться p.old=35
+
+    @old.deleter
+    def old(self):      #так как property можно просто писать del p.old
+        del self.__old      
+    # old=property()# порядок обязателен
+    # old=old.setter(set_old)
+    # old=old.getter(get_old)
+    #a=p.old будет автоматически вызываться get_old
+    #print(a)
+
+    #p.old=35 будет автоматически вызываться set_old
+
+
+p=Person("Сергей",20)
+# p.set_old(35)
+p.__dict__["old"]="old in object p"
+a=p.old
+p.old=35 #приоритет выше чем у приватного old
+a=p.old
+print(a)
+print(p.get_old())
+print(p.__dict__)

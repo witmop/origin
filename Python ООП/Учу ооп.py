@@ -1,3 +1,4 @@
+from string import ascii_letters
 from accessify import private,protected
 # class Point:
 #     color="red" #атрибуты или св-ва класса
@@ -231,36 +232,155 @@ from accessify import private,protected
 
 
 #Атрибут свойства property
-class Person:
-    def __init__(self,name,old):
-        self.__name=name
-        self.__old=old
-    @property #обязательно сначала getter
-    def old(self): #раньше была get_old
-        return self.__old
-    @old.setter #из название верхней фукнции
-    def old(self,old):#раньше была set_old
-        self.__old=old
-                            # теперь можно убрать old=property() и также обращаться p.old=35
+# class Person:
+#     def __init__(self,name,old):
+#         self.__name=name
+#         self.__old=old
+#     @property #обязательно сначала getter
+#     def old(self): #раньше была get_old
+#         return self.__old
+#     @old.setter #из название верхней фукнции
+#     def old(self,old):#раньше была set_old
+#         self.__old=old
+#                             # теперь можно убрать old=property() и также обращаться p.old=35
 
-    @old.deleter
-    def old(self):      #так как property можно просто писать del p.old
-        del self.__old      
-    # old=property()# порядок обязателен
-    # old=old.setter(set_old)
-    # old=old.getter(get_old)
-    #a=p.old будет автоматически вызываться get_old
-    #print(a)
+#     @old.deleter
+#     def old(self):      #так как property можно просто писать del p.old
+#         del self.__old      
+#     # old=property()# порядок обязателен
+#     # old=old.setter(set_old)
+#     # old=old.getter(get_old)
+#     #a=p.old будет автоматически вызываться get_old
+#     #print(a)
 
-    #p.old=35 будет автоматически вызываться set_old
+#     #p.old=35 будет автоматически вызываться set_old
 
 
-p=Person("Сергей",20)
-# p.set_old(35)
-p.__dict__["old"]="old in object p"
-a=p.old
-p.old=35 #приоритет выше чем у приватного old
-a=p.old
-print(a)
-print(p.get_old())
+# p=Person("Сергей",20)
+# # p.set_old(35)
+# p.__dict__["old"]="old in object p"
+# a=p.old
+# p.old=35 #приоритет выше чем у приватного old
+# a=p.old
+# print(a)
+# print(p.__dict__)
+
+
+# class Person:
+#     S_RUS="абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+#     S_RUS_UPPER="абвгдеёжзийклмнопрстуфхцчшщъыьэюя".upper()
+#     def __init__(self,fio,old,ps,weight):
+#         self.verify_fio(fio)
+#         # self.verify_old(old)      можно убрать так как мы прописали через property
+#         # self.verify_ps(ps)
+#         # self.verify_weight(weight)
+
+#         self.__fio=fio.split()
+#         self.old=old            #было self.__old=old , изменили так как сделали привязку через property
+#         self.passport=ps
+#         self.weight=weight
+
+#     @classmethod
+#     def verify_fio(cls,fio):
+#         if type(fio)!=str:
+#             raise TypeError("ФИО должно быть строкой")
+#         f = fio.split()
+#         if len(f)!=3:
+#             raise TypeError("Неверный формат записи")
+
+#         letters = ascii_letters + cls.S_RUS + cls.S_RUS_UPPER
+#         for s in f:
+#             if len(s)<1:
+#                 raise TypeError("В ФИО хотя бы 1 символ")
+#             if len(s.strip(letters))!=0:
+#                 raise TypeError("В ФИО должны быть только буквенные символы и дефис")
+#     @classmethod
+#     def verify_old(cls,old):
+#         if type(old)!= int or old <14 or old>120:
+#             raise TypeError("Возраст должен быть целым числом в диапазоне [14;120]")
+        
+#     @classmethod
+#     def verify_weight(cls,w):
+#         if type(w)!=float or w<20:
+#             raise TypeError("Вес должен быть вещественным числом от 20 и выше") 
+
+#     @classmethod
+#     def verify_ps(cls,ps):
+#         if type(ps)!=str:
+#             raise TypeError("Паспорт должен быть строкой")
+        
+#         s=ps.split()
+#         if len(s)!=2 or len(s[0])!=4 or len(s[1])!=6:
+#             raise TypeError("Неверный формат паспорта")
+
+#         for p in s:
+#             if not p.isdigit():
+#                 raise TypeError("Сериян и номер паспорта должны быть числами")
+
+#     @property
+#     def fio(self):
+#         return self.__fio
+
+#     @property
+#     def old(self):
+#         return self.__old
+
+#     @old.setter
+#     def old(self,old):
+#         self.verify_old(old)
+#         self.__old=old
+
+#     @property
+#     def weight(self):
+#         return self.__weight
+
+#     @weight.setter
+#     def weight(self,weight):
+#         self.verify_weight(weight)
+#         self.__weight=weight
+    
+#     @property
+#     def passport(self):
+#         return self.__passport
+
+#     @passport.setter
+#     def passport(self,ps):
+#         self.verify_ps(ps)
+#         self.__passport=ps
+# p=Person("Иван Иванович Иванов",30,"1234 567890",80.0)
+# p.old=100
+# p.passport="4567 123456"
+# p.weight= 70.3
+# print(p.__dict__)
+
+
+#Дескриптор данных
+class Integer:
+    @classmethod
+    def verify_coord(cls,coord):
+        if type(coord)!=int:
+            raise TypeError("Координата должна быть целым числом")
+
+    def __set_name__(self,owner,name):
+        self.name="_"+name
+
+    def __get__(self, instance, owner):
+        return instance.__dict__[self.name]#или getattr(instance,self.name)
+
+    def __set__(self, instance, value):
+        self.verify_coord(value)
+        print(f"__set__: {self.name} = {value}")
+        instance.__dict__[self.name] = value#или setattr(instance,self.name)
+        
+class Point3D:
+    x = Integer()
+    y = Integer()
+    z = Integer()
+
+    def __init__(self,x,y,z):
+        self.x = x
+        self.y = y
+        self.z = z
+    
+p=Point3D(1,2,3)
 print(p.__dict__)

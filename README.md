@@ -4,10 +4,12 @@
 
 **Мой учебный репозиторий** — место, где я разбираю Python по частям:
 задачи, ООП, работа с данными, алгоритмы и консольные проекты.
+С 2026 года потихоньку добавляю C++ — пока это база.
 
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
 [![pandas](https://img.shields.io/badge/pandas-2.x-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![C++](https://img.shields.io/badge/C%2B%2B-17-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
 [![Последний коммит](https://img.shields.io/github/last-commit/witmop/origin?style=for-the-badge&logo=github&logoColor=white)](https://github.com/witmop/origin/commits)
 [![Контрибьюторы](https://img.shields.io/github/contributors/witmop/origin?style=for-the-badge&logo=github&logoColor=white)](https://github.com/witmop/origin/graphs/contributors)
 
@@ -31,6 +33,7 @@
 ├── Numpy/                # задачи на NumPy
 ├── Projects/             # консольные программы
 ├── Python ООП/           # конспект по объектно-ориентированному Python
+├── Try_C++/              # первые программы на C++
 ├── Try_Pandas/           # работа с табличными данными
 ├── leetcode/             # решённые задачи LeetCode
 ├── hello.html + style.css
@@ -53,16 +56,19 @@
 | Файл | Что внутри |
 |:--|:--|
 | `Numpy/numpy-100.py` | Решения задач из набора [100 NumPy Exercises](https://github.com/rougier/numpy-100). Индексированные массивы, `reshape`, срезы, Broadcasting, `datetime64`, `random`, матричная арифметика, генераторы. |
-| `Python ООП/Учу ооп.py` | Большой конспект: атрибуты класса и экземпляра, `__dict__`, `getattr` / `setattr` / `hasattr`, `__doc__`, методы и `self`, `__new__` / `__init__` / `__del__`, паттерн Singleton, `@classmethod` / `@staticmethod` / `@private`, инкапсуляция, «моносостояние» через общий `__shared_attrs`, перехват атрибутов через `__getattribute__` / `__setattr__` / `__getattr__` / `__delattr__`, дескрипторы `property` (getter / setter / deleter). |
+| `Python ООП/Учу ооп.py` | Большой конспект: атрибуты класса и экземпляра, `__dict__`, `getattr` / `setattr` / `hasattr`, `__doc__`, методы и `self`, `__new__` / `__init__` / `__del__`, паттерн Singleton, `@classmethod` / `@staticmethod` / `@private`, инкапсуляция, «моносостояние» через общий `__shared_attrs`, перехват атрибутов через `__getattribute__` / `__setattr__` / `__getattr__` / `__delattr__`, дескрипторы `property` (getter / setter / deleter) и собственный дескриптор данных `Integer` с магическими `__set_name__` / `__get__` / `__set__`, класс `Point3D`. |
 | `Try_Pandas/Учу pandas.py` | Чтение CSV, деление колонок на числовые и категориальные, фильтрация и очистка выбросов, стандартизация и нормализация, `value_counts`, объединение редких категорий, кодирование через `.cat.codes` и `get_dummies`, новые признаки (`Age`, `km_year`). |
+| `leetcode/13. Roman to Integer.py` | [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/) — перевод римского числа в арабское: сравнение соседних символов через стек, вычитание меньшего из большего. |
 | `leetcode/20.ValidParentheses.py` | [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) — проверка корректности скобок с помощью стека. |
 | `leetcode/28._Find_the_Index...py` | [28. Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) — поиск первого вхождения подстроки. |
+| `leetcode/636. Exclusive Time of Functions.py` | [636. Exclusive Time of Functions](https://leetcode.com/problems/exclusive-time-of-functions/) — учёт «эксклюзивного» времени вызова функций: стек вложенных вызовов и пересчёт времени старта родителя при `start` / `end`. |
+| `Try_C++/FirstProgramm.cpp` | Первая программа на C++: `#include` / `using namespace std`, `int main(int argc, const char *argv[])`, вывод через `cout`, пауза через `cin.get()`, код возврата `return 0`. |
 | `hello.html` + `style.css` | Первая HTML-страница: минимум разметки, чтобы не забыть, как это выглядит. |
 | `Try_Pandas/cars.csv`, `сars_no_dup.csv` | Датасет с характеристиками автомобилей и его версия без дубликатов. |
 
 ## 🚀 Как запустить
 
-Нужен Python 3.10+.
+Для всего, кроме `Try_C++/`, нужен Python 3.10+.
 
 ```bash
 # 1. Клонировать репозиторий
@@ -82,28 +88,40 @@ pip install numpy pandas seaborn matplotlib accessify
 
 ```bash
 # консольные проекты (нужна только стандартная библиотека)
-python Projects/tic-tac-toe.py
-python Projects/Hangman\ Game.py
-python Projects/Encryption\ Сaesar.py
-python Projects/Generate\ Passwords.py
+python "Projects/tic-tac-toe.py"
+python "Projects/Hangman Game.py"
+python "Projects/Encryption Сaesar.py"
+python "Projects/Generate Passwords.py"
 
 # задачи
-python Numpy/numpy-100.py           # задачи 49–50
-python leetcode/20.ValidParentheses.py
+python Numpy/numpy-100.py                              # задачи 49–50
+python "leetcode/13. Roman to Integer.py"
+python "leetcode/20.ValidParentheses.py"
+python "leetcode/636. Exclusive Time of Functions.py"
 
 # работа с данными (нужны pandas и matplotlib)
-python Try_Pandas/Учу\ pandas.py
+python "Try_Pandas/Учу pandas.py"
+```
+
+Для `Try_C++/` нужен компилятор, а не Python:
+
+```bash
+g++ -std=c++17 Try_C++/FirstProgramm.cpp -o first_programm
+./first_programm          # Linux/macOS
+.\first_programm.exe      # Windows (PowerShell / cmd)
 ```
 
 > **Про кодировки имён.** В путях есть кириллица, а в двух именах файлов — невидимый
 > подвох: в `сars_no_dup.csv` и `Encryption Сaesar.py` первая буква — кириллическая
 > (`с` и `С`), хотя выглядит как латинская. Из-за этого `cd`, `git mv` и запуск
-> из терминала иногда ведут себя непредсказуемо. Надёжнее запускать из VS Code
-> или переименовать файлы в чисто латиницу.
+> из терминала иногда ведут себя непредсказуемо. Поэтому в командах выше имена
+> файлов взяты в кавычки. Надёжнее запускать из VS Code или переименовать файлы
+> в чисто латиницу.
 
 ## 🛠 Стек и инструменты
 
-- **Python** — язык
+- **Python** — основной язык
+- **C++** — база: `#include`, `main`, ввод-вывод из потока (`Try_C++/`)
 - **NumPy** — массивы, векторные вычисления
 - **pandas** — табличные данные
 - **seaborn** / **matplotlib** — визуализация
@@ -118,14 +136,17 @@ python Try_Pandas/Учу\ pandas.py
 - [ ] Почистить датасет: до конца убрать выбросы, исправить `df.drop(...)` без присваивания
 - [ ] Добавить ноутбук с визуализацией после очистки
 - [ ] Расширить список слов в «Виселице» и сделать счёт очков
-- [ ] Регулярно добавлять решённые задачи LeetCode
+- [ ] Регулярно добавлять решённые задачи LeetCode (сделано 4)
 - [ ] Переписать ООП-конспект в тесты
+- [ ] Продолжить `Try_C++/`: от компиляции через терминал к своим задачам
+- [ ] Разобраться со сборкой C++ в VS Code и отладкой
 
 ## 📚 Источники
 
 - [100 NumPy Exercises](https://github.com/rougier/numpy-100)
 - [LeetCode](https://leetcode.com/)
 - [Документация pandas](https://pandas.pydata.org/docs/)
+- [cppreference.com](https://en.cppreference.com/) — справка по C++
 
 ## 👤 Контакты
 

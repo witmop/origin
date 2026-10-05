@@ -355,32 +355,112 @@ from accessify import private,protected
 
 
 #Дескриптор данных
-class Integer:
-    @classmethod
-    def verify_coord(cls,coord):
-        if type(coord)!=int:
-            raise TypeError("Координата должна быть целым числом")
+# class Integer:
+#     @classmethod
+#     def verify_coord(cls,coord):
+#         if type(coord)!=int:
+#             raise TypeError("Координата должна быть целым числом")
 
-    def __set_name__(self,owner,name):
-        self.name="_"+name
+#     def __set_name__(self,owner,name):
+#         self.name="_"+name
 
-    def __get__(self, instance, owner):
-        return instance.__dict__[self.name]#или getattr(instance,self.name)
+#     def __get__(self, instance, owner):
+#         return instance.__dict__[self.name]#или getattr(instance,self.name)
 
-    def __set__(self, instance, value):
-        self.verify_coord(value)
-        print(f"__set__: {self.name} = {value}")
-        instance.__dict__[self.name] = value#или setattr(instance,self.name)
+#     def __set__(self, instance, value):
+#         self.verify_coord(value)
+#         print(f"__set__: {self.name} = {value}")
+#         instance.__dict__[self.name] = value#или setattr(instance,self.name)
         
-class Point3D:
-    x = Integer()
-    y = Integer()
-    z = Integer()
+# class Point3D:
+#     x = Integer()
+#     y = Integer()
+#     z = Integer()
 
-    def __init__(self,x,y,z):
-        self.x = x
-        self.y = y
-        self.z = z
+#     def __init__(self,x,y,z):
+#         self.x = x
+#         self.y = y
+#         self.z = z
     
-p=Point3D(1,2,3)
-print(p.__dict__)
+# p=Point3D(1,2,3)
+# print(p.__dict__)
+
+
+# Dunder-методы (double underscope)
+
+# class Cat:
+#     def __init__(self,name):
+#         self.name=name
+
+#     def __repr__(self):
+#         return f"{self.__class__}: {self.name}" #менят вывод при написании print(cat1) или str(cat1) если нет метода __str__()
+
+#     def __str__(self):
+#         return f"{self.name}"       # менят вывод при написании print(cat1) или str(cat1)
+
+# # cat1=Cat("Васька")
+# # print(cat1)
+
+# class Point:
+#     def __init__(self,*args):
+#         self.__cords=args
+
+#     def __len__(self):          # позволяет применять к объектам класса метод len
+#         return len(self.__cords)
+
+#     def __abs__(self):
+#         return list(map(abs,self.__cords))          # позволяет применять к объектам класса метод abs
+
+# p1=Point(1,-2)
+# print(len(p1))
+# print(abs(p1))
+
+
+class Clock:
+    __DAY=86400         #Число секунд в одном дне
+
+    def __init__(self,seconds:int):
+        if not isinstance(seconds,int):
+            raise TypeError("Секунды должны быть целым числом")
+
+        self.seconds=seconds%self.__DAY
+
+    def get_time(self):
+        s = self.seconds %60
+        m = (self.seconds //60)%60
+        h = (self.seconds//3600)% 24
+
+        return f"{self.__get_formatted(h)}:{self.__get_formatted(m)}:{self.__get_formatted(s)}"
+
+    @classmethod
+    def __get_formatted(cls,x):
+        return str(x).rjust(2,"0")
+
+    def __add__(self, other):               #теперь можно писать с1=с1+100, а не c1=c1.seconds + 100
+        if not(isinstance(other,(int,Clock))):
+            raise ArithmeticError("Правый операнд должен быть int или Clock")
+
+        sc=other                      
+        if isinstance(other,Clock):     # теперь можно писать с1+с2
+            sc=other.seconds
+
+        return Clock(self.seconds+sc)
+
+    def __radd__(self, other):          #теперь можно писать с1=100+с1
+        return self+other       # поменяли местами, будет вызывать __add__
+
+    def __iadd__(self, other):          #теперь с+=100 не создаёт новый экземпляр класса, без этого создавался именно новый экземпляр
+        print("__iadd___")
+        if not isinstance(other,(int,Clock)):
+            raise ArithmeticError("Правый операнд должен быть int или Clock")
+
+        sc=other                      
+        if isinstance(other,Clock): 
+            sc=other.seconds
+
+        self.seconds+=sc
+        return self
+    
+c1=Clock(1000)
+c1+=100
+print(c1.get_time())

@@ -416,71 +416,90 @@ from accessify import private,protected
 # print(abs(p1))
 
 
-class Clock:
-    __DAY=86400         #Число секунд в одном дне
+# class Clock:
+#     __DAY=86400         #Число секунд в одном дне
 
-    def __init__(self,seconds:int):
-        if not isinstance(seconds,int):
-            raise TypeError("Секунды должны быть целым числом")
+#     def __init__(self,seconds:int):
+#         if not isinstance(seconds,int):
+#             raise TypeError("Секунды должны быть целым числом")
 
-        self.seconds=seconds%self.__DAY
+#         self.seconds=seconds%self.__DAY
 
-    def get_time(self):
-        s = self.seconds %60
-        m = (self.seconds //60)%60
-        h = (self.seconds//3600)% 24
+#     def get_time(self):
+#         s = self.seconds %60
+#         m = (self.seconds //60)%60
+#         h = (self.seconds//3600)% 24
 
-        return f"{self.__get_formatted(h)}:{self.__get_formatted(m)}:{self.__get_formatted(s)}"
+#         return f"{self.__get_formatted(h)}:{self.__get_formatted(m)}:{self.__get_formatted(s)}"
 
-    @classmethod
-    def __get_formatted(cls,x):
-        return str(x).rjust(2,"0")
+#     @classmethod
+#     def __get_formatted(cls,x):
+#         return str(x).rjust(2,"0")
 
-    def __add__(self, other):               #теперь можно писать с1=с1+100, а не c1=c1.seconds + 100
-        if not(isinstance(other,(int,Clock))):
-            raise ArithmeticError("Правый операнд должен быть int или Clock")
+#     def __add__(self, other):               #теперь можно писать с1=с1+100, а не c1=c1.seconds + 100
+#         if not(isinstance(other,(int,Clock))):
+#             raise ArithmeticError("Правый операнд должен быть int или Clock")
 
-        sc=other                      
-        if isinstance(other,Clock):     # теперь можно писать с1+с2
-            sc=other.seconds
+#         sc=other                      
+#         if isinstance(other,Clock):     # теперь можно писать с1+с2
+#             sc=other.seconds
 
-        return Clock(self.seconds+sc)
+#         return Clock(self.seconds+sc)
 
-    def __radd__(self, other):          #теперь можно писать с1=100+с1
-        return self+other       # поменяли местами, будет вызывать __add__
+#     def __radd__(self, other):          #теперь можно писать с1=100+с1
+#         return self+other       # поменяли местами, будет вызывать __add__
 
-    def __iadd__(self, other):          #теперь с+=100 не создаёт новый экземпляр класса, без этого создавался именно новый экземпляр
-        print("__iadd___")
-        if not isinstance(other,(int,Clock)):
-            raise ArithmeticError("Правый операнд должен быть int или Clock")
+#     def __iadd__(self, other):          #теперь с+=100 не создаёт новый экземпляр класса, без этого создавался именно новый экземпляр
+#         print("__iadd___")
+#         if not isinstance(other,(int,Clock)):
+#             raise ArithmeticError("Правый операнд должен быть int или Clock")
 
-        sc=other                      
-        if isinstance(other,Clock): 
-            sc=other.seconds
+#         sc=other                      
+#         if isinstance(other,Clock): 
+#             sc=other.seconds
 
-        self.seconds+=sc
-        return self
+#         self.seconds+=sc
+#         return self
 
-    @classmethod
-    def __verify_data(cls,value):
-        if not(isinstance(value,(int,Clock))):
-            raise TypeError("Операнд справа должен быть int или Clock")
+#     @classmethod
+#     def __verify_data(cls,value):
+#         if not(isinstance(value,(int,Clock))):
+#             raise TypeError("Операнд справа должен быть int или Clock")
 
-        return value if isinstance(value,int) else value.seconds
+#         return value if isinstance(value,int) else value.seconds
 
-    def __eq__(self, value):    
-        sc=self.__verify_data(value)              # теперь можно сравнивать с1==с2 или с1==1000       с1!=с2, с1!=1200 также можно (python делает not(c1==c2))
-        return self.seconds == sc
+#     def __eq__(self, value):    
+#         sc=self.__verify_data(value)              # теперь можно сравнивать с1==с2 или с1==1000       с1!=с2, с1!=1200 также можно (python делает not(c1==c2))
+#         return self.seconds == sc
 
-    def __lt__(self, value):
-        sc=self.__verify_data(value)              # теперь можно c1<c2          можно и с1>c2 (python делает c2<c1) или сделать самому __gt__ (>)
-        return self.seconds < sc
+#     def __lt__(self, value):
+#         sc=self.__verify_data(value)              # теперь можно c1<c2          можно и с1>c2 (python делает c2<c1) или сделать самому __gt__ (>)
+#         return self.seconds < sc
 
-    def __le__(self, value):                    # аналогично с __lt__ или же можно сделать отдельный метод __ge__ (>=)
-        sc=self.__verify_data(value)
-        return self.seconds <= sc
+#     def __le__(self, value):                    # аналогично с __lt__ или же можно сделать отдельный метод __ge__ (>=)
+#         sc=self.__verify_data(value)
+#         return self.seconds <= sc
 
      
-c1=Clock(1000)
-c1+=100
-print(c1.get_time())
+# c1=Clock(1000)
+# c1+=100
+# print(c1.get_time())
+
+
+
+# ХЭШ
+
+class Point:
+    def __init__(self,x,y):
+        self.x=x
+        self.y=y
+
+    def __eq__(self, value):
+        return self.x==value.x and self.y ==value.y
+
+    def __hash__(self):
+        return hash((self.x,self.y))
+p1=Point(1,2)
+p2=Point(1,2)
+print(hash(p1),hash(p2),sep="\n")
+print(p1==p2)

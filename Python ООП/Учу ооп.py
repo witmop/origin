@@ -460,7 +460,27 @@ class Clock:
 
         self.seconds+=sc
         return self
-    
+
+    @classmethod
+    def __verify_data(cls,value):
+        if not(isinstance(value,(int,Clock))):
+            raise TypeError("Операнд справа должен быть int или Clock")
+
+        return value if isinstance(value,int) else value.seconds
+
+    def __eq__(self, value):    
+        sc=self.__verify_data(value)              # теперь можно сравнивать с1==с2 или с1==1000       с1!=с2, с1!=1200 также можно (python делает not(c1==c2))
+        return self.seconds == sc
+
+    def __lt__(self, value):
+        sc=self.__verify_data(value)              # теперь можно c1<c2          можно и с1>c2 (python делает c2<c1) или сделать самому __gt__ (>)
+        return self.seconds < sc
+
+    def __le__(self, value):                    # аналогично с __lt__ или же можно сделать отдельный метод __ge__ (>=)
+        sc=self.__verify_data(value)
+        return self.seconds <= sc
+
+     
 c1=Clock(1000)
 c1+=100
 print(c1.get_time())

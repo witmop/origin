@@ -629,19 +629,63 @@ from accessify import private,protected
 
 
 
+# class Geom:
+#     pass
+
+# class Line(Geom):
+#     pass
+
+# g=Geom()
+# l=Line()
+# print(l)
+# print(issubclass(Line,Geom))        #сначала дочерний, потом родительский
+# print(isinstance(l,Geom))
+
+
+# class Vector(list):
+#     def __str__(self):
+#         return " ".join(map(str,self))
+
+
+
+# class Geom:
+#     name="Geom"
+#     def __init__(self,x1,y1,x2,y2):
+#         self.x1=x1
+#         self.x2=x2
+#         self.y1=y1
+#         self.y2=y2
+
+# class Line(Geom):
+#     name="Line"             #переопределение overriding
+    
+#     def draw(self):         #расширение extended
+#         print("Рисование линии")
+
+# class Rect(Geom):
+#     def __init__(self,x1,y1,x2,y2,fill=None):       #делегирование
+#         super().__init__(x1,y1,x2,y2)           #супер вовращает ссылку на родительский класс в такому случае self писаь не нужно и 
+#         self.fill=fill
+#     name="Rect"            
+    
+#     def draw(self):         
+#         print("Рисование прямоугольника")
+
+
 class Geom:
-    pass
+    __name="Geom"
+    def __init__(self,x1,y1,x2,y2):
+        self._x1=x1
+        self._x2=x2
+        self._y1=y1
+        self._y2=y2
 
-class Line(Geom):
-    pass
+class Rect(Geom):
+    def __init__(self, x1, y1, x2, y2,fill="red"):
+        super().__init__(x1, y1, x2, y2)
+        self._fill=fill
+    def get_coords(self):
+        return (self._x1,self._y1)
 
-g=Geom()
-l=Line()
-print(l)
-print(issubclass(Line,Geom))        #сначала дочерний, потом родительский
-print(isinstance(l,Geom))
-
-
-class Vector(list):
-    def __str__(self):
-        return " ".join(map(str,self))
+r=Rect(0,0,10,20)
+print(r.__dict__)

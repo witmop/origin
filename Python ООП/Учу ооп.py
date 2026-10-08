@@ -526,33 +526,76 @@ from accessify import private,protected
 #     print("False")
 
 
-class Student:
-    def __init__(self,name,marks):
-        self.name=name
-        self.marks=list(marks)
+# class Student:
+#     def __init__(self,name,marks):
+#         self.name=name
+#         self.marks=list(marks)
 
-    def __getitem__(self, key):     # теперь можно просто писать s1[2]
-        if 0<= key <=len(self.marks):
-            return self.marks[key]  
-        else:
-            raise IndexError("Неверный индекс")
+#     def __getitem__(self, key):     # теперь можно просто писать s1[2]
+#         if 0<= key <=len(self.marks):
+#             return self.marks[key]  
+#         else:
+#             raise IndexError("Неверный индекс")
 
-    def __setitem__(self, key, value):      #теперь можно s[1]=5
-        if not isinstance(key,int) or key<0:
-            raise TypeError("Индекс должнен быть целым неотрицательным числом")
+#     def __setitem__(self, key, value):      #теперь можно s[1]=5
+#         if not isinstance(key,int) or key<0:
+#             raise TypeError("Индекс должнен быть целым неотрицательным числом")
         
-        if key>=len(self.marks):
-            off = key+1-len(self.marks)
-            self.marks.extend([None]*off)
-        self.marks[key]=value
+#         if key>=len(self.marks):
+#             off = key+1-len(self.marks)
+#             self.marks.extend([None]*off)
+#         self.marks[key]=value
 
-    def __delitem__(self, key):
-        if not isinstance(key,int) or key<0:
-            raise TypeError("Индекс должнен быть целым неотрицательным числом")
+#     def __delitem__(self, key):         #del s1[2]
+#         if not isinstance(key,int) or key<0:
+#             raise TypeError("Индекс должнен быть целым неотрицательным числом")
 
-        del self.marks[key]
+#         del self.marks[key]
 
-s1=Student("Сергей",[4,1,3,2])
-s1[10]=10
-del s1[2]
-print(s1.marks)
+# s1=Student("Сергей",[4,1,3,2])
+# s1[10]=10
+# del s1[2]
+# print(s1.marks)
+
+
+class Frange:
+    def __init__(self,start=0.0,stop=0.0,step=1.0):
+        self.start=start
+        self.stop=stop
+        self.step=step
+
+    def __iter__(self):     # теперь можно for x in fr: (сначала получает итератор, потом через next перебирает значения)
+        self.value=self.start-self.step
+        return self
+    
+    def __next__(self):
+        if self.value + self.step <self.stop:
+            self.value+=self.step
+            return self.value
+        else:
+            raise StopIteration
+
+class Frange2D:
+    def __init__(self,start=0.0,stop=0.0,step=1.0,rows=5):
+        self.rows=rows
+        self.fr= Frange(start,stop,step)
+        self.value=0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.value<self.rows:
+            self.value+=1
+            return iter(self.fr)
+        else:
+            raise StopIteration
+
+fr=Frange2D(0,2,0.5,4)
+# print(fr.__next__())
+# print(fr.__next__())
+# print(fr.__next__())
+for row in fr:
+    for x in row:
+        print(x,end=" ")
+    print()

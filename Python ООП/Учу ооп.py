@@ -558,44 +558,71 @@ from accessify import private,protected
 # print(s1.marks)
 
 
-class Frange:
-    def __init__(self,start=0.0,stop=0.0,step=1.0):
-        self.start=start
-        self.stop=stop
-        self.step=step
+# class Frange:
+#     def __init__(self,start=0.0,stop=0.0,step=1.0):
+#         self.start=start
+#         self.stop=stop
+#         self.step=step
 
-    def __iter__(self):     # теперь можно for x in fr: (сначала получает итератор, потом через next перебирает значения)
-        self.value=self.start-self.step
-        return self
+#     def __iter__(self):     # теперь можно for x in fr: (сначала получает итератор, потом через next перебирает значения)
+#         self.value=self.start-self.step
+#         return self
     
-    def __next__(self):
-        if self.value + self.step <self.stop:
-            self.value+=self.step
-            return self.value
-        else:
-            raise StopIteration
+#     def __next__(self):
+#         if self.value + self.step <self.stop:
+#             self.value+=self.step
+#             return self.value
+#         else:
+#             raise StopIteration
 
-class Frange2D:
-    def __init__(self,start=0.0,stop=0.0,step=1.0,rows=5):
-        self.rows=rows
-        self.fr= Frange(start,stop,step)
-        self.value=0
+# class Frange2D:
+#     def __init__(self,start=0.0,stop=0.0,step=1.0,rows=5):
+#         self.rows=rows
+#         self.fr= Frange(start,stop,step)
+#         self.value=0
 
-    def __iter__(self):
-        return self
+#     def __iter__(self):
+#         return self
 
-    def __next__(self):
-        if self.value<self.rows:
-            self.value+=1
-            return iter(self.fr)
-        else:
-            raise StopIteration
+#     def __next__(self):
+#         if self.value<self.rows:
+#             self.value+=1
+#             return iter(self.fr)
+#         else:
+#             raise StopIteration
 
-fr=Frange2D(0,2,0.5,4)
-# print(fr.__next__())
-# print(fr.__next__())
-# print(fr.__next__())
-for row in fr:
-    for x in row:
-        print(x,end=" ")
-    print()
+# fr=Frange2D(0,2,0.5,4)
+# # print(fr.__next__())
+# # print(fr.__next__())
+# # print(fr.__next__())
+# for row in fr:
+#     for x in row:
+#         print(x,end=" ")
+#     print()
+
+# Наследование
+
+class Geom:         #Базовый класс
+    name="Geom"
+    def set_coords(self,x1,y1,x2,y2):       #Параметр self может ссылаться на объекты дочерних классов
+        self.x1=x1
+        self.x2=x2
+        self.y1=y1
+        self.y2=y2
+
+    def draw():
+        print("Рисование примитива")
+
+class Line(Geom):           #Дочерний класс
+    name = "Line"           #Переопределение атрибута
+    def draw(self):
+        print("Рисование линии")
+
+class Rect(Geom):           #Дочерний класс
+    pass
+
+g=Geom()
+l=Line()
+r=Rect()
+l.set_coords(1,1,2,2)
+print(l)

@@ -695,40 +695,79 @@ from accessify import private,protected
 
 
 # Полиморфизм
-class Geom:
-    def get_pr(self):
-        raise NotImplementedError("В дочернем классе должен быть переопределён метод get_pr() ")
+# class Geom:
+#     def get_pr(self):           #абстрактный метод (обязательно должен быть переопределён в дочерних классах)
+#         raise NotImplementedError("В дочернем классе должен быть переопределён метод get_pr() ")
     
-class Rectangle(Geom):
-    def __init__(self,w,h):
-        self.w=w
-        self.h=h
+# class Rectangle(Geom):
+#     def __init__(self,w,h):
+#         self.w=w
+#         self.h=h
 
-    def get_pr(self):
-        return 2*(self.w*self.h)
+#     def get_pr(self):
+#         return 2*(self.w*self.h)
 
-class Square(Geom):
-    def __init__(self,a):
-        self.a=a
+# class Square(Geom):
+#     def __init__(self,a):
+#         self.a=a
 
-    def get_pr(self):
-        return 4*self.a
+#     def get_pr(self):
+#         return 4*self.a
 
-class Triangle(Geom):
-    def __init__(self,a,b,c):
-        self.a=a
-        self.b=b
-        self.c=c
+# class Triangle(Geom):
+#     def __init__(self,a,b,c):
+#         self.a=a
+#         self.b=b
+#         self.c=c
 
-    # def get_pr(self):
-    #     return self.a+self.b+self.c
+#     # def get_pr(self):
+#     #     return self.a+self.b+self.c
 
-r1=Rectangle(1,2)
-r2=Rectangle(3,4)
-s1=Square(10)
-s2=Square(20)
-t1=Triangle(1,2,3)
-t2=Triangle(4,5,6)
-geom=[r1,r2,s1,s2,t1,t2]
-for el in geom:
-    print(el.get_pr())
+# r1=Rectangle(1,2)
+# r2=Rectangle(3,4)
+# s1=Square(10)
+# s2=Square(20)
+# t1=Triangle(1,2,3)
+# t2=Triangle(4,5,6)
+# geom=[r1,r2,s1,s2,t1,t2]
+# for el in geom:
+#     print(el.get_pr())
+
+
+# Множественное наследование
+
+class Goods:
+    def __init__(self,name,weight,price):
+        super().__init__()
+        print("init Goods")
+        self.name=name
+        self.weight=weight
+        self.price=price
+
+    def print_info(self):
+        print(f"{self.name}, {self.weight}, {self.price}")
+
+class MixinLog:#логирование товаров
+    ID = 0 
+
+    def __init__(self):
+        print("init MixinLog")
+        MixinLog.ID+=1
+        self.id=MixinLog.ID
+
+    def save_sell_log(self):
+        print(f"{self.id}: товар был продан в 00:00 часов")
+    def print_info(self):           
+        print("print_info MixinLog")
+
+
+class Notebook(Goods, MixinLog):
+    def print_info(self):
+        MixinLog.print_info(self)
+
+n1 = Notebook("Acer",1.5,30_000)
+n1.print_info()
+n1.save_sell_log()
+print(Notebook.__mro__)         #Вывод классов которые используются при поиске атрибутов
+MixinLog.print_info(n1)
+ 

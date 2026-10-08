@@ -489,17 +489,38 @@ from accessify import private,protected
 
 # ХЭШ
 
+# class Point:
+#     def __init__(self,x,y):
+#         self.x=x
+#         self.y=y
+
+#     def __eq__(self, value):
+#         return self.x==value.x and self.y ==value.y
+
+#     def __hash__(self):
+#         return hash((self.x,self.y))
+# p1=Point(1,2)
+# p2=Point(1,2)
+# print(hash(p1),hash(p2),sep="\n")
+# print(p1==p2)
+
+
+# Метод __bool__
+
 class Point:
     def __init__(self,x,y):
         self.x=x
         self.y=y
 
-    def __eq__(self, value):
-        return self.x==value.x and self.y ==value.y
+    def __len__(self):          #если нет метода __bool__ то вызывается __len__
+        print("__len__")
+        return self.x * self.x + self.y* self.y
 
-    def __hash__(self):
-        return hash((self.x,self.y))
-p1=Point(1,2)
-p2=Point(1,2)
-print(hash(p1),hash(p2),sep="\n")
-print(p1==p2)
+    def __bool__(self):
+        print("__bool__")
+        return self.x==self.y
+p=Point(3,4)
+if p:
+    print("True")
+else:
+    print("False")

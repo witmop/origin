@@ -602,27 +602,46 @@ from accessify import private,protected
 
 # Наследование
 
-class Geom:         #Базовый класс
-    name="Geom"
-    def set_coords(self,x1,y1,x2,y2):       #Параметр self может ссылаться на объекты дочерних классов
-        self.x1=x1
-        self.x2=x2
-        self.y1=y1
-        self.y2=y2
+# class Geom:         #Базовый класс
+#     name="Geom"
+#     def set_coords(self,x1,y1,x2,y2):       #Параметр self может ссылаться на объекты дочерних классов
+#         self.x1=x1
+#         self.x2=x2
+#         self.y1=y1
+#         self.y2=y2
 
-    def draw():
-        print("Рисование примитива")
+#     def draw():
+#         print("Рисование примитива")
 
-class Line(Geom):           #Дочерний класс
-    name = "Line"           #Переопределение атрибута
-    def draw(self):
-        print("Рисование линии")
+# class Line(Geom):           #Дочерний класс
+#     name = "Line"           #Переопределение атрибута
+#     def draw(self):
+#         print("Рисование линии")
 
-class Rect(Geom):           #Дочерний класс
+# class Rect(Geom):           #Дочерний класс
+#     pass
+
+# g=Geom()
+# l=Line()
+# r=Rect()
+# l.set_coords(1,1,2,2)
+# print(l)
+
+
+
+class Geom:
+    pass
+
+class Line(Geom):
     pass
 
 g=Geom()
 l=Line()
-r=Rect()
-l.set_coords(1,1,2,2)
 print(l)
+print(issubclass(Line,Geom))        #сначала дочерний, потом родительский
+print(isinstance(l,Geom))
+
+
+class Vector(list):
+    def __str__(self):
+        return " ".join(map(str,self))

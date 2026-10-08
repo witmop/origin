@@ -507,20 +507,52 @@ from accessify import private,protected
 
 # Метод __bool__
 
-class Point:
-    def __init__(self,x,y):
-        self.x=x
-        self.y=y
+# class Point:
+#     def __init__(self,x,y):
+#         self.x=x
+#         self.y=y
 
-    def __len__(self):          #если нет метода __bool__ то вызывается __len__
-        print("__len__")
-        return self.x * self.x + self.y* self.y
+#     def __len__(self):          #если нет метода __bool__ то вызывается __len__
+#         print("__len__")
+#         return self.x * self.x + self.y* self.y
 
-    def __bool__(self):
-        print("__bool__")
-        return self.x==self.y
-p=Point(3,4)
-if p:
-    print("True")
-else:
-    print("False")
+#     def __bool__(self):
+#         print("__bool__")
+#         return self.x==self.y
+# p=Point(3,4)
+# if p:           # применяется __bool__
+#     print("True")
+# else:
+#     print("False")
+
+
+class Student:
+    def __init__(self,name,marks):
+        self.name=name
+        self.marks=list(marks)
+
+    def __getitem__(self, key):     # теперь можно просто писать s1[2]
+        if 0<= key <=len(self.marks):
+            return self.marks[key]  
+        else:
+            raise IndexError("Неверный индекс")
+
+    def __setitem__(self, key, value):      #теперь можно s[1]=5
+        if not isinstance(key,int) or key<0:
+            raise TypeError("Индекс должнен быть целым неотрицательным числом")
+        
+        if key>=len(self.marks):
+            off = key+1-len(self.marks)
+            self.marks.extend([None]*off)
+        self.marks[key]=value
+
+    def __delitem__(self, key):
+        if not isinstance(key,int) or key<0:
+            raise TypeError("Индекс должнен быть целым неотрицательным числом")
+
+        del self.marks[key]
+
+s1=Student("Сергей",[4,1,3,2])
+s1[10]=10
+del s1[2]
+print(s1.marks)

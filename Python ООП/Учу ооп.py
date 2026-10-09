@@ -736,38 +736,71 @@ from accessify import private,protected
 
 # Множественное наследование
 
-class Goods:
-    def __init__(self,name,weight,price):
-        super().__init__()
-        print("init Goods")
-        self.name=name
-        self.weight=weight
-        self.price=price
+# class Goods:
+#     def __init__(self,name,weight,price):
+#         super().__init__()
+#         print("init Goods")
+#         self.name=name
+#         self.weight=weight
+#         self.price=price
 
-    def print_info(self):
-        print(f"{self.name}, {self.weight}, {self.price}")
+#     def print_info(self):
+#         print(f"{self.name}, {self.weight}, {self.price}")
 
-class MixinLog:#логирование товаров
-    ID = 0 
+# class MixinLog:#логирование товаров
+#     ID = 0 
 
-    def __init__(self):
-        print("init MixinLog")
-        MixinLog.ID+=1
-        self.id=MixinLog.ID
+#     def __init__(self):
+#         print("init MixinLog")
+#         MixinLog.ID+=1
+#         self.id=MixinLog.ID
 
-    def save_sell_log(self):
-        print(f"{self.id}: товар был продан в 00:00 часов")
-    def print_info(self):           
-        print("print_info MixinLog")
+#     def save_sell_log(self):
+#         print(f"{self.id}: товар был продан в 00:00 часов")
+#     def print_info(self):           
+#         print("print_info MixinLog")
 
 
-class Notebook(Goods, MixinLog):
-    def print_info(self):
-        MixinLog.print_info(self)
+# class Notebook(Goods, MixinLog):
+#     def print_info(self):
+#         MixinLog.print_info(self)       #если нужно вызвать print_info именно из MixinLog, а не из Goods
 
-n1 = Notebook("Acer",1.5,30_000)
-n1.print_info()
-n1.save_sell_log()
-print(Notebook.__mro__)         #Вывод классов которые используются при поиске атрибутов
-MixinLog.print_info(n1)
+# n1 = Notebook("Acer",1.5,30_000)
+# n1.print_info()
+# n1.save_sell_log()
+# print(Notebook.__mro__)         #Вывод классов которые используются при поиске атрибутов
  
+
+# Коллекция __slots__
+# class Point:
+#     def __init__(self,x,y):
+#         self.x=x
+#         self.y=y
+
+# class Point2D:                  #объекты таких классов занимают меньше памяти и работа с атрибутами быстрее
+#     __slots__=("x","y")             # в объектах могу присуствовать локальный св-ва только x и y, запрещает собсветнные локальные св-ва
+#                                     # у объектов __dict__ не существует
+#     def __init__(self,x,y):
+#         self.x=x
+#         self.y=y
+    
+
+# pt=Point2D(10,20)
+# print(pt.__sizeof__())
+
+class Point2D:
+    __slots__=("x","y")
+
+    def __init__(self,x,y):
+        self.x=x
+        self.y=y
+
+class Point3D(Point2D):         #разрешённые св-ва переедут из Point2D, но создавать локальные св-ва с другими именами также можно
+    __slots__="z",      # запятая обязательно ( z добавляется к x, y)
+
+    def __init__(self, x, y,z):
+        super().__init__(x, y)
+        self.z=z
+
+pt1=Point3D(1,2,3)
+print(pt1.z)

@@ -910,25 +910,50 @@ from accessify import private,protected
 # except Exception as e:
 #     print(e)
 
-class DefenderVector:
-    def __init__(self,v):
-        self.__v=v
+# class DefenderVector:
+#     def __init__(self,v):
+#         self.__v=v
 
-    def __enter__(self):
-        self.__temp=self.__v[:]#создаём копию
-        return self.__temp
+#     def __enter__(self):
+#         self.__temp=self.__v[:]#создаём копию
+#         return self.__temp
     
-    def __exit__(self, exc_type, exc, tb):
-        if exc_type is None:
-            self.__v[:]=self.__temp
+#     def __exit__(self, exc_type, exc, tb):
+#         if exc_type is None:
+#             self.__v[:]=self.__temp
 
-        return False
-v1=[1,2,3]
-v2=[2,3,4]
-try:
-    with DefenderVector(v1) as dv:
-        for i,value in enumerate(dv):
-            dv[i]+=v2[i]
-except:
-    print("Ошибка")
-print(v1)
+#         return False
+# v1=[1,2,3]
+# v2=[2,3,4]
+# try:
+#     with DefenderVector(v1) as dv:
+#         for i,value in enumerate(dv):
+#             dv[i]+=v2[i]
+# except:
+#     print("Ошибка")
+# print(v1)
+
+
+#Вложенные классы
+
+class Women:
+    title="объект класса для title"
+    photo="объект класса для photo"
+    ordering="объект класса для ordering"
+
+    def __init__(self,user,psw):
+        self._user=user
+        self._psw=psw
+        self.meta=self.Meta(user + "@" + str(psw))
+
+    class Meta:
+        ordering=["id"]
+
+        def __init__(self,access):
+            self._access=access
+
+w=Women("root",12345)
+print(Women.ordering)
+print(Women.Meta.ordering)
+print(w.__dict__)
+print(w.meta.__dict__)

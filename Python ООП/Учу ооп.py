@@ -788,19 +788,71 @@ from accessify import private,protected
 # pt=Point2D(10,20)
 # print(pt.__sizeof__())
 
-class Point2D:
-    __slots__=("x","y")
+# class Point2D:
+#     __slots__=("x","y")
 
-    def __init__(self,x,y):
-        self.x=x
-        self.y=y
+#     def __init__(self,x,y):
+#         self.x=x
+#         self.y=y
 
-class Point3D(Point2D):         #разрешённые св-ва переедут из Point2D, но создавать локальные св-ва с другими именами также можно
-    __slots__="z",      # запятая обязательно ( z добавляется к x, y)
+# class Point3D(Point2D):         #разрешённые св-ва переедут из Point2D, но создавать локальные св-ва с другими именами также можно
+#     __slots__="z",      # запятая обязательно ( z добавляется к x, y)
 
-    def __init__(self, x, y,z):
-        super().__init__(x, y)
-        self.z=z
+#     def __init__(self, x, y,z):
+#         super().__init__(x, y)
+#         self.z=z
 
-pt1=Point3D(1,2,3)
-print(pt1.z)
+# pt1=Point3D(1,2,3)
+# print(pt1.z)
+
+
+# Обработка исключений
+
+# try:
+#     x,y =map(int,input().split())
+#     res=x/y
+# except (ValueError,ZeroDivisionError):
+#     print("Ошибка типа данных")
+# # except ZeroDivisionError: или except ArithmeticError или except Exception(родительская ошибка)
+# #     print("Ошибка деления на ноль")
+
+# try:
+#     x,y=map(int,input().split())
+#     res = x/y
+# except ZeroDivisionError as z:
+#     print(z)
+# except ValueError as z:
+#     print(z)
+# else:
+#     print("Исключений не произошло")
+# finally:
+#     print("Блок finally выполняется всегда")
+
+#Пример использования finally
+
+# try:
+#     f=open("myfile.txt")
+#     f.write("hello")
+# except FileNotFoundError as z:
+#     print(z)
+# except:
+#     print("Другая ошибка")
+# finally:
+#     f.close()
+#     print("Файл закрыт")
+
+def get_values():           #сначала except потом finally потом return 
+    try:
+        x,y=map(int,input().split())
+        try:
+            res = x/y
+        except ZeroDivisionError:
+            print("Деление на ноль")
+        return (x,y)
+    except ValueError as z:
+        print(z)
+        return (0,0)
+    finally:
+        print("finally выполняется до return")
+x,y=get_values()
+print(x,y)

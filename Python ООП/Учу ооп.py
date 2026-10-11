@@ -868,33 +868,67 @@ from accessify import private,protected
 # Генерация исключений
 # raise ZeroDivisionError("Деление на ноль")
 
-class ExceptionPrint(Exception):
-    """Общие исключения принтера"""
+# class ExceptionPrint(Exception):
+#     """Общие исключения принтера"""
 
-class ExceptionPrintSendData(ExceptionPrint):
-    """Класс исключения при отправке данных принтеру"""
-    def __init__(self, *args):
-        self.message=args[0] if args else None
+# class ExceptionPrintSendData(ExceptionPrint):
+#     """Класс исключения при отправке данных принтеру"""
+#     def __init__(self, *args):
+#         self.message=args[0] if args else None
 
-    def __str__(self):
-        return f"Ошибка: {self.message}"
+#     def __str__(self):
+#         return f"Ошибка: {self.message}"
 
-class PrintData:
-    def print(self,data):
-        self.send_data(data)
-        print(f"печать: {str(data)}")
+# class PrintData:
+#     def print(self,data):
+#         self.send_data(data)
+#         print(f"печать: {str(data)}")
 
-    def send_data(self,data):
-        if not self.send_to_print(data):
-            raise ExceptionPrintSendData
+#     def send_data(self,data):
+#         if not self.send_to_print(data):
+#             raise ExceptionPrintSendData
 
-    def send_to_print(self,data):
-        return True
+#     def send_to_print(self,data):
+#         return False
 
-p=PrintData()
+# p=PrintData()
+# try:
+#     p.print("123")
+# except ExceptionPrintSendData:
+#     print("принтер не отвечает")
+# except ExceptionPrint:
+#     print("Общая ошибка печати")
+
+# Менеджеры контекста (with)
+
+# fp = None
+# try:
+#     with open("myfile.txt") as f:   # автоматически вызывается __enter__()
+#         for t in fp:
+#             print(t)
+#             #           автоматически вызывается __exit__()
+# except Exception as e:
+#     print(e)
+
+class DefenderVector:
+    def __init__(self,v):
+        self.__v=v
+
+    def __enter__(self):
+        self.__temp=self.__v[:]#создаём копию
+        return self.__temp
+    
+    def __exit__(self, exc_type, exc, tb):
+        if exc_type is None:
+            self.__v[:]=self.__temp
+
+        return False
+v1=[1,2,3]
+v2=[2,3,4]
 try:
-    p.print("123")
-except ExceptionPrintSendData:
-    print("принтер не отвечает")
-except ExceptionPrint:
-    print("Общая ошибка печати")
+    with DefenderVector(v1) as dv:
+        for i,value in enumerate(dv):
+            dv[i]+=v2[i]
+except:
+    print("Ошибка")
+print(v1)

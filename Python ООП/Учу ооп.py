@@ -857,10 +857,44 @@ from accessify import private,protected
 # x,y=get_values()
 # print(x,y)
 
-def func1():
-    return 1/0
+# def func1():
+#     return 1/0
 
+# try:
+#     func1()
+# except:
+#     print("func1 error")
+
+# Генерация исключений
+# raise ZeroDivisionError("Деление на ноль")
+
+class ExceptionPrint(Exception):
+    """Общие исключения принтера"""
+
+class ExceptionPrintSendData(ExceptionPrint):
+    """Класс исключения при отправке данных принтеру"""
+    def __init__(self, *args):
+        self.message=args[0] if args else None
+
+    def __str__(self):
+        return f"Ошибка: {self.message}"
+
+class PrintData:
+    def print(self,data):
+        self.send_data(data)
+        print(f"печать: {str(data)}")
+
+    def send_data(self,data):
+        if not self.send_to_print(data):
+            raise ExceptionPrintSendData
+
+    def send_to_print(self,data):
+        return True
+
+p=PrintData()
 try:
-    func1()
-except:
-    print("func1 error")
+    p.print("123")
+except ExceptionPrintSendData:
+    print("принтер не отвечает")
+except ExceptionPrint:
+    print("Общая ошибка печати")

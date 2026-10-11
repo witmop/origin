@@ -841,18 +841,26 @@ from accessify import private,protected
 #     f.close()
 #     print("Файл закрыт")
 
-def get_values():           #сначала except потом finally потом return 
-    try:
-        x,y=map(int,input().split())
-        try:
-            res = x/y
-        except ZeroDivisionError:
-            print("Деление на ноль")
-        return (x,y)
-    except ValueError as z:
-        print(z)
-        return (0,0)
-    finally:
-        print("finally выполняется до return")
-x,y=get_values()
-print(x,y)
+# def get_values():           #сначала except потом finally потом return 
+#     try:
+#         x,y=map(int,input().split())
+#         try:
+#             res = x/y
+#         except ZeroDivisionError:
+#             print("Деление на ноль")
+#         return (x,y)
+#     except ValueError as z:
+#         print(z)
+#         return (0,0)
+#     finally:
+#         print("finally выполняется до return")
+# x,y=get_values()
+# print(x,y)
+
+def func1():
+    return 1/0
+
+try:
+    func1()
+except:
+    print("func1 error")

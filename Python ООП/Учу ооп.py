@@ -936,24 +936,39 @@ from accessify import private,protected
 
 #Вложенные классы
 
-class Women:
-    title="объект класса для title"
-    photo="объект класса для photo"
-    ordering="объект класса для ordering"
+# class Women:
+#     title="объект класса для title"
+#     photo="объект класса для photo"
+#     ordering="объект класса для ordering"
 
-    def __init__(self,user,psw):
-        self._user=user
-        self._psw=psw
-        self.meta=self.Meta(user + "@" + str(psw))
+#     def __init__(self,user,psw):
+#         self._user=user
+#         self._psw=psw
+#         self.meta=self.Meta(user + "@" + str(psw))
 
-    class Meta:
-        ordering=["id"]
+#     class Meta:
+#         ordering=["id"]
 
-        def __init__(self,access):
-            self._access=access
+#         def __init__(self,access):
+#             self._access=access
 
-w=Women("root",12345)
-print(Women.ordering)
-print(Women.Meta.ordering)
-print(w.__dict__)
-print(w.meta.__dict__)
+# w=Women("root",12345)
+# print(Women.ordering)
+# print(Women.Meta.ordering)
+# print(w.__dict__)
+# print(w.meta.__dict__)
+
+#Метаклассы
+
+class Point:
+    max_coord=100
+    min_coord=0
+class B1:pass
+class B2:pass
+
+def method1(self):
+    print(self.__dict__)
+A=type("Point",(B1,B2),{"max_coord":100,"min_coord":100,"method1":method1})       #Point наследуется от B1,B2 и в Point добавляется method1
+print(A.__mro__)
+pt=A()
+pt.method1()

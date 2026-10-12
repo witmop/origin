@@ -36,7 +36,7 @@
 ├── Numpy/                # задачи на NumPy
 ├── Projects/             # консольные программы
 ├── Python ООП/           # конспект по объектно-ориентированному Python
-├── Try_C++/              # первые программы на C++
+├── Try_C++/              # первые программы на C++ и калькулятор
 ├── Try_Pandas/           # работа с табличными данными: скрипты, CSV, ноутбук
 ├── leetcode/             # решённые задачи LeetCode
 ├── hello.html + style.css
@@ -74,18 +74,42 @@
 > и `сars_no_dup.csv`, поэтому без интернета понадобится положить свой
 > `cars_processed.csv` рядом с `.ipynb`.
 
+### Конспект по ООП — `Python ООП/Учу ооп.py`
+
+Самый крупный файл репозитория — около 950 строк, где каждая тема раскрыта рабочим
+примером, а ранние примеры остаются закомментированными как шпаргалка. По порядку:
+
+- **Основы классов** — атрибуты класса и экземпляра, `__dict__`, `getattr` / `setattr` / `hasattr` / `delattr`, `__doc__`.
+- **Методы** — `self`, `@classmethod`, `@staticmethod`, `@private` из `accessify`.
+- **Жизненный цикл объекта** — `__new__` / `__init__` / `__del__`, паттерн Singleton.
+- **Инкапсуляция** — `_protected` и `__private`, name mangling, «моносостояние» через общий `__shared_attrs`.
+- **Перехват атрибутов** — `__getattribute__` / `__setattr__` / `__getattr__` / `__delattr__`.
+- **Дескрипторы** — `property` (getter / setter / deleter) и собственный дескриптор данных `Integer` с `__set_name__` / `__get__` / `__set__`.
+- **Dunder-методы** — `__repr__` / `__str__`, `__len__` / `__abs__` / `__bool__`, арифметика `__add__` / `__radd__` / `__iadd__` на примере класса `Clock`, сравнения `__eq__` / `__lt__` / `__le__` и `__hash__`.
+- **Протоколы коллекций** — `__getitem__` / `__setitem__` / `__delitem__` и итераторы `__iter__` / `__next__` с `StopIteration` (классы `Frange`, `Frange2D`).
+- **Наследование** — базовый и дочерний класс, переопределение и расширение, делегирование через `super()`, `issubclass` / `isinstance`, наследование от встроенного `list`.
+- **Наследование и инкапсуляция** — `_x1` и `__verify_coord`: почему `__`-метод родителя не виден в дочернем классе.
+- **Полиморфизм** — абстрактный метод с `raise NotImplementedError` и общий цикл по списку фигур.
+- **Множественное наследование** — примеси (Mixin), порядок `Notebook.__mro__`, явный вызов метода конкретного родителя.
+- **`__slots__`** — экономия памяти, запрет новых атрибутов, наследование слотов.
+- **Исключения** — `try` / `except` / `else` / `finally`, вложенные `try`, порядок выполнения относительно `return`, проброс исключения, `raise` и свои классы исключений с `__str__`.
+- **Менеджеры контекста** — `with`, `__enter__` / `__exit__` на примере `DefenderVector` с откатом изменений при ошибке.
+- **Вложенные классы** — `Women.Meta` и доступ к атрибутам внешнего и вложенного класса.
+
 ### Задачи и конспекты
 
 | Файл | Что внутри |
 |:--|:--|
 | `Numpy/numpy-100.py` | Решения задач из набора [100 NumPy Exercises](https://github.com/rougier/numpy-100). Индексированные массивы, `reshape`, срезы, Broadcasting, `datetime64`, `random`, матричная арифметика, генераторы. |
-| `Python ООП/Учу ооп.py` | Большой конспект: атрибуты класса и экземпляра, `__dict__`, `getattr` / `setattr` / `hasattr`, `__doc__`, методы и `self`, `__new__` / `__init__` / `__del__`, паттерн Singleton, `@classmethod` / `@staticmethod` / `@private`, инкапсуляция, «моносостояние» через общий `__shared_attrs`, перехват атрибутов через `__getattribute__` / `__setattr__` / `__getattr__` / `__delattr__`, дескрипторы `property` (getter / setter / deleter) и собственный дескриптор данных `Integer` с магическими `__set_name__` / `__get__` / `__set__`, класс `Point3D`, Dunder-методы (`__repr__` / `__str__`, `__len__` / `__abs__`), арифметика `__add__` / `__radd__` / `__iadd__` на примере класса `Clock`, магические методы сравнения `__eq__` / `__lt__` / `__le__` и `__hash__`. |
 | `Try_Pandas/Учу pandas.py` | Чтение CSV, деление колонок на числовые и категориальные, фильтрация и очистка выбросов, стандартизация и нормализация, `value_counts`, объединение редких категорий, кодирование через `.cat.codes` и `get_dummies`, новые признаки (`Age`, `km_year`). |
 | `leetcode/13. Roman to Integer.py` | [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/) — перевод римского числа в арабское: сравнение соседних символов через стек, вычитание меньшего из большего. |
 | `leetcode/20.ValidParentheses.py` | [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) — проверка корректности скобок с помощью стека. |
 | `leetcode/28._Find_the_Index...py` | [28. Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) — поиск первого вхождения подстроки. |
 | `leetcode/636. Exclusive Time of Functions.py` | [636. Exclusive Time of Functions](https://leetcode.com/problems/exclusive-time-of-functions/) — учёт «эксклюзивного» времени вызова функций: стек вложенных вызовов и пересчёт времени старта родителя при `start` / `end`. |
+| `leetcode/150. Evaluate Reverse Polish Notation.py` | [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) — вычисление выражения в обратной польской записи: стек операндов, усечение результата деления в сторону нуля через `int(temp1/temp2)`. |
+| `leetcode/804. Unique Morse Code Words.py` | [804. Unique Morse Code Words](https://leetcode.com/problems/unique-morse-code-words/) — перевод слов в код Морзе (индекс буквы через `ascii_lowercase.find`) и подсчёт уникальных строк через `set`. |
 | `Try_C++/FirstProgramm.cpp` | Первая программа на C++: `#include` / `using namespace std`, `int main(int argc, const char *argv[])`, вывод через `cout`, пауза через `cin.get()`, код возврата `return 0`. |
+| `Try_C++/Calculator.cpp` | Первый «полезный» калькулятор на C++: `cin` для двух чисел и знака операции, `switch` по операциям, отдельная проверка деления на ноль, вывод через `cout`. |
 | `hello.html` + `style.css` | Первая HTML-страница: минимум разметки, чтобы не забыть, как это выглядит. |
 | `Try_Pandas/cars.csv`, `сars_no_dup.csv` | Датасет с характеристиками автомобилей и его версия без дубликатов. |
 
@@ -123,7 +147,9 @@ python "Projects/Generate Passwords.py"
 python Numpy/numpy-100.py                              # задачи 49–50
 python "leetcode/13. Roman to Integer.py"
 python "leetcode/20.ValidParentheses.py"
+python "leetcode/150. Evaluate Reverse Polish Notation.py"
 python "leetcode/636. Exclusive Time of Functions.py"
+python "leetcode/804. Unique Morse Code Words.py"
 
 # работа с данными (нужны pandas и matplotlib)
 python "Try_Pandas/Учу pandas.py"
@@ -142,10 +168,19 @@ jupyter notebook "Try_Pandas/03_Pandas_сводный_анализ.ipynb"
 Для `Try_C++/` нужен компилятор, а не Python:
 
 ```bash
+# первая программа
 g++ -std=c++17 Try_C++/FirstProgramm.cpp -o first_programm
 ./first_programm          # Linux/macOS
 .\first_programm.exe      # Windows (PowerShell / cmd)
+
+# калькулятор
+g++ -std=c++17 Try_C++/Calculator.cpp -o calculator
+./calculator
 ```
+
+> **Про русский текст в консоли C++.** Подсказки в `Calculator.cpp` написаны по-русски,
+> а исходник сохранён в UTF-8. В старой Windows-консоли вместо текста может появиться
+> мусор — помогает `chcp 65001` перед запуском или терминал из VS Code.
 
 > **Про кодировки имён.** В путях есть кириллица, а в двух именах файлов — невидимый
 > подвох: в `сars_no_dup.csv` и `Encryption Сaesar.py` первая буква — кириллическая
@@ -157,7 +192,7 @@ g++ -std=c++17 Try_C++/FirstProgramm.cpp -o first_programm
 ## 🛠 Стек и инструменты
 
 - **Python** — основной язык
-- **C++** — база: `#include`, `main`, ввод-вывод из потока (`Try_C++/`)
+- **C++** — база: `#include`, `main`, потоки `cin` / `cout`, ветвление `switch` (`Try_C++/`)
 - **NumPy** — массивы, векторные вычисления
 - **pandas** — табличные данные: `groupby`, `pivot_table`, `crosstab`, `transform`
 - **Jupyter** — ноутбуки с разбором данных
@@ -174,7 +209,7 @@ g++ -std=c++17 Try_C++/FirstProgramm.cpp -o first_programm
 - [x] Добавить ноутбук с визуализацией после очистки — сделано в `03_Pandas_сводный_анализ.ipynb`
 - [ ] Передать ноутбук в лабораторную 04 и продолжить серию
 - [ ] Расширить список слов в «Виселице» и сделать счёт очков
-- [ ] Регулярно добавлять решённые задачи LeetCode (сделано 4)
+- [ ] Регулярно добавлять решённые задачи LeetCode (сделано 6)
 - [ ] Переписать ООП-конспект в тесты
 - [ ] Продолжить `Try_C++/`: от компиляции через терминал к своим задачам
 - [ ] Разобраться со сборкой C++ в VS Code и отладкой

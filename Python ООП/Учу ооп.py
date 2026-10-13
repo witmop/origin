@@ -986,16 +986,33 @@ from accessify import private,protected
 # print(pt.max_coord)
 # print(pt.get_coords())
 
+# class Meta(type):
+#     def __init__(cls,name,base,attrs):
+#         super().__init__(name,base,attrs)
+#         cls.max_coord=100
+#         cls.min_coord=0
+
+# class Point(metaclass=Meta):
+#     def get_coords(self):
+#         return (0,0)
+
+# pt=Point()
+# print(pt.max_coord)
+# print(pt.get_coords())
+
 class Meta(type):
-    def __init__(cls,name,base,attrs):
-        super().__init__(name,base,attrs)
-        cls.max_coord=100
-        cls.min_coord=0
+    def create_local_attrs(self,*args,**kwargs):
+        for key,value in self.class_attrs.items():
+            self.__dict__[key]=value
 
-class Point(metaclass=Meta):
-    def get_coords(self):
-        return (0,0)
+    def __init__(cls,name,bases,attrs):
+        cls.class_attrs=attrs
+        cls.__init__=Meta.create_local_attrs
 
-pt=Point()
-print(pt.max_coord)
-print(pt.get_coords())
+class Women(metaclass=Meta):
+    title="заголовок"
+    content="контент"
+    photo="путь к фото"
+
+w=Women()
+print(w.__dict__)

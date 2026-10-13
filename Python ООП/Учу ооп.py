@@ -1,6 +1,6 @@
 from string import ascii_letters
 from accessify import private,protected
-from dataclasses import dataclass,field
+from dataclasses import dataclass,field, InitVar
 # class Point:
 #     color="red" #атрибуты или св-ва класса
 #     circle=2
@@ -1019,29 +1019,54 @@ from dataclasses import dataclass,field
 # print(w.__dict__)
 
 
-class Thing:
-    def __init__(self,name,weight,price,dims=field(default_factory=list)):
-        self.name=name
-        self.weight=weight
-        self.price=price
+# class Thing:
+#     def __init__(self,name,weight,price,dims=field(default_factory=list)):
+#         self.name=name
+#         self.weight=weight
+#         self.price=price
 
-    def __repr__(self):
-        return f"Thing: {self.__dict__}"
+#     def __repr__(self):
+#         return f"Thing: {self.__dict__}"
+
+# @dataclass
+# class ThingData:                    #автоматически добавляется __repr__ и __init__
+#     name: str
+#     weight : int
+#     price: float 
+#     dims: list=field(default_factory=list)          #чтобы создать пустой список
+
+#     def __eq__(self, value):
+#         return self.weight == value.weight
+
+
+# t=Thing("Учебник",100,1024)
+# td=ThingData("Учебник",100,1024)
+# td1=ThingData("Шекспир",100,500)
+# print(t)
+# print(td.__dict__)
+# print(td==td1)
+
+
+class Vector3D:
+    def __init__(self, x:int,y:int,z:int,calc_len: bool =True ):
+        self.x=x
+        self.y=y
+        self.z=z
+        self.length = (x**2 + y**2 + z**2)**0.5 if calc_len else 0
 
 @dataclass
-class ThingData:                    #автоматически добавляется __repr__ и __init__
-    name: str
-    weight : int
-    price: float 
-    dims: list=field(default_factory=list)          #чтобы создать пустой список
+class V3D:
+    x:int
+    y:int
+    z:int
+    length: float = field(init=False,default=0)           #length не входит в init мы его исключаем
+    calc_len: InitVar[bool]=True
 
-    def __eq__(self, value):
-        return self.weight == value.weight
+    def __post_init__(self,calc_len:bool):
+        if calc_len:
+            self.length = (self.x**2 + self.y**2 + self.z**2)**0.5
 
-
-t=Thing("Учебник",100,1024)
-td=ThingData("Учебник",100,1024)
-td1=ThingData("Шекспир",100,500)
-print(t)
-print(td.__dict__)
-print(td==td1)
+v = V3D(1,2,3,False)
+v2 = V3D(1,2,5)
+print(v)
+print(v2)

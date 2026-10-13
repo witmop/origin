@@ -960,15 +960,42 @@ from accessify import private,protected
 
 #Метаклассы
 
-class Point:
-    max_coord=100
-    min_coord=0
-class B1:pass
-class B2:pass
+# class Point:
+#     max_coord=100
+#     min_coord=0
+# class B1:pass
+# class B2:pass
 
-def method1(self):
-    print(self.__dict__)
-A=type("Point",(B1,B2),{"max_coord":100,"min_coord":100,"method1":method1})       #Point наследуется от B1,B2 и в Point добавляется method1
-print(A.__mro__)
-pt=A()
-pt.method1()
+# def method1(self):
+#     print(self.__dict__)
+# A=type("Point",(B1,B2),{"max_coord":100,"min_coord":100,"method1":method1})       #Point наследуется от B1,B2 и в Point добавляется method1
+# print(A.__mro__)
+# pt=A()
+# pt.method1()
+
+
+# def create_class_point(name,base,attrs):
+#     attrs.update({"max_coord":100,"min_coord":0})
+#     return type(name,base,attrs)
+
+# class Point(metaclass=create_class_point):
+#     def get_coords(self):
+#         return (0,0)
+
+# pt=Point()
+# print(pt.max_coord)
+# print(pt.get_coords())
+
+class Meta(type):
+    def __init__(cls,name,base,attrs):
+        super().__init__(name,base,attrs)
+        cls.max_coord=100
+        cls.min_coord=0
+
+class Point(metaclass=Meta):
+    def get_coords(self):
+        return (0,0)
+
+pt=Point()
+print(pt.max_coord)
+print(pt.get_coords())

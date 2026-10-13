@@ -1,5 +1,6 @@
 from string import ascii_letters
 from accessify import private,protected
+from dataclasses import dataclass,field
 # class Point:
 #     color="red" #атрибуты или св-ва класса
 #     circle=2
@@ -1000,19 +1001,47 @@ from accessify import private,protected
 # print(pt.max_coord)
 # print(pt.get_coords())
 
-class Meta(type):
-    def create_local_attrs(self,*args,**kwargs):
-        for key,value in self.class_attrs.items():
-            self.__dict__[key]=value
+# class Meta(type):
+#     def create_local_attrs(self,*args,**kwargs):
+#         for key,value in self.class_attrs.items():
+#             self.__dict__[key]=value
 
-    def __init__(cls,name,bases,attrs):
-        cls.class_attrs=attrs
-        cls.__init__=Meta.create_local_attrs
+#     def __init__(cls,name,bases,attrs):
+#         cls.class_attrs=attrs
+#         cls.__init__=Meta.create_local_attrs
 
-class Women(metaclass=Meta):
-    title="заголовок"
-    content="контент"
-    photo="путь к фото"
+# class Women(metaclass=Meta):
+#     title="заголовок"
+#     content="контент"
+#     photo="путь к фото"
 
-w=Women()
-print(w.__dict__)
+# w=Women()
+# print(w.__dict__)
+
+
+class Thing:
+    def __init__(self,name,weight,price,dims=field(default_factory=list)):
+        self.name=name
+        self.weight=weight
+        self.price=price
+
+    def __repr__(self):
+        return f"Thing: {self.__dict__}"
+
+@dataclass
+class ThingData:                    #автоматически добавляется __repr__ и __init__
+    name: str
+    weight : int
+    price: float 
+    dims: list=field(default_factory=list)          #чтобы создать пустой список
+
+    def __eq__(self, value):
+        return self.weight == value.weight
+
+
+t=Thing("Учебник",100,1024)
+td=ThingData("Учебник",100,1024)
+td1=ThingData("Шекспир",100,500)
+print(t)
+print(td.__dict__)
+print(td==td1)

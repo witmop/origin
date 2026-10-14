@@ -6,9 +6,6 @@
 задачи, ООП, работа с данными, алгоритмы и консольные проекты.
 С 2026 года потихоньку добавляю C++ — пока это база.
 
-Отдельно лежит **лабораторная работа по Pandas** в виде Jupyter-ноутбука —
-это отработанный разбор данных, который можно открыть и прокликать по шагам.
-
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
 [![pandas](https://img.shields.io/badge/pandas-2.x-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
@@ -23,7 +20,7 @@
 ## 📌 О проекте
 
 Репозиторий создан, чтобы не терять всё написанное в стол, а вести учебный дневник в Git.
-Здесь лежат конспекты, решённые задачи, небольшие консольные программы и Jupyter-ноутбук:
+Здесь лежат конспекты, решённые задачи и небольшие консольные программы:
 часть кода закомментирована и служит шпаргалкой, часть запускается как есть.
 
 **Принцип:** сначала разобраться и заставить код работать, потом причесать.
@@ -37,7 +34,7 @@
 ├── Projects/             # консольные программы
 ├── Python ООП/           # конспект по объектно-ориентированному Python
 ├── Try_C++/              # первые программы на C++ и калькулятор
-├── Try_Pandas/           # работа с табличными данными: скрипты, CSV, ноутбук
+├── Try_Pandas/           # работа с табличными данными: скрипты и CSV
 ├── leetcode/             # решённые задачи LeetCode
 ├── hello.html + style.css
 └── .gitignore
@@ -54,29 +51,9 @@
 | `Encryption Сaesar.py` | Шифр Цезаря: шифрование и расшифровка с сохранением регистра, работа с латиницей и кириллицей, приведение сдвига по модулю длины алфавита. |
 | `Generate Passwords.py` | Генератор паролей: настройки собираются в словарь, пользователь выбирает наборы символов (строчные, заглавные, спецсимволы) и длину, пароль собирается случайным выбором. |
 
-### Лабораторная по Pandas — `Try_Pandas/03_Pandas_сводный_анализ.ipynb`
-
-Ноутбук «Сводный анализ данных» (95 ячеек, 51 markdown + 44 кода) по вторичному
-рынку автомобилей. Раскрыто по порядку:
-
-| Раздел | Что внутри |
-|:--|:--|
-| 1–2. Загрузка и первичная проверка | `read_csv`, `info` / `shape`, `isna().sum().sum()`, `duplicated().sum()`, `drop_duplicates().copy()` |
-| 3. Сводный анализ признаков | разделение колонок на численные и категориальные, `describe(percentiles=[...])`, `groupby(['Make','Year'])` + `agg(['mean','count'])`, именованная агрегация (`n=`, `median_price=`), `quantile` |
-| 4. Сводные таблицы | `pivot_table` с `aggfunc='size'` и `'mean'`, `loc` / `iloc` по срезу, `crosstab` + `normalize='index'`, приведение редких кузовов к группе `Rare` |
-| 5. Простая оценка цены | MAE = среднее \|y − ŷ\| по группе, оценка через `pivot_table.loc[make, year]`, `map` по группе, `groupby(...).transform('mean')` |
-| 6. Графики Pandas | `Series.plot` → `marker='o'` + подписи осей + `grid`, столбчатая диаграмма, `logy=True` |
-| 7–8. Отчёт и проверка | выгрузка `cars_summary_input.csv` / `cars_make_summary.csv`, сплит 80/20 с `random_state=42`, сравнение MAE общей средней и групповой оценки |
-
-> **Про входной файл.** Ноутбук ищет `cars_processed.csv` рядом с собой, а если
-> его нет — подгружает его по ссылке на внешний репозиторий курса
-> (`MVRonkin/BasicDataAnalysisCourse`). В этом репозитории лежат `cars.csv`
-> и `сars_no_dup.csv`, поэтому без интернета понадобится положить свой
-> `cars_processed.csv` рядом с `.ipynb`.
-
 ### Конспект по ООП — `Python ООП/Учу ооп.py`
 
-Самый крупный файл репозитория — около 950 строк, где каждая тема раскрыта рабочим
+Самый крупный файл репозитория — больше 1000 строк, где каждая тема раскрыта рабочим
 примером, а ранние примеры остаются закомментированными как шпаргалка. По порядку:
 
 - **Основы классов** — атрибуты класса и экземпляра, `__dict__`, `getattr` / `setattr` / `hasattr` / `delattr`, `__doc__`.
@@ -95,6 +72,8 @@
 - **Исключения** — `try` / `except` / `else` / `finally`, вложенные `try`, порядок выполнения относительно `return`, проброс исключения, `raise` и свои классы исключений с `__str__`.
 - **Менеджеры контекста** — `with`, `__enter__` / `__exit__` на примере `DefenderVector` с откатом изменений при ошибке.
 - **Вложенные классы** — `Women.Meta` и доступ к атрибутам внешнего и вложенного класса.
+- **Метаклассы** — динамическое создание класса через `type()`, метакласс-функция `create_class_point`, метакласс-класс `Meta` от `type` с переопределённым `__init__`, подмена `__init__` класса через метакласс.
+- **Data Classes** — `@dataclass` и автогенерация `__init__` / `__repr__`, `field(default_factory=list)`, свой `__eq__`, а также `field(init=False)` + `InitVar` и `__post_init__` на примере `V3D` с вычисляемой длиной.
 
 ### Задачи и конспекты
 
@@ -108,6 +87,7 @@
 | `leetcode/636. Exclusive Time of Functions.py` | [636. Exclusive Time of Functions](https://leetcode.com/problems/exclusive-time-of-functions/) — учёт «эксклюзивного» времени вызова функций: стек вложенных вызовов и пересчёт времени старта родителя при `start` / `end`. |
 | `leetcode/150. Evaluate Reverse Polish Notation.py` | [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) — вычисление выражения в обратной польской записи: стек операндов, усечение результата деления в сторону нуля через `int(temp1/temp2)`. |
 | `leetcode/804. Unique Morse Code Words.py` | [804. Unique Morse Code Words](https://leetcode.com/problems/unique-morse-code-words/) — перевод слов в код Морзе (индекс буквы через `ascii_lowercase.find`) и подсчёт уникальных строк через `set`. |
+| `leetcode/3727. Maximum Alternating Sum of Squares.py` | Поиск двух непересекающихся подмассивов с суммой `target`: накопление отрезков в стек и выбор двух самых коротких, иначе `-1`. |
 | `Try_C++/FirstProgramm.cpp` | Первая программа на C++: `#include` / `using namespace std`, `int main(int argc, const char *argv[])`, вывод через `cout`, пауза через `cin.get()`, код возврата `return 0`. |
 | `Try_C++/Calculator.cpp` | Первый «полезный» калькулятор на C++: `cin` для двух чисел и знака операции, `switch` по операциям, отдельная проверка деления на ноль, вывод через `cout`. |
 | `hello.html` + `style.css` | Первая HTML-страница: минимум разметки, чтобы не забыть, как это выглядит. |
@@ -129,9 +109,6 @@ python -m venv .venv
 
 # 3. Установить зависимости
 pip install numpy pandas seaborn matplotlib accessify
-
-# 4. Для ноутбука — ещё и Jupyter
-pip install jupyter
 ```
 
 Запуск по желанию:
@@ -150,20 +127,11 @@ python "leetcode/20.ValidParentheses.py"
 python "leetcode/150. Evaluate Reverse Polish Notation.py"
 python "leetcode/636. Exclusive Time of Functions.py"
 python "leetcode/804. Unique Morse Code Words.py"
+python "leetcode/3727. Maximum Alternating Sum of Squares.py"
 
 # работа с данными (нужны pandas и matplotlib)
 python "Try_Pandas/Учу pandas.py"
 ```
-
-Ноутбук запускается не скриптом, а через Jupyter — он откроется в браузере:
-
-```bash
-jupyter notebook "Try_Pandas/03_Pandas_сводный_анализ.ipynb"
-# или прямо из VS Code — кнопка Run All над первым разделом
-```
-
-Ячейки уже выполнялись: `kernel: venv (3.14.4)`, результаты сохранены в `.ipynb`,
-поэтому содержимое читается и без запуска.
 
 Для `Try_C++/` нужен компилятор, а не Python:
 
@@ -195,7 +163,6 @@ g++ -std=c++17 Try_C++/Calculator.cpp -o calculator
 - **C++** — база: `#include`, `main`, потоки `cin` / `cout`, ветвление `switch` (`Try_C++/`)
 - **NumPy** — массивы, векторные вычисления
 - **pandas** — табличные данные: `groupby`, `pivot_table`, `crosstab`, `transform`
-- **Jupyter** — ноутбуки с разбором данных
 - **seaborn** / **matplotlib** — визуализация
 - **stdlib** — `string`, `random`, `time` — для консольных проектов
 - **accessify** — декораторы `@private` / `@protected` для ООП-конспекта
@@ -206,10 +173,8 @@ g++ -std=c++17 Try_C++/Calculator.cpp -o calculator
 
 - [ ] Добить 100 задач по NumPy (сделано 50)
 - [ ] Почистить датасет: до конца убрать выбросы, исправить `df.drop(...)` без присваивания
-- [x] Добавить ноутбук с визуализацией после очистки — сделано в `03_Pandas_сводный_анализ.ipynb`
-- [ ] Передать ноутбук в лабораторную 04 и продолжить серию
 - [ ] Расширить список слов в «Виселице» и сделать счёт очков
-- [ ] Регулярно добавлять решённые задачи LeetCode (сделано 6)
+- [ ] Регулярно добавлять решённые задачи LeetCode (сделано 7)
 - [ ] Переписать ООП-конспект в тесты
 - [ ] Продолжить `Try_C++/`: от компиляции через терминал к своим задачам
 - [ ] Разобраться со сборкой C++ в VS Code и отладкой
@@ -220,7 +185,6 @@ g++ -std=c++17 Try_C++/Calculator.cpp -o calculator
 - [LeetCode](https://leetcode.com/)
 - [Документация pandas](https://pandas.pydata.org/docs/)
 - [cppreference.com](https://en.cppreference.com/) — справка по C++
-- [BasicDataAnalysisCourse](https://github.com/MVRonkin/BasicDataAnalysisCourse) — курс, к которому относится ноутбук 03
 - [Группировка и агрегация Pandas](https://pandas.pydata.org/docs/user_guide/groupby.html)
 
 ## 👤 Контакты

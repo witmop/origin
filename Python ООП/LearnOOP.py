@@ -1128,3 +1128,4 @@ CarData=make_dataclass("CarData",[("model",str),("max_speed"),("price",float,fie
 c=CarData("BMW",256,4096)
 print(c)
 print(c.get_max_speed())
+

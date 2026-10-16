@@ -1,6 +1,6 @@
 # from string import ascii_letters
 # from accessify import private,protected
-from dataclasses import dataclass,field, InitVar
+from dataclasses import dataclass,field, InitVar, make_dataclass
 from typing import Any
 # class Point:
 #     color="red" #атрибуты или св-ва класса
@@ -1074,41 +1074,41 @@ from typing import Any
 
 # Наследование dataclasses
 
-class GoodsMethodFactory:
-    @staticmethod
-    def get_init_measure():
-        return [0,0,0]
+# class GoodsMethodFactory:
+#     @staticmethod
+#     def get_init_measure():
+#         return [0,0,0]
     
 
-@dataclass
-class Goods:
-    current_uid=0
+# @dataclass
+# class Goods:
+#     current_uid=0
 
     
-    uid:Any = field(init = False)   #исключаем из init
-    price: Any=None
-    weight: Any = None
+#     uid:Any = field(init = False)   #исключаем из init
+#     price: Any=None
+#     weight: Any = None
 
-    def __post_init__(self):
-        print("Good: post_init")
-        Goods.current_uid+=1
-        self.uid=Goods.current_uid
+#     def __post_init__(self):
+#         print("Good: post_init")
+#         Goods.current_uid+=1
+#         self.uid=Goods.current_uid
 
-@dataclass
-class Book(Goods):
-    title: str=""
-    author: str=""
-    price: float = 0
-    weight: int|float =0
-    measure: list = field(default_factory=Book.get_init_measure)
+# @dataclass
+# class Book(Goods):
+#     title: str=""
+#     author: str=""
+#     price: float = 0
+#     weight: int|float =0
+#     measure: list = field(default_factory=GoodsMethodFactory.get_init_measure)            # нельзя объявить в классе Book будет ошибка
 
-    @staticmethod
-    def get_init_measure():
-        return [0,0,0]
+#     @staticmethod
+#     def get_init_measure():
+#         return [0,0,0]
 
-    def __post_init__(self):
-        print("Books: post_init")
-        super().__post_init__()
+#     def __post_init__(self):
+#         print("Books: post_init")
+#         super().__post_init__()
 
-b=Book(1000,100,"Python ООП","Балакирев С. М.")
-print(b)
+# b=Book(1000,100,"Python ООП","Балакирев С. М.")
+# print(b)

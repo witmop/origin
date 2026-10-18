@@ -85,16 +85,34 @@ import numpy as np
 # a.resize(3,2,refcheck=False)
 # print(a)
 
-a=np.arange(10)
-a=a.reshape(5,2)
-print(a)
-print(a.T)          #Траспонирвоание меняет строки и столбцы местами
+# a=np.arange(10)
+# a=a.reshape(5,2)
+# print(a)
+# print(a.T)          #Траспонирвоание меняет строки и столбцы местами
 
-x_test=np.arange(8).reshape(2,2,2)
-test_2=np.expand_dims(x_test,axis=0)        #добавлят ещё одну ось
-print(test_2.shape)
-test_3=np.squeeze(test_2,axis=0)
-print(test_3.shape)             # удаляет ось
-test_4=x_test[np.newaxis,:]
-print(test_4)
-print(x_test)
+# x_test=np.arange(8).reshape(2,2,2)
+# test_2=np.expand_dims(x_test,axis=0)        #добавлят ещё одну ось
+# print(test_2.shape)
+# test_3=np.squeeze(test_2,axis=0)
+# print(test_3.shape)             # удаляет ось
+# test_4=x_test[np.newaxis,:]
+# print(test_4)
+
+
+#Объединение и разъединение массивов
+
+# a=np.array([(1,2),(3,4)])
+# b=np.array([(3,4),(5,6)])
+# print(np.hstack([a,b]))#объединение по горизонтали
+# print(np.vstack([a,b]))#по вертикали
+
+# a=np.arange(1,4)
+# b=np.arange(5,8)
+# print(np.column_stack([a,b]))
+
+a=np.arange(10)
+b=a.reshape(10,-1)
+print(np.hsplit(a,2))
+print(np.vsplit(b,2))
+c=np.arange(18).reshape(3,3,2)
+print(np.array_split(c,2,axis=1))

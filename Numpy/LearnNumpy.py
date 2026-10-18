@@ -52,9 +52,27 @@ import numpy as np
 # b=np.linspace(0,np.pi,3)        #делит диапазон  от 0 до pi на 3 части и берёт по одному число из каждой
 # print(b)
 
-a=np.fromstring("1, 2, 3",dtype="int16",sep=", ")
-print(a)
-def getRange(x,y):
-    return 100*x +y
-b=np.fromfunction(getRange,(4,5))
+# a=np.fromstring("1, 2, 3",dtype="int16",sep=", ")
+# print(a)
+# def getRange(x,y):
+#     return 100*x +y
+# b=np.fromfunction(getRange,(4,5))
+# print(b)
+
+
+
+# a=np.array([0.1,0.2,0.3,0.4,0.5])
+# print(a.dtype)
+# a.dtype=np.int8()
+# print(a)        #данных в 8 раз больше было float64 стало int8
+
+# b=np.ones( (3,4,5) )
+# print(b.ndim)
+# print(b.shape)
+# c=b.reshape(12,5)           #выглядят по-разному, но данные одни, если меняем что-то в b, то меняется и в c
+# print(c)
+
+a=np.array([1,2,3,4,5,6,7,8,9])
+b=a.view().reshape(3,3)          #создаём копию массива а
 print(b)
+print(a)

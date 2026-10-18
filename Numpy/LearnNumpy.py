@@ -72,7 +72,29 @@ import numpy as np
 # c=b.reshape(12,5)           #выглядят по-разному, но данные одни, если меняем что-то в b, то меняется и в c
 # print(c)
 
-a=np.array([1,2,3,4,5,6,7,8,9])
-b=a.view().reshape(3,3)          #создаём копию массива а
-print(b)
+# a=np.array([1,2,3,4,5,6,7,8,9])
+# b=a.view().reshape(3,3)          #создаём копию массива а
+# print(b)
+# print(a)
+
+#Изменение формы массивов
+# a=np.arange(10)
+# b=a.reshape(-1,2)       #-1 означает оставшееся число
+# print(b)
+# print(b.ravel())            # превращаем в одномерный
+# a.resize(3,2,refcheck=False)
+# print(a)
+
+a=np.arange(10)
+a=a.reshape(5,2)
 print(a)
+print(a.T)          #Траспонирвоание меняет строки и столбцы местами
+
+x_test=np.arange(8).reshape(2,2,2)
+test_2=np.expand_dims(x_test,axis=0)        #добавлят ещё одну ось
+print(test_2.shape)
+test_3=np.squeeze(test_2,axis=0)
+print(test_3.shape)             # удаляет ось
+test_4=x_test[np.newaxis,:]
+print(test_4)
+print(x_test)

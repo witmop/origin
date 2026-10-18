@@ -110,9 +110,33 @@ import numpy as np
 # b=np.arange(5,8)
 # print(np.column_stack([a,b]))
 
-a=np.arange(10)
-b=a.reshape(10,-1)
-print(np.hsplit(a,2))
-print(np.vsplit(b,2))
-c=np.arange(18).reshape(3,3,2)
-print(np.array_split(c,2,axis=1))
+# a=np.arange(10)
+# b=a.reshape(10,-1)
+# print(np.hsplit(a,2))
+# print(np.vsplit(b,2))
+# c=np.arange(18).reshape(3,3,2)
+# print(np.array_split(c,2,axis=1))
+
+
+#Обращение к массивам
+
+# a=np.arange(12).reshape(4,3)
+# print(a[1,1])
+# print(a[:,1])#вывод столбца
+# for val in a.flat:
+#     print(val,end=" ")
+
+a=np.arange(1,10)
+print(a[[0,0,0,1,1,1,3,3]])     #печатает элементы, которые стоят в указанных индексах
+a[[0,2,5]]=[10,20,30]       
+print(a)
+print(a[a>5])
+a[[0,1,6]]+=1
+print(a)
+
+# a=np.arange(1,13).reshape(3,4)
+# i0=[0,1]
+# i1=[1,2]
+# print(a[i0,i1])
+# print(a[:,i1])
+

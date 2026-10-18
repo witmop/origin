@@ -32,13 +32,29 @@ import numpy as np
 # print(f)
 
 
-matr=np.asmatrix("1 2; 3 4")     #матрица 2x2
-print(matr)
-d=np.diag([1,2,4,5])
-print(d)
-df=np.diagflat([(1,2,3), (4,5,6), (7,8,9)])
-print(df)
-tr=np.tri(3)
-print(tr)
-some_arr=np.array([(1,2,3),(4,5,6),(7,8,9)])
-print(np.tril(some_arr))
+# matr=np.asmatrix("1 2; 3 4")     #матрица 2x2
+# print(matr)
+# d=np.diag([1,2,4,5])
+# print(d)
+# df=np.diagflat([(1,2,3), (4,5,6), (7,8,9)])
+# print(df)
+# tr=np.tri(3)                #треугольная матрица
+# print(tr)
+# some_arr=np.array([(1,2,3),(4,5,6),(7,8,9)])
+# print(np.tril(some_arr))            #triu противоположная функция
+
+
+# a=np.arange(1,6,0.5)
+# print(a)
+# cos_a=np.cos(np.arange(0,np.pi,0.1))
+# print(cos_a)
+
+# b=np.linspace(0,np.pi,3)        #делит диапазон  от 0 до pi на 3 части и берёт по одному число из каждой
+# print(b)
+
+a=np.fromstring("1, 2, 3",dtype="int16",sep=", ")
+print(a)
+def getRange(x,y):
+    return 100*x +y
+b=np.fromfunction(getRange,(4,5))
+print(b)

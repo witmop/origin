@@ -27,12 +27,25 @@
 Поэтому в файлах много комментариев с объяснением «почему так, а не иначе» — это заметки
 для себя, а не готовый production-код.
 
+## 🆕 Что нового с прошлого обновления README
+
+Обновление от 19 октября 2026 (прошлый раз README трогали 14 октября):
+
+- **Конспект по NumPy** — новый файл `Numpy/LearnNumpy.py`: от типов данных и создания
+  массивов до линейной алгебры и транслирования.
+- **Новая игра** — `Projects/Knight_and_Dragon.py`: текстовый квест с рыцарем, мечом и драконом.
+- **ООП** — в конспект добавлены **наследование `@dataclass`** (`Goods` / `Book`,
+  `__post_init__` через `super()`, счётчик `current_uid`) и **`make_dataclass`**
+  (создание датакласса на лету с методом из `namespace`).
+- **Переименование** — `Python ООП/Учу ооп.py` → `Python ООП/LearnOOP.py`
+  (для корректного отображения имени в терминале и Git).
+
 ## 📁 Структура
 
 ```
-├── Numpy/                # задачи на NumPy
-├── Projects/             # консольные программы
-├── Python ООП/           # конспект по объектно-ориентированному Python
+├── Numpy/                # задачи на NumPy и конспект LearnNumpy.py
+├── Projects/             # консольные программы: игры, генератор паролей, шифр Цезаря
+├── Python ООП/           # конспект по объектно-ориентированному Python (LearnOOP.py)
 ├── Try_C++/              # первые программы на C++ и калькулятор
 ├── Try_Pandas/           # работа с табличными данными: скрипты и CSV
 ├── leetcode/             # решённые задачи LeetCode
@@ -50,8 +63,9 @@
 | `Hangman Game.py` | «Виселица»: случайное слово, поле из подчёркиваний, ASCII-визуализация виселицы из 7 стадий, счётчик ошибок, ввод сразу нескольких букв. |
 | `Encryption Сaesar.py` | Шифр Цезаря: шифрование и расшифровка с сохранением регистра, работа с латиницей и кириллицей, приведение сдвига по модулю длины алфавита. |
 | `Generate Passwords.py` | Генератор паролей: настройки собираются в словарь, пользователь выбирает наборы символов (строчные, заглавные, спецсимволы) и длину, пароль собирается случайным выбором. |
+| `Knight_and_Dragon.py` | «Рыцарь и дракон»: текстовый квест с классами `Knight`, `Sword`, `Dragon`. Три дороги на выбор, прочность меча (`check_durability` — сломанный бьёт слабее), броня поглощает 90% урона, пошаговый бой со случайным разбросом (`random.randint`), задержки `sleep`, победа/поражение по здоровью. |
 
-### Конспект по ООП — `Python ООП/Учу ооп.py`
+### Конспект по ООП — `Python ООП/LearnOOP.py`
 
 Самый крупный файл репозитория — больше 1000 строк, где каждая тема раскрыта рабочим
 примером, а ранние примеры остаются закомментированными как шпаргалка. По порядку:
@@ -74,11 +88,14 @@
 - **Вложенные классы** — `Women.Meta` и доступ к атрибутам внешнего и вложенного класса.
 - **Метаклассы** — динамическое создание класса через `type()`, метакласс-функция `create_class_point`, метакласс-класс `Meta` от `type` с переопределённым `__init__`, подмена `__init__` класса через метакласс.
 - **Data Classes** — `@dataclass` и автогенерация `__init__` / `__repr__`, `field(default_factory=list)`, свой `__eq__`, а также `field(init=False)` + `InitVar` и `__post_init__` на примере `V3D` с вычисляемой длиной.
+- **Наследование Data Classes** — `@dataclass` в родителе и потомке (`Goods` → `Book`), вызов `super().__post_init__()`, авто-`uid` через атрибут класса `current_uid`, `field(default_factory=...)` с фабрикой из `staticmethod` (`GoodsMethodFactory.get_init_measure`).
+- **`make_dataclass`** — генерация датакласса на лету: список полей `(имя, тип)` с `field(default=...)` и готовый метод, переданный через `namespace` (`lambda self: self.max_speed`).
 
 ### Задачи и конспекты
 
 | Файл | Что внутри |
 |:--|:--|
+| `Numpy/LearnNumpy.py` | Конспект по NumPy (начат 16.10.2026), почти всё закомментировано как шпаргалка: типы данных и `dtype` / `sctypeDict`, создание массивов (`empty`, `eye`, `identity`, `zeros`, `ones`, `full`, `asmatrix`, `diag`, `diagflat`, `tri` / `tril` / `triu`, `arange`, `linspace`, `fromstring`, `fromfunction`), изменение формы (`reshape`, `view`, `ravel`, `resize`, `T`, `expand_dims`, `squeeze`, `np.newaxis`), объединение и разъединение (`hstack`, `vstack`, `column_stack`, `hsplit`, `vsplit`, `array_split`), доступ к элементам и булева индексация (`a[a>5]`, `flat`, выборка по списку индексов), операции со множествами (`any`, `isfinite`, `logical_and` / `or` / `not` / `xor`), математические функции (`sum` / `mean` с `axis`, `argmax` / `argmin`, `median`, `var`, `std`, `random` с `seed`), элементы линейной алгебры (`matmul`, `inner`, `outer`, `dot`, `matrix_rank`) и транслирование (`a1*b1+c1` без циклов и через `np.ix_`). |
 | `Numpy/numpy-100.py` | Решения задач из набора [100 NumPy Exercises](https://github.com/rougier/numpy-100). Индексированные массивы, `reshape`, срезы, Broadcasting, `datetime64`, `random`, матричная арифметика, генераторы. |
 | `Try_Pandas/Учу pandas.py` | Чтение CSV, деление колонок на числовые и категориальные, фильтрация и очистка выбросов, стандартизация и нормализация, `value_counts`, объединение редких категорий, кодирование через `.cat.codes` и `get_dummies`, новые признаки (`Age`, `km_year`). |
 | `leetcode/13. Roman to Integer.py` | [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/) — перевод римского числа в арабское: сравнение соседних символов через стек, вычитание меньшего из большего. |
@@ -119,6 +136,11 @@ python "Projects/tic-tac-toe.py"
 python "Projects/Hangman Game.py"
 python "Projects/Encryption Сaesar.py"
 python "Projects/Generate Passwords.py"
+python "Projects/Knight_and_Dragon.py"     # бой идёт в реальном времени (time.sleep)
+
+# конспекты (в основном закомментированы — раскомментируйте нужный блок)
+python "Python ООП/LearnOOP.py"
+python Numpy/LearnNumpy.py
 
 # задачи
 python Numpy/numpy-100.py                              # задачи 49–50
@@ -157,23 +179,28 @@ g++ -std=c++17 Try_C++/Calculator.cpp -o calculator
 > файлов взяты в кавычки. Надёжнее запускать из VS Code или переименовать файлы
 > в чисто латиницу.
 
+> **Про `Knight_and_Dragon.py`.** В коде есть `time.sleep` по 3–7 секунд, поэтому бой
+> занимает реальное время. Русский текст в `input()` и `print()` требует UTF-8 терминала.
+
 ## 🛠 Стек и инструменты
 
 - **Python** — основной язык
 - **C++** — база: `#include`, `main`, потоки `cin` / `cout`, ветвление `switch` (`Try_C++/`)
-- **NumPy** — массивы, векторные вычисления
+- **NumPy** — массивы, векторные вычисления, `dtype` / `reshape` / broadcasting, `linalg` (`Numpy/`)
 - **pandas** — табличные данные: `groupby`, `pivot_table`, `crosstab`, `transform`
 - **seaborn** / **matplotlib** — визуализация
-- **stdlib** — `string`, `random`, `time` — для консольных проектов
+- **stdlib** — `string`, `random`, `time`, `dataclasses.make_dataclass` — для консольных проектов и конспектов
 - **accessify** — декораторы `@private` / `@protected` для ООП-конспекта
 - **VS Code** + `venv` — рабочее окружение
 - **Git / GitHub** — история обучения по коммитам
 
 ## 🎯 Планы
 
+- [ ] Продолжить конспект по NumPy: индексация, математика, линейная алгебра (начат 16.10, дойти до конца курса)
 - [ ] Добить 100 задач по NumPy (сделано 50)
 - [ ] Почистить датасет: до конца убрать выбросы, исправить `df.drop(...)` без присваивания
 - [ ] Расширить список слов в «Виселице» и сделать счёт очков
+- [ ] Добавить в «Рыцаря и дракона» второй исход для 2-й дороги (сейчас там только история без боя) и баланс урона
 - [ ] Регулярно добавлять решённые задачи LeetCode (сделано 7)
 - [ ] Переписать ООП-конспект в тесты
 - [ ] Продолжить `Try_C++/`: от компиляции через терминал к своим задачам
@@ -183,6 +210,7 @@ g++ -std=c++17 Try_C++/Calculator.cpp -o calculator
 
 - [100 NumPy Exercises](https://github.com/rougier/numpy-100)
 - [LeetCode](https://leetcode.com/)
+- [Документация NumPy](https://numpy.org/doc/stable/) — создание массивов, `linalg`, broadcasting
 - [Документация pandas](https://pandas.pydata.org/docs/)
 - [cppreference.com](https://en.cppreference.com/) — справка по C++
 - [Группировка и агрегация Pandas](https://pandas.pydata.org/docs/user_guide/groupby.html)

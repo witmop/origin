@@ -204,7 +204,21 @@ import numpy as np
 # b=np.arange(5,11).reshape(3,2)
 # print(np.dot(a,b))
 
-a=np.arange(1,10).reshape(3,3)
-print(np.linalg.matrix_rank(a))
-y=np.arange(10,40,10)
-print(np.linalg.solve(a,y))
+# a=np.arange(1,10).reshape(3,3)
+# print(np.linalg.matrix_rank(a))
+
+
+#Транслирование массивов
+
+a=np.array([1,2,3])
+b=np.array([4,5])
+c=np.array([7,8,9,10])
+a1=a.reshape(1,1,-1)
+b1=b.reshape(1,-1,1)
+c1=c.reshape(-1,1,1)
+result=a1*b1+c1
+print(result)
+
+an,bn,cn=np.ix_(a,b,c)
+resultn=an*bn+cn
+print(resultn)

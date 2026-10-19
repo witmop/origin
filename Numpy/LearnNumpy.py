@@ -180,9 +180,31 @@ import numpy as np
 # np.random.shuffle(c)
 # print(c)
 
-np.random.seed(13)
-x=np.random.randint(1,23,size=7)
-y=np.random.randint(1,23,size=7)
-print(np.median(x))
-print(np.var(x))
-print(np.std(x))
+# np.random.seed(13)
+# x=np.random.randint(1,23,size=7)
+# y=np.random.randint(1,23,size=7)
+# print(np.median(x))
+# print(np.var(x))
+# print(np.std(x))
+
+
+#Элементы линейной алгебры
+# np.random.seed(13)
+# a=np.random.randint(1,10,size=(3,3))
+# b=np.random.randint(10,20,size=(3,3))
+# print(a*b)
+# print(np.matmul(a,b))       #настоящее матричное умножение
+
+# a=np.arange(1,10)
+# b=np.arange(10,19)
+# print(np.inner(a,b))        #внутренне умножение или a @ b
+# print(np.outer(a,b))        #внешнее умножение
+
+# a=np.arange(1,4)
+# b=np.arange(5,11).reshape(3,2)
+# print(np.dot(a,b))
+
+a=np.arange(1,10).reshape(3,3)
+print(np.linalg.matrix_rank(a))
+y=np.arange(10,40,10)
+print(np.linalg.solve(a,y))

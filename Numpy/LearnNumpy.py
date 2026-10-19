@@ -152,9 +152,37 @@ import numpy as np
 # a=np.array([1,2,np.nan,np.inf])
 # print(np.isfinite(a))
 
-x=np.array([True,False,True,False])
-y=np.array([True,True,False,False])
-print(np.logical_and(x,y))
-print(np.logical_or(x,y))
-print(np.logical_not(x))
-print(np.logical_xor(x,y))
+# x=np.array([True,False,True,False])
+# y=np.array([True,True,False,False])
+# print(np.logical_and(x,y))
+# print(np.logical_or(x,y))
+# print(np.logical_not(x))
+# print(np.logical_xor(x,y))
+
+
+#Математические функции
+
+# a=np.arange(9).reshape(3,3)
+# print(a.sum())
+# print(a.mean())
+# print(a)
+# print(a.sum(axis=1))
+
+# a=np.array([1,56,23,0,15])
+# print(np.argmax(a))         #индекс максимального значения (можно добавить axis=)
+# print(np.argmin(a))         #индекс мин. значения
+
+# a=np.random.rand(5)
+# print(a)
+# b=np.random.randint(10,size=(2,2))
+# print(b)
+# c=np.arange(10)
+# np.random.shuffle(c)
+# print(c)
+
+np.random.seed(13)
+x=np.random.randint(1,23,size=7)
+y=np.random.randint(1,23,size=7)
+print(np.median(x))
+print(np.var(x))
+print(np.std(x))

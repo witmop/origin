@@ -126,13 +126,13 @@ import numpy as np
 # for val in a.flat:
 #     print(val,end=" ")
 
-a=np.arange(1,10)
-print(a[[0,0,0,1,1,1,3,3]])     #печатает элементы, которые стоят в указанных индексах
-a[[0,2,5]]=[10,20,30]       
-print(a)
-print(a[a>5])
-a[[0,1,6]]+=1
-print(a)
+# a=np.arange(1,10)
+# print(a[[0,0,0,1,1,1,3,3]])     #печатает элементы, которые стоят в указанных индексах
+# a[[0,2,5]]=[10,20,30]       
+# print(a)
+# print(a[a>5])
+# a[[0,1,6]]+=1
+# print(a)
 
 # a=np.arange(1,13).reshape(3,4)
 # i0=[0,1]
@@ -140,3 +140,21 @@ print(a)
 # print(a[i0,i1])
 # print(a[:,i1])
 
+
+#Операции со множествами
+
+# a=np.array([1,2,3,10,20,30])
+# b=np.array([1,2,3,50,60,30])
+# print(a==b)
+# print(np.any(a>b))
+# print(a/0)
+
+# a=np.array([1,2,np.nan,np.inf])
+# print(np.isfinite(a))
+
+x=np.array([True,False,True,False])
+y=np.array([True,True,False,False])
+print(np.logical_and(x,y))
+print(np.logical_or(x,y))
+print(np.logical_not(x))
+print(np.logical_xor(x,y))

@@ -84,22 +84,22 @@ import pandas as pd
 
 #Индексы
 
-list_index=list("qfmoq")
+# list_index=list("qfmoq")
 
-index_data=pd.Index(list_index,
-                    name="rows",
-                    dtype="str"
-                    )
-columns_data=pd.Index(["col1","col2","col3"],
-                      name="cols"
-                      )
+# index_data=pd.Index(list_index,
+#                     name="rows",
+#                     dtype="str"
+#                     )
+# columns_data=pd.Index(["col1","col2","col3"],
+#                       name="cols"
+#                       )
 
-df_data=pd.DataFrame({"col1":np.random.randint(1,30,size=5),
-                      "col2":np.random.randint(1,30,size=5),
-                      "col3":np.random.randint(1,30,size=5)},
-                      index=index_data,
-                      columns=columns_data
-                      )
+# df_data=pd.DataFrame({"col1":np.random.randint(1,30,size=5),
+#                       "col2":np.random.randint(1,30,size=5),
+#                       "col3":np.random.randint(1,30,size=5)},
+#                       index=index_data,
+#                       columns=columns_data
+#                       )
 # print(df_data)
 
 # df=pd.DataFrame({f"c_{i}":np.arange(1000)*i for i in range(100)})
@@ -123,10 +123,40 @@ df_data=pd.DataFrame({"col1":np.random.randint(1,30,size=5),
 # print(new_df)
 # print(row_rename)
 
-index=pd.Index([1,np.nan,3,np.nan,5])
+# index=pd.Index([1,np.nan,3,np.nan,5])
 
-df_nan=pd.DataFrame(np.arange(5),index=index)
-print(df_nan)
-print(df_nan.index.hasnans)     #проверка на наличие nan
-print(df_nan.index.isna())
-print(df_nan.index.dropna())
+# df_nan=pd.DataFrame(np.arange(5),index=index)
+# print(df_nan)
+# print(df_nan.index.hasnans)     #проверка на наличие nan
+# print(df_nan.index.isna())
+# print(df_nan.index.dropna())
+
+
+#Столбцы
+
+# df=pd.DataFrame({"col1":np.random.randint(1,30,size=6),
+#                  "col2":np.random.randint(1,30,size=6),
+#                  "col3":np.random.randint(1,30,size=6),
+#                  "col4":np.random.randint(1,30,size=6)})
+# df.set_index(["col1","col4"],append=True,inplace=True)      #мультииндекс append осталяет изначальные индекса DF
+
+# df.reset_index(["col4"],inplace=True)
+# print(df)
+
+df=pd.DataFrame({"col1":np.random.randint(1,30,size=6),
+                 "столбец_2":np.random.randint(1,30,size=6),
+                 "col 3":np.random.randint(1,30,size=6),
+                 "col4":np.random.randint(1,30,size=6)})
+print(df["col 3"])#Series
+print(df[["col 3"]])#DataFrame
+df["new col"]=5         #новый столбец
+df["copy_col"]=df["col 3"]
+print(df)
+del df["copy_col"]
+
+#print(df[[False,True,False,True,True,False]])       #маска какие строки вывести
+
+df[[False,True,False,True,True,False]]=100
+print(df[[False,True,False,True,True,False]][["col 3"]])
+
+print(df.col1)

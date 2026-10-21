@@ -49,9 +49,20 @@ import pandas as pd
 
 #Выравнивание индексов
 
-dict_array={"row1":2,"row2":3,"row3":4,"row4":5,"row5":6}
-df=pd.DataFrame({"col1":pd.Series(dict_array),
-                "col2":pd.Series([5,6,6,np.nan,7],index=["row3","row4","row5","row6","row9"])},
-                index=["row1","row2"]
-                )
+# dict_array={"row1":2,"row2":3,"row3":4,"row4":5,"row5":6}
+# df=pd.DataFrame({"col1":pd.Series(dict_array),
+#                 "col2":pd.Series([5,6,6,np.nan,7],index=["row3","row4","row5","row6","row9"])},
+#                 index=["row1","row2"]
+#                 )
+# print(df)
+
+#Чтение и запись данных
+
+df=pd.read_csv("cars.csv",
+               index_col="Make",
+               usecols=["Style","Year","Fuel_type","Make"],
+               dtype={"Year":"category"},            #смена типа данных
+               nrows=5
+               )
 print(df)
+print(df.info())

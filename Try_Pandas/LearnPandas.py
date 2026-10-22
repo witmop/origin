@@ -143,20 +143,42 @@ import pandas as pd
 # df.reset_index(["col4"],inplace=True)
 # print(df)
 
-df=pd.DataFrame({"col1":np.random.randint(1,30,size=6),
-                 "столбец_2":np.random.randint(1,30,size=6),
-                 "col 3":np.random.randint(1,30,size=6),
-                 "col4":np.random.randint(1,30,size=6)})
-print(df["col 3"])#Series
-print(df[["col 3"]])#DataFrame
-df["new col"]=5         #новый столбец
-df["copy_col"]=df["col 3"]
-print(df)
-del df["copy_col"]
+# df=pd.DataFrame({"col1":np.random.randint(1,30,size=6),
+#                  "столбец_2":np.random.randint(1,30,size=6),
+#                  "col 3":np.random.randint(1,30,size=6),
+#                  "col4":np.random.randint(1,30,size=6)})
+# print(df["col 3"])#Series
+# print(df[["col 3"]])#DataFrame
+# df["new col"]=5         #новый столбец
+# df["copy_col"]=df["col 3"]
+# print(df)
+# del df["copy_col"]
 
-#print(df[[False,True,False,True,True,False]])       #маска какие строки вывести
+# #print(df[[False,True,False,True,True,False]])       #маска какие строки вывести
 
-df[[False,True,False,True,True,False]]=100
-print(df[[False,True,False,True,True,False]][["col 3"]])
+# df[[False,True,False,True,True,False]]=100
+# print(df[[False,True,False,True,True,False]][["col 3"]])
 
-print(df.col1)
+# print(df.col1)
+
+
+#Мультииндекса
+
+# array=[[1,1,2,2],["row1","row2","row3","row4"]]
+# multi_array=pd.MultiIndex.from_arrays(array,names=["level0","level1"])
+# print(multi_array)
+
+# df_index=pd.DataFrame([[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1]],index=multi_array)
+# print(df_index)
+# df_columns=pd.DataFrame([[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1]],columns=multi_array)
+# print(df_columns)
+
+level_0=["row1","row2"]
+level_1=[1,2,3]
+
+multi_product=pd.MultiIndex.from_product([level_0,level_1],names=["level_0","level_1"])
+
+df_multi=pd.DataFrame([[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1]],index=multi_product)
+print(df_multi)
+print(df_multi.index.nlevels)           #уровней мультииндекса
+print(df_multi.index.levels)

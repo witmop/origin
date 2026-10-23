@@ -173,12 +173,50 @@ import pandas as pd
 # df_columns=pd.DataFrame([[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1]],columns=multi_array)
 # print(df_columns)
 
-level_0=["row1","row2"]
-level_1=[1,2,3]
+# level_0=["row1","row2"]
+# level_1=[1,2,3]
 
-multi_product=pd.MultiIndex.from_product([level_0,level_1],names=["level_0","level_1"])
+# multi_product=pd.MultiIndex.from_product([level_0,level_1],names=["level_0","level_1"])
 
-df_multi=pd.DataFrame([[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1]],index=multi_product)
-print(df_multi)
-print(df_multi.index.nlevels)           #уровней мультииндекса
-print(df_multi.index.levels)
+# df_multi=pd.DataFrame([[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1]],index=multi_product)
+# print(df_multi)
+# print(df_multi.index.nlevels)           #уровни мультииндекса
+# print(df_multi.index.levels)
+# df_multi.index.droplevel()             #по умолчанию убирает 0 индекс
+
+
+#Арифметически операции
+
+df_1=pd.DataFrame({"col1":[5,6,np.nan,3,7],
+                   "col2":[27,6,7,40,70],
+                   "col3":[1,45,6,62,7]},
+                   index=["row1","row2","row3","row4","row5"])
+
+
+df_2=pd.DataFrame({"col1":[5,6,3,np.nan,7],
+                   "col2":[27,6,7,40,70],
+                   "col3":[1,45,6,62,7]},
+                   index=["row1","row2","row3","row4","row5"])
+
+some_series=pd.Series([5,6,np.nan,1,7],
+                      index=["row_10","col2","row3","row4","row5"])
+
+
+# print(some_series+5)
+# print(some_series+[1,2,3,4,5])
+# print(some_series+df_1["col1"])         #сложение происходит по названием индекса
+
+# print(df_1+10)
+
+df_3=df_1.head(2)
+# print(df_3)
+df_4=df_1[["col1","col2"]]
+# print(df_4)
+# print(df_3+df_4)            #выравнивание индекса, там где ничего нет встаёт nan
+
+print(df_1.add([10,20,30],axis=1))         #выполнятеся вдоль строки, длина должна быть 3, если axis=0, то плюс идёт по столбцу
+
+print(df_3.add(df_4,fill_value=10))      #пропуски заполняются ун
+
+
+

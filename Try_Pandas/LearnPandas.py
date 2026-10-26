@@ -243,15 +243,34 @@ import pandas as pd
 
 #Фильтрация данных
 
-dict_array={"age":np.random.randint(18,50,size=5), 
-            "name":["Саша","Женя","Маша","Юля","Люля"],
-            "наличие авто":[True,False,True,True,False]} 
+# dict_array={"age":np.random.randint(18,50,size=5), 
+#             "name":["Саша","Женя","Маша","Юля","Люля"],
+#             "наличие авто":[True,False,True,True,False]} 
 
-df=pd.DataFrame(dict_array)
-print(df)
+# df=pd.DataFrame(dict_array)
+# print(df)
 
 # print(df[[True,False,True,True,False]])        #какие строки выводить, какие нет
 # print(df[(df["age"]<25)&(df["наличие авто"])])
 # print(df[(df["age"]<25)|~(df["наличие авто"])])     # ~==not 
 # print(df[df["age"].isin([k for k in range(18,30)])])
-print(df.query("not `наличие авто` and age <28"))
+# print(df.query("not `наличие авто` and age <28"))           #название столбцов должны быть в обратных кавычках если кирилица 
+
+
+#Пропуски в данных
+
+dict_array={"age":[np.nan,24,35,18,61], 
+            "name":["Саша","Женя",np.nan,"Юля","Люля"],
+            "наличие авто":[np.nan,np.nan,np.nan,np.nan,np.nan]} 
+
+df=pd.DataFrame(dict_array)
+print(df.dropna())      #axis=0 (по умолчанию)-удаление строк
+# print(df.dropna(how='all',axis=1))
+print(df.dropna(subset=[1],axis=1))     
+print(df.fillna(value={"age":100,
+                       "name":"string",
+                       "наличие авто":False}))
+print(df.isna())
+print(df["age"].isna())
+print(df[~df["age"].isna()])            #только те строки, где в age нет пропуска
+print(df[df["name"].notna()])

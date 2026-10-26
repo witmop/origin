@@ -221,21 +221,37 @@ import pandas as pd
 
 #Операции сравнения
 
-df_1=pd.DataFrame({"col1":[5,6,np.nan,3,7],
-                   "col2":[27,6,7,40,70],
-                   "col3":[1,45,6,62,7]},
-                   index=["row1","row2","row3","row4","row5"])
+# df_1=pd.DataFrame({"col1":[5,6,np.nan,3,7],
+#                    "col2":[27,6,7,40,70],
+#                    "col3":[1,45,6,62,7]},
+#                    index=["row1","row2","row3","row4","row5"])
 
 
-df_2=pd.DataFrame({"col1":[5,6,3,np.nan,7],
-                   "col2":[27,6,7,40,70],
-                   "col3":[1,45,6,62,7]},
-                   index=["row1","row2","row3","row4","row5"])
+# df_2=pd.DataFrame({"col1":[5,6,3,np.nan,7],
+#                    "col2":[27,6,7,40,70],
+#                    "col3":[1,45,6,62,7]},
+#                    index=["row1","row2","row3","row4","row5"])
 
-some_ser=pd.Series([5,6,np.nan,1,7],index=["row1","row2","row3","row4","row5"])
-print(df_1["col1"]>=df_2["col1"])
-print(df_1==6)
-# print(df_1==df_2["col2","col1","col3"])  порядок индексов важен
-print(some_ser.le(df_1["col3"]))        #le даёт возможность сравнивать по разным индексам не по порядку
-print(df_1.le([10,20,30,7,8],axis=0))
-print(df_1.equals(df_1))
+# some_ser=pd.Series([5,6,np.nan,1,7],index=["row1","row2","row3","row4","row5"])
+# print(df_1["col1"]>=df_2["col1"])
+# print(df_1==6)
+# # print(df_1==df_2["col2","col1","col3"])  порядок индексов важен
+# print(some_ser.le(df_1["col3"]))        #le даёт возможность сравнивать по разным индексам не по порядку
+# print(df_1.le([10,20,30,7,8],axis=0))
+# print(df_1.equals(df_1))
+
+
+#Фильтрация данных
+
+dict_array={"age":np.random.randint(18,50,size=5), 
+            "name":["Саша","Женя","Маша","Юля","Люля"],
+            "наличие авто":[True,False,True,True,False]} 
+
+df=pd.DataFrame(dict_array)
+print(df)
+
+# print(df[[True,False,True,True,False]])        #какие строки выводить, какие нет
+# print(df[(df["age"]<25)&(df["наличие авто"])])
+# print(df[(df["age"]<25)|~(df["наличие авто"])])     # ~==not 
+# print(df[df["age"].isin([k for k in range(18,30)])])
+print(df.query("not `наличие авто` and age <28"))

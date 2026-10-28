@@ -259,18 +259,35 @@ import pandas as pd
 
 #Пропуски в данных
 
-dict_array={"age":[np.nan,24,35,18,61], 
-            "name":["Саша","Женя",np.nan,"Юля","Люля"],
-            "наличие авто":[np.nan,np.nan,np.nan,np.nan,np.nan]} 
+# dict_array={"age":[np.nan,24,35,18,61], 
+#             "name":["Саша","Женя",np.nan,"Юля","Люля"],
+#             "наличие авто":[np.nan,np.nan,np.nan,np.nan,np.nan]} 
 
-df=pd.DataFrame(dict_array)
-print(df.dropna())      #axis=0 (по умолчанию)-удаление строк
-# print(df.dropna(how='all',axis=1))
-print(df.dropna(subset=[1],axis=1))     
-print(df.fillna(value={"age":100,
-                       "name":"string",
-                       "наличие авто":False}))
-print(df.isna())
-print(df["age"].isna())
-print(df[~df["age"].isna()])            #только те строки, где в age нет пропуска
-print(df[df["name"].notna()])
+# df=pd.DataFrame(dict_array)
+# print(df.dropna())      #axis=0 (по умолчанию)-удаление строк
+# # print(df.dropna(how='all',axis=1))
+# print(df.dropna(subset=[1],axis=1))     
+# print(df.fillna(value={"age":100,
+#                        "name":"string",
+#                        "наличие авто":False}))
+# print(df.isna())
+# print(df["age"].isna())
+# print(df[~df["age"].isna()])            #только те строки, где в age нет пропуска
+# print(df[df["name"].notna()])
+
+
+#Удаление строк и столбцов
+
+df=pd.DataFrame({"col1":[5,6,3,np.nan,7],
+                   "col2":[27,6,7,40,70],
+                   "col3":[1,45,6,62,7]},
+                   index=["row1","row2","row3","row4","row5"])
+
+print(df.drop("row2"))
+print(df.drop(["col1","col2"],axis=1))
+print(df.drop(index="row1",columns="col2"))
+print(df.memory_usage())
+new_df=df.astype({"col2":np.int8})
+print(new_df.memory_usage())        #кол-во байтов на col2 уменьшилось
+print(new_df.info())
+print(df.info())

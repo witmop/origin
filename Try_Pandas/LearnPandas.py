@@ -278,16 +278,43 @@ import pandas as pd
 
 #Удаление строк и столбцов
 
-df=pd.DataFrame({"col1":[5,6,3,np.nan,7],
-                   "col2":[27,6,7,40,70],
-                   "col3":[1,45,6,62,7]},
-                   index=["row1","row2","row3","row4","row5"])
+# df=pd.DataFrame({"col1":[5,6,3,np.nan,7],
+#                    "col2":[27,6,7,40,70],
+#                    "col3":[1,45,6,62,7]},
+#                    index=["row1","row2","row3","row4","row5"])
 
-print(df.drop("row2"))
-print(df.drop(["col1","col2"],axis=1))
-print(df.drop(index="row1",columns="col2"))
-print(df.memory_usage())
-new_df=df.astype({"col2":np.int8})
-print(new_df.memory_usage())        #кол-во байтов на col2 уменьшилось
-print(new_df.info())
-print(df.info())
+# print(df.drop("row2"))
+# print(df.drop(["col1","col2"],axis=1))
+# print(df.drop(index="row1",columns="col2"))
+# print(df.memory_usage())
+# new_df=df.astype({"col2":np.int8})
+# print(new_df.memory_usage())        #кол-во байтов на col2 уменьшилось
+# print(new_df.info())                #стал занимать 297 байтов вместо 332   
+# print(df.info())    
+
+
+#Методы iat, at, iloc, loc
+
+dict_array={"age":np.random.randint(18,50,size=5), 
+            "name":["Саша","Женя","Маша","Юля","Люля"],
+            "наличие авто":[True,False,True,True,False]} 
+
+df=pd.DataFrame(dict_array,index=["row1","row2","row3","row4","row5"])
+
+print(df.iat[1,1])
+print(df["age"].iat[3])
+df.iat[4,1]="Кто-то"
+print(df)
+#df.at[] то же самое , но не по индексам, а по названияем
+
+print(df.iloc[1,1])
+print(df.iloc[df["наличие авто"].to_list(),[True,False,True]])
+df.iloc[1:3,[0]]=60
+print(df)
+#df.loc то же самое, но по названиеям
+
+print(df.loc[df["age"]==60])
+
+df.loc["row1":"row3",["age","name"]]=pd.DataFrame({"name":["Андрей","Вася","Буся"],
+                                                   "age":[22,34,35]},index=["row1","row2","row3"])
+print(df)

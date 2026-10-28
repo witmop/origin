@@ -295,26 +295,41 @@ import pandas as pd
 
 #Методы iat, at, iloc, loc
 
-dict_array={"age":np.random.randint(18,50,size=5), 
-            "name":["Саша","Женя","Маша","Юля","Люля"],
-            "наличие авто":[True,False,True,True,False]} 
+# dict_array={"age":np.random.randint(18,50,size=5), 
+#             "name":["Саша","Женя","Маша","Юля","Люля"],
+#             "наличие авто":[True,False,True,True,False]} 
 
-df=pd.DataFrame(dict_array,index=["row1","row2","row3","row4","row5"])
+# df=pd.DataFrame(dict_array,index=["row1","row2","row3","row4","row5"])
 
-print(df.iat[1,1])
-print(df["age"].iat[3])
-df.iat[4,1]="Кто-то"
-print(df)
-#df.at[] то же самое , но не по индексам, а по названияем
+# print(df.iat[1,1])
+# print(df["age"].iat[3])
+# df.iat[4,1]="Кто-то"
+# print(df)
+# #df.at[] то же самое , но не по индексам, а по названияем
 
-print(df.iloc[1,1])
-print(df.iloc[df["наличие авто"].to_list(),[True,False,True]])
-df.iloc[1:3,[0]]=60
-print(df)
-#df.loc то же самое, но по названиеям
+# print(df.iloc[1,1])
+# print(df.iloc[df["наличие авто"].to_list(),[True,False,True]])
+# df.iloc[1:3,[0]]=60
+# print(df)
+# #df.loc то же самое, но по названиеям
 
-print(df.loc[df["age"]==60])
+# print(df.loc[df["age"]==60])
 
-df.loc["row1":"row3",["age","name"]]=pd.DataFrame({"name":["Андрей","Вася","Буся"],
-                                                   "age":[22,34,35]},index=["row1","row2","row3"])
-print(df)
+# df.loc["row1":"row3",["age","name"]]=pd.DataFrame({"name":["Андрей","Вася","Буся"],
+#                                                    "age":[22,34,35]},index=["row1","row2","row3"])
+# print(df)
+
+
+#Полезные методы
+
+dict_array={"age":np.random.randint(18,50,size=7), 
+            "name":["Саша","Женя","Маша","Юля","Люля","Буся","Андрей"],
+            "наличие авто":[True,False,True,True,False,True,False]}
+
+df=pd.DataFrame(dict_array,index=["row1","row2","row3","row4","row5","row6","row7"])
+print(df["age"].unique())
+print(df.nunique())
+print(df.value_counts())        #по умолчанию строки с nan не считаются чтобы считалось нужно сделать dropna=False 
+print(df["наличие авто"].value_counts())
+print(df.value_counts(["name","наличие авто"],normalize=True))
+print(df.sort_values("name"))

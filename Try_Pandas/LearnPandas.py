@@ -345,15 +345,37 @@ import pandas as pd
 # print(df.apply(my_func))
 # print(df.apply(np.mean,axis=1))
 
-dict_array={"age":[53,27,92,18,15],
-            "name":["Фамилия_1 Имя_1",'Фамилия_2 Имя_2',"Фамилия_3 Имя_3 Отчество_3","Фамилия_4 Имя_4 Отчество_4","Фамилия_5 Имя_5"],
-            "наличие авто":[True,False,False,True,False]}
+# dict_array={"age":[53,27,92,18,15],
+#             "name":["Фамилия_1 Имя_1",'Фамилия_2 Имя_2',"Фамилия_3 Имя_3 Отчество_3","Фамилия_4 Имя_4 Отчество_4","Фамилия_5 Имя_5"],
+#             "наличие авто":[True,False,False,True,False]}
 
-df=pd.DataFrame(dict_array)
+# df=pd.DataFrame(dict_array)
 
-def get_patronymic(name):
-    name_split=name.split(" ")
-    return name_split[-1] if len(name_split)!=2 else np.nan
+# def get_patronymic(name):
+#     name_split=name.split(" ")
+#     return name_split[-1] if len(name_split)!=2 else np.nan
 
-df["patronymic"]=df["name"].apply(get_patronymic)
-print(df)
+# df["patronymic"]=df["name"].apply(get_patronymic)
+# print(df)
+
+
+#Агрегация данных   (превращение набора в одно значение)
+
+df=pd.DataFrame([[1,2,3],
+                 [4,5,6],
+                 [7,8,9],
+                 [np.nan,np.nan,np.nan]],columns=["col1","col2","col3"])
+
+print(df.min())
+print(df.mean())
+print(df.count())       #не учитывает nan
+print(df["col3"].sum())
+print(df.agg('mean'))
+def my_func(series):
+    return series.min()+100
+print(df.agg(my_func))
+print(df.agg([np.max,np.sum,np.mean]))
+print(df.agg(np.max,axis=1))        #по строкам
+print(df.agg({"col1":[np.min,np.max],
+              "col3":["mean"]}))
+print(df.agg(min_col1=("col1","min"),max_col2=("col2","max")))

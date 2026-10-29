@@ -361,21 +361,43 @@ import pandas as pd
 
 #Агрегация данных   (превращение набора в одно значение)
 
-df=pd.DataFrame([[1,2,3],
-                 [4,5,6],
-                 [7,8,9],
-                 [np.nan,np.nan,np.nan]],columns=["col1","col2","col3"])
+# df=pd.DataFrame([[1,2,3],
+#                  [4,5,6],
+#                  [7,8,9],
+#                  [np.nan,np.nan,np.nan]],columns=["col1","col2","col3"])
 
-print(df.min())
-print(df.mean())
-print(df.count())       #не учитывает nan
-print(df["col3"].sum())
-print(df.agg('mean'))
-def my_func(series):
-    return series.min()+100
-print(df.agg(my_func))
-print(df.agg([np.max,np.sum,np.mean]))
-print(df.agg(np.max,axis=1))        #по строкам
-print(df.agg({"col1":[np.min,np.max],
-              "col3":["mean"]}))
-print(df.agg(min_col1=("col1","min"),max_col2=("col2","max")))
+# print(df.min())
+# print(df.mean())
+# print(df.count())       #не учитывает nan
+# print(df["col3"].sum())
+# print(df.agg('mean'))
+# def my_func(series):
+#     return series.min()+100
+# print(df.agg(my_func))
+# print(df.agg([np.max,np.sum,np.mean]))
+# print(df.agg(np.max,axis=1))        #по строкам
+# print(df.agg({"col1":[np.min,np.max],
+#               "col3":["mean"]}))
+# print(df.agg(min_col1=("col1","min"),max_col2=("col2","max")))#именная агрегация
+
+
+#Группировка данных
+
+df=pd.DataFrame({"имя":["name1","name2","name3","name3","name3","name2","name4"],
+                 "город_работы":["city1","city2","city3","city3","city4","city1",np.nan],
+                 "как_долго_работал":[12,24,36,12,48,5,np.nan]})
+
+print(df)
+groups=df.groupby("имя")
+for name,group in groups:
+    print(name)
+    print(group,end="\n\n")
+
+print(df.groupby("город_работы").sum())         #можно передать dropna=False
+print(df.groupby("имя",as_index=False).sum())       #столбец name не стал индексом
+print(df.groupby("имя")["как_долго_работал"].sum())
+print(df.groupby(["имя","город_работы"],dropna=False).count().rename(columns={"как_долго_работал":"count"}))
+print(df.groupby("имя")["город_работы"].nunique())
+
+print(df.groupby("имя").agg({'как_долго_работал':[np.sum,np.max],
+                             "город_работы":"count"}))

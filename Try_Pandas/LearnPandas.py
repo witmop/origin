@@ -322,14 +322,38 @@ import pandas as pd
 
 #Полезные методы
 
-dict_array={"age":np.random.randint(18,50,size=7), 
-            "name":["Саша","Женя","Маша","Юля","Люля","Буся","Андрей"],
-            "наличие авто":[True,False,True,True,False,True,False]}
+# dict_array={"age":np.random.randint(18,50,size=7), 
+#             "name":["Саша","Женя","Маша","Юля","Люля","Буся","Андрей"],
+#             "наличие авто":[True,False,True,True,False,True,False]}
 
-df=pd.DataFrame(dict_array,index=["row1","row2","row3","row4","row5","row6","row7"])
-print(df["age"].unique())
-print(df.nunique())
-print(df.value_counts())        #по умолчанию строки с nan не считаются чтобы считалось нужно сделать dropna=False 
-print(df["наличие авто"].value_counts())
-print(df.value_counts(["name","наличие авто"],normalize=True))
-print(df.sort_values("name"))
+# df=pd.DataFrame(dict_array,index=["row1","row2","row3","row4","row5","row6","row7"])
+# print(df["age"].unique())
+# print(df.nunique())
+# print(df.value_counts())        #по умолчанию строки с nan не считаются чтобы считалось нужно сделать dropna=False 
+# print(df["наличие авто"].value_counts())
+# print(df.value_counts(["name","наличие авто"],normalize=True))
+# print(df.sort_values("name"))       #na_position="first" пропуски будут вначале
+
+
+#Метод apply()
+
+# dct={f"col_{i}":[i*1,i*2,i*3,i*4,i*5] if i!=3 else [i,i,i,i,i] for i in range(5)}
+# df=pd.DataFrame(dct)
+# print(df.apply(np.min))
+# def my_func(series):
+#     return (series*100) if series.name!="col_2" else series * 0
+# print(df.apply(my_func))
+# print(df.apply(np.mean,axis=1))
+
+dict_array={"age":[53,27,92,18,15],
+            "name":["Фамилия_1 Имя_1",'Фамилия_2 Имя_2',"Фамилия_3 Имя_3 Отчество_3","Фамилия_4 Имя_4 Отчество_4","Фамилия_5 Имя_5"],
+            "наличие авто":[True,False,False,True,False]}
+
+df=pd.DataFrame(dict_array)
+
+def get_patronymic(name):
+    name_split=name.split(" ")
+    return name_split[-1] if len(name_split)!=2 else np.nan
+
+df["patronymic"]=df["name"].apply(get_patronymic)
+print(df)

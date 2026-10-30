@@ -29,13 +29,20 @@
 
 ## 🆕 Что нового с прошлого обновления README
 
-Обновление от 23 октября 2026:
+Обновление от 30 октября 2026:
 
-- **NumPy: арифметические операции** (`Numpy/LearnNumpy.py`) — поэлементные арифметические действия, операторы `+`, `-`, `*`, `/`, `**`, сравнения, логические операции и broadcasting.
-- **NumPy: мультиндексы** (`Numpy/LearnNumpy.py`) — выборка элементов массива сразу по списку индексов.
-- **NumPy: столбцы, строки, срезы** (`Numpy/LearnNumpy.py`) — работа со срезами многомерных массивов, доступ к строкам и столбцам.
-- **NumPy: операции с индексами** (`Numpy/LearnNumpy.py`) — приёмы работы с индексированием при манипуляциях с массивами.
-- **NumPy: чтение и запись данных** (`Numpy/LearnNumpy.py`) — сохранение и загрузка массивов.
+- **pandas: операции сравнения** (`Try_Pandas/LearnPandas.py`) — поэлементное сравнение DataFrame и Series, операторы `>=` / `==`, методы `le` / `ge` / `eq` / `ne`, сравнение вдоль оси и `equals`.
+- **pandas: фильтрация данных** — булевы маски, `&` / `|` / `~`, `isin`, `query` (кириллические имена столбцов — в обратных кавычках).
+- **pandas: пропуски в данных** — `dropna` с `axis` / `how` / `subset`, `fillna` со словарём значений, `isna` / `notna`.
+- **pandas: удаление строк и столбцов** — `drop` по индексам и названиям, `memory_usage`, приведение типов через `astype`.
+- **pandas: методы `iat`, `at`, `iloc`, `loc`** — доступ по позициям и меткам, присваивание срезов и строк по булевой маске.
+- **pandas: полезные методы** — `unique`, `nunique`, `value_counts` (`normalize`, `dropna`), `sort_values` (`na_position`).
+- **pandas: метод `apply`** — свои функции к столбцам и строкам (`axis=1`), извлечение отчества из ФИО.
+- **pandas: агрегация** — `min` / `mean` / `count` / `sum`, `agg` со списком функций, словарём и именованными агрегатами.
+- **pandas: группировка** — `groupby` по одному и нескольким столбцам, `as_index`, `dropna`, итерация по группам, `nunique` и `agg`.
+- **pandas: объединение данных** — `concat` с `ignore_index`, `merge` с `how` (`left` / `right` / `inner` / `outer`), `left_on` / `right_on`, `suffixes`.
+- **pandas: скользящие окна** — `rolling` с `min_periods`, `sum` / `mean`, `agg` по столбцам и недельная агрегация продаж.
+- **pandas: работа с датами** — `parse_dates` в `read_csv`, `to_datetime` с `format`, доступ через `.dt`, `date_range` с `freq`.
 
 ## 📁 Структура
 
@@ -94,6 +101,7 @@
 |:--|:--|
 | `Numpy/LearnNumpy.py` | Конспект по NumPy (начат 16.10.2026), почти всё закомментировано как шпаргалка: типы данных и `dtype` / `sctypeDict`, создание массивов (`empty`, `eye`, `identity`, `zeros`, `ones`, `full`, `asmatrix`, `diag`, `diagflat`, `tri` / `tril` / `triu`, `arange`, `linspace`, `fromstring`, `fromfunction`), изменение формы (`reshape`, `view`, `ravel`, `resize`, `T`, `expand_dims`, `squeeze`, `np.newaxis`), объединение и разъединение (`hstack`, `vstack`, `column_stack`, `hsplit`, `vsplit`, `array_split`), доступ к элементам и булева индексация (`a[a>5]`, `flat`, выборка по списку индексов), операции со множествами (`any`, `isfinite`, `logical_and` / `or` / `not` / `xor`), математические функции (`sum` / `mean` с `axis`, `argmax` / `argmin`, `median`, `var`, `std`, `random` с `seed`), элементы линейной алгебры (`matmul`, `inner`, `outer`, `dot`, `matrix_rank`) и транслирование (`a1*b1+c1` без циклов и через `np.ix_`). |
 | `Numpy/numpy-100.py` | Решения задач из набора [100 NumPy Exercises](https://github.com/rougier/numpy-100). Индексированные массивы, `reshape`, срезы, Broadcasting, `datetime64`, `random`, матричная арифметика, генераторы. |
+| `Try_Pandas/LearnPandas.py` | Конспект по pandas (начат 20.10.2026), почти всё закомментировано как шпаргалка: `Series` и `DataFrame`, выравнивание индексов, чтение `read_csv` и запись `to_csv`, индексы и мультииндексы, работа со столбцами, арифметика, сравнение, фильтрация (`isin`, `query`), пропуски (`dropna` / `fillna`), `drop` и `astype`, доступ `iat` / `at` / `iloc` / `loc`, `unique` / `nunique` / `value_counts` / `sort_values`, `apply`, агрегация `agg`, `groupby`, объединение `concat` / `merge`, скользящие окна `rolling` и даты (`to_datetime`, `date_range`, `.dt`). |
 | `Try_Pandas/Учу pandas.py` | Чтение CSV, деление колонок на числовые и категориальные, фильтрация и очистка выбросов, стандартизация и нормализация, `value_counts`, объединение редких категорий, кодирование через `.cat.codes` и `get_dummies`, новые признаки (`Age`, `km_year`). |
 | `leetcode/13. Roman to Integer.py` | [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/) — перевод римского числа в арабское: сравнение соседних символов через стек, вычитание меньшего из большего. |
 | `leetcode/20.ValidParentheses.py` | [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) — проверка корректности скобок с помощью стека. |
@@ -150,6 +158,7 @@ python "leetcode/3727. Maximum Alternating Sum of Squares.py"
 
 # работа с данными (нужны pandas и matplotlib)
 python "Try_Pandas/Учу pandas.py"
+python Try_Pandas/LearnPandas.py        # конспект, почти всё закомментировано
 ```
 
 Для `Try_C++/` нужен компилятор, а не Python:
@@ -184,7 +193,7 @@ g++ -std=c++17 Try_C++/Calculator.cpp -o calculator
 - **Python** — основной язык
 - **C++** — база: `#include`, `main`, потоки `cin` / `cout`, ветвление `switch` (`Try_C++/`)
 - **NumPy** — массивы, векторные вычисления, `dtype` / `reshape` / broadcasting, `linalg` (`Numpy/`)
-- **pandas** — табличные данные: `groupby`, `pivot_table`, `crosstab`, `transform`
+- **pandas** — табличные данные: `Series` / `DataFrame`, индексация, фильтрация и пропуски, `groupby`, `merge` / `concat`, `rolling`, работа с датами
 - **seaborn** / **matplotlib** — визуализация
 - **stdlib** — `string`, `random`, `time`, `dataclasses.make_dataclass` — для консольных проектов и конспектов
 - **accessify** — декораторы `@private` / `@protected` для ООП-конспекта

@@ -383,21 +383,67 @@ import pandas as pd
 
 #Группировка данных
 
-df=pd.DataFrame({"имя":["name1","name2","name3","name3","name3","name2","name4"],
-                 "город_работы":["city1","city2","city3","city3","city4","city1",np.nan],
-                 "как_долго_работал":[12,24,36,12,48,5,np.nan]})
+# df=pd.DataFrame({"имя":["name1","name2","name3","name3","name3","name2","name4"],
+#                  "город_работы":["city1","city2","city3","city3","city4","city1",np.nan],
+#                  "как_долго_работал":[12,24,36,12,48,5,np.nan]})
 
-print(df)
-groups=df.groupby("имя")
-for name,group in groups:
-    print(name)
-    print(group,end="\n\n")
+# print(df)
+# groups=df.groupby("имя")
+# for name,group in groups:
+#     print(name)
+#     print(group,end="\n\n")
 
-print(df.groupby("город_работы").sum())         #можно передать dropna=False
-print(df.groupby("имя",as_index=False).sum())       #столбец name не стал индексом
-print(df.groupby("имя")["как_долго_работал"].sum())
-print(df.groupby(["имя","город_работы"],dropna=False).count().rename(columns={"как_долго_работал":"count"}))
-print(df.groupby("имя")["город_работы"].nunique())
+# print(df.groupby("город_работы").sum())         #можно передать dropna=False
+# print(df.groupby("имя",as_index=False).sum())       #столбец name не стал индексом
+# print(df.groupby("имя")["как_долго_работал"].sum())
+# print(df.groupby(["имя","город_работы"],dropna=False).count().rename(columns={"как_долго_работал":"count"}))
+# print(df.groupby("имя")["город_работы"].nunique())
 
-print(df.groupby("имя").agg({'как_долго_работал':[np.sum,np.max],
-                             "город_работы":"count"}))
+# print(df.groupby("имя").agg({'как_долго_работал':[np.sum,np.max],
+#                              "город_работы":"count"}))
+
+
+#Объединение данных
+
+# df1 = pd.DataFrame({"A": ["A0", "A1", "A2", "A3"],
+#                     "B": ["B0", "B1", "B2", "B3"],
+#                     "C": ["C0", "C1", "C2", "C3"],
+#                     "D": ["D0", "D1", "D2", "D3"]},
+#                    index=[0, 1, 2, 3])
+
+# df2 = pd.DataFrame({"A": ["A4", "A5", "A6", "A7"],
+#                     "B": ["B4", "B5", "B6", "B7"],
+#                     "C": ["C4", "C5", "C6", "C7"],
+#                     "D": ["D4", "D5", "D6", "D7"]},
+#                    index=[1, 2, 3, 4])
+
+# df3 = pd.DataFrame({"A": ["A8", "A9", "A10", "A11"],
+#                     "B": ["B8", "B9", "B10", "B11"],
+#                     "C": ["C8", "C9", "C10", "C11"],
+#                     "D": ["D8", "D9", "D10", "D11"]},
+#                    index=[2, 3, 4, 5])
+
+# print(pd.concat([df1,df2,df3],ignore_index=True))
+
+# df_1 = pd.DataFrame({'client_id': [100103, 21990, 455323, 100103, 21990, 455323, 455323, 21990, 455323],
+#                      'product': ['product_2', 'product_2', 'product_1', 'product_1', 'product_1', 'product_3',"product_3","product_3","product_3"]})
+
+# df_2 = pd.DataFrame({'product': ['product_1', 'product_2', 'product_3', 'product_4', 'product_5'],
+#                      'price': [1000, 2000, 3000, 4000, 5000]})
+
+# print(df_1.merge(df_2,how="left"))
+# print(df_1.merge(df_2,how="right"))
+# print(df_1.merge(df_2,how="inner"))     #объединится только то, что есть в обоих DF (общие ищутся в общем столбце product)
+# print(df_1.merge(df_2,how="outer"))     #объединяется всё
+# #df_1.merge(df_2,how="inner",on="product") если несколько одинаковых столбцов, то можно указать по какому будет объединение
+
+# df_1.rename(columns={"product":"prod"},inplace=True)
+# print(df_1.merge(df_2,how="left",left_on=["prod"],right_on=["product"]))
+
+df_1 = pd.DataFrame({'product': ['product_1', 'product_2', 'product_3', 'product_4', 'product_5'],
+                     'count': [10, 20, 30, 40, 50]})
+
+df_2 = pd.DataFrame({'product': ['product_3', 'product_4', 'product_5', 'product_6', 'product_7'],
+                     'count': [100, 200, 300, 400, 500]})
+
+print(df_1.merge(df_2,how="outer",on="product",suffixes=["_shop_left","_shop_right"]))

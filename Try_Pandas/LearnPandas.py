@@ -451,19 +451,32 @@ import pandas as pd
 
 #Скользящие окна
 
-df_date=pd.DataFrame({"col1":[0,1,2,3,4],
-                      "col2":[90,91,92,93,94]})
-print(df_date)
-for window in df_date.rolling(3):
-    print(window,end="\n\n")
+# df_date=pd.DataFrame({"col1":[0,1,2,3,4],
+#                       "col2":[90,91,92,93,94]})
+# print(df_date)
+# for window in df_date.rolling(3):
+#     print(window,end="\n\n")
 
-print(df_date.rolling(3).sum())
-print(df_date.rolling(3,min_periods=1).mean())      #min_periods минимальное кол-во наблюдение в окне при котором будет вовзращаться nan(то есть если ширина <1, то будет возращаться nan)
-print(df_date.rolling(2).agg({"col1":"sum",
-                              "col2":'mean'}))
+# print(df_date.rolling(3).sum())
+# print(df_date.rolling(3,min_periods=1).mean())      #min_periods минимальное кол-во наблюдение в окне при котором будет вовзращаться nan(то есть если ширина <1, то будет возращаться nan)
+# print(df_date.rolling(2).agg({"col1":"sum",
+#                               "col2":'mean'}))
 
-df=pd.DataFrame({"sales":np.random.randint(0,50,100)},index=pd.date_range("2023",periods=100))
-df_roll=df.rolling(7,min_periods=1).agg({"sales":["mean","max","sum","min"]})
-df_roll.reset_index(inplace=True)
-df_roll["weekday"]=df_roll["index"].dt.dayofweek    
-print(df_roll[df_roll["weekday"]==6])
+# df=pd.DataFrame({"sales":np.random.randint(0,50,100)},index=pd.date_range("2023",periods=100))
+# df_roll=df.rolling(7,min_periods=1).agg({"sales":["mean","max","sum","min"]})
+# df_roll.reset_index(inplace=True)
+# df_roll["weekday"]=df_roll["index"].dt.dayofweek    
+# print(df_roll[df_roll["weekday"]==6])
+
+
+#Работа с датами
+
+#pd.read_csv("file_name",parse_dates=["название столбца, значения которого нужно превратить в дату"])
+#df_date.astype({"название столбца":"datetime64[ns]"})          ещё один способ
+#pd.to_datetime("2017-02-19",format="%Y-%m-%d")           передаётся строка или серия (format)-нужно знать коды
+
+#df_date["day_name"]=df_date["date"].dr.dat_name()
+
+date=pd.date_range("2023-03-10",periods=10,freq="ME")       #freq задаёт идти по дням, месяцам или годам
+print(date)
+print(pd.date_range("2023-03-10","2024-01-01",freq="ME"))

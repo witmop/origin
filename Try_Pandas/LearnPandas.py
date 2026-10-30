@@ -440,10 +440,30 @@ import pandas as pd
 # df_1.rename(columns={"product":"prod"},inplace=True)
 # print(df_1.merge(df_2,how="left",left_on=["prod"],right_on=["product"]))
 
-df_1 = pd.DataFrame({'product': ['product_1', 'product_2', 'product_3', 'product_4', 'product_5'],
-                     'count': [10, 20, 30, 40, 50]})
+# df_1 = pd.DataFrame({'product': ['product_1', 'product_2', 'product_3', 'product_4', 'product_5'],
+#                      'count': [10, 20, 30, 40, 50]})
 
-df_2 = pd.DataFrame({'product': ['product_3', 'product_4', 'product_5', 'product_6', 'product_7'],
-                     'count': [100, 200, 300, 400, 500]})
+# df_2 = pd.DataFrame({'product': ['product_3', 'product_4', 'product_5', 'product_6', 'product_7'],
+#                      'count': [100, 200, 300, 400, 500]})
 
-print(df_1.merge(df_2,how="outer",on="product",suffixes=["_shop_left","_shop_right"]))
+# print(df_1.merge(df_2,how="outer",on="product",suffixes=["_shop_left","_shop_right"]))      #так как название count одинаковое то по умолчанию в итоговом df будет count_x и count_y их также можно переименовать
+
+
+#Скользящие окна
+
+df_date=pd.DataFrame({"col1":[0,1,2,3,4],
+                      "col2":[90,91,92,93,94]})
+print(df_date)
+for window in df_date.rolling(3):
+    print(window,end="\n\n")
+
+print(df_date.rolling(3).sum())
+print(df_date.rolling(3,min_periods=1).mean())      #min_periods минимальное кол-во наблюдение в окне при котором будет вовзращаться nan(то есть если ширина <1, то будет возращаться nan)
+print(df_date.rolling(2).agg({"col1":"sum",
+                              "col2":'mean'}))
+
+df=pd.DataFrame({"sales":np.random.randint(0,50,100)},index=pd.date_range("2023",periods=100))
+df_roll=df.rolling(7,min_periods=1).agg({"sales":["mean","max","sum","min"]})
+df_roll.reset_index(inplace=True)
+df_roll["weekday"]=df_roll["index"].dt.dayofweek    
+print(df_roll[df_roll["weekday"]==6])

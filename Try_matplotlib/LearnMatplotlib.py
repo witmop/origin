@@ -1,6 +1,7 @@
 import matplotlib
 import matplotlib.pyplot as plt 
 import numpy as np
+from matplotlib.gridspec import GridSpec
 
 # print(matplotlib.get_backend())
 
@@ -32,11 +33,55 @@ import numpy as np
 # plt.grid()      
 # plt.show()
 
-x=np.arange(-2*np.pi,2*np.pi,0.1)
-y=np.cos(x)
-plt.plot(x,y)
-plt.fill_between(x,y,where=(y<0),color="r",alpha=0.5)
-plt.fill_between(x,y,where=(y>0),color="b",alpha=0.5)
+# x=np.arange(-2*np.pi,2*np.pi,0.1)
+# y=np.cos(x)
+# plt.plot(x,y)
+# plt.fill_between(x,y,where=(y<0),color="r",alpha=0.5)
+# plt.fill_between(x,y,where=(y>0),color="b",alpha=0.5)
 
-plt.grid()
+# plt.grid()
+# plt.show()
+
+
+#Отображение нескольких координатных осей
+
+# plt.subplot(2,3,1)      #1 строка 3 столбца индекс графика 1
+# plt.plot(np.random.random(10))
+# plt.subplot(2,3,2) #==232
+# plt.plot(np.random.random(10))
+# plt.subplot(2,3,3)
+# plt.plot(np.random.random(10))
+# # plt.grid()          #применится только к последнему графику
+# plt.subplot(2,1,2)
+# plt.plot(np.random.random(10))
+
+# plt.show()
+# fig=plt.figure(figsize=(7,4))
+# ax1=fig.add_axes([0.0,0,1.0,1.0])       #ось в разммер окна
+# ax1.plot(np.arange(0,5,0.5))
+
+
+# f,ax=plt.subplots(2,2)      #разбивка 2 строки и 2 столбца
+# f.set_size_inches(7,4)
+# f.set_facecolor("darkred")
+
+# ax[0,0].plot(np.arange(0,5,0.2))
+# ax[0,0].grid()
+
+# ax[0,1].plot(np.arange(5,0,-0.2))
+# ax[0,1].grid()
+# plt.show()
+
+ws=[1,2,5]
+hs=[2,0.5]      #компановка осей, какую часть относительно других клеток занимает клетка
+fig=plt.figure(figsize=(7,4))
+
+gs=GridSpec(ncols=3,nrows=2,figure=fig,width_ratios=ws,height_ratios=hs)
+ax1=plt.subplot(gs[0,0])
+ax1.plot(np.arange(0,5,0.2))
+ax2=fig.add_subplot(gs[1,0:2])
+ax2.plot(np.random.random(10))
+ax3=fig.add_subplot(gs[:,2])
+ax3.plot(np.random.random(10))
+
 plt.show()

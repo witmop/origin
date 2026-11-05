@@ -116,19 +116,33 @@ import matplotlib.ticker as mtc
 
 #Формат отображения
 
-def format_func(x,pos):
-    return f"[{x}]" if x<0 else f"({x})"
+# def format_func(x,pos):
+#     return f"[{x}]" if x<0 else f"({x})"
 
-fig=plt.figure(figsize=(7,4))
-ax=fig.add_subplot()
-x=np.arange(-np.pi/2,np.pi,0.1)
-ax.plot(x,np.sin(x))
+# fig=plt.figure(figsize=(7,4))
+# ax=fig.add_subplot()
+# x=np.arange(-np.pi/2,np.pi,0.1)
+# ax.plot(x,np.sin(x))
 # ax.xaxis.set_major_formatter(mtc.NullFormatter())     пропадут значения по Ox
 # ax.yaxis.set_major_formatter(mtc.FormatStrFormatter("%d"))      #округление чисел
 # ax.yaxis.set_major_formatter(mtc.FuncFormatter(format_func))        #можно вставить свою функцию
 # ax.yaxis.set_major_formatter(mtc.ScalarFormatter())     #выносит большную степень например 10**10(по умолчанию) можно сделать .set_power_limits()
-ax.yaxis.set_major_formatter(mtc.FixedFormatter(["a","b","c","d","g"]))    #как назвать отображаемые значения
+# ax.yaxis.set_major_formatter(mtc.FixedFormatter(["a","b","c","d","g"]))    #как назвать отображаемые значения
 
+
+# plt.grid()
+# plt.show() 
+
+
+#Логарифмический масштаб
+
+fig=plt.figure(figsize=(7,4))
+ax=fig.add_subplot()
+x=np.arange(-10*np.pi,10*np.pi,0.5)
+y=np.sinc(x)*np.exp(-abs(x/10))
+# ax.semilogy(x,y)        #логарифмический мастштаб по оси y 
+ax.plot(x,y)
+ax.set_yscale("log",base=10,subs=[2,9])        #логарифмический масштаб с основанием 10
 
 plt.grid()
-plt.show() 
+plt.show()

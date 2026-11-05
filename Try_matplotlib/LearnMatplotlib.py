@@ -2,6 +2,7 @@ import matplotlib
 import matplotlib.pyplot as plt 
 import numpy as np
 from matplotlib.gridspec import GridSpec
+from matplotlib.ticker import NullLocator,LinearLocator,MultipleLocator,IndexLocator,FixedLocator,LogLocator
 
 # print(matplotlib.get_backend())
 
@@ -72,16 +73,41 @@ from matplotlib.gridspec import GridSpec
 # ax[0,1].grid()
 # plt.show()
 
-ws=[1,2,5]
-hs=[2,0.5]      #компановка осей, какую часть относительно других клеток занимает клетка
-fig=plt.figure(figsize=(7,4))
+# ws=[1,2,5]
+# hs=[2,0.5]      #компановка осей, какую часть относительно других клеток занимает клетка
+# fig=plt.figure(figsize=(7,4))
 
-gs=GridSpec(ncols=3,nrows=2,figure=fig,width_ratios=ws,height_ratios=hs)
-ax1=plt.subplot(gs[0,0])
-ax1.plot(np.arange(0,5,0.2))
-ax2=fig.add_subplot(gs[1,0:2])
-ax2.plot(np.random.random(10))
-ax3=fig.add_subplot(gs[:,2])
-ax3.plot(np.random.random(10))
+# gs=GridSpec(ncols=3,nrows=2,figure=fig,width_ratios=ws,height_ratios=hs)
+# ax1=plt.subplot(gs[0,0])
+# ax1.plot(np.arange(0,5,0.2))
+# ax2=fig.add_subplot(gs[1,0:2])
+# ax2.plot(np.random.random(10))
+# ax3=fig.add_subplot(gs[:,2])
+# ax3.plot(np.random.random(10))
+
+# plt.show()
+
+
+#Граничные значения, метки осей
+
+fig=plt.figure(figsize=(7,4))
+ax=fig.add_subplot()
+# ax.plot(np.arange(1,5,0.25))
+# ax.set(xlim=(-5,30),ylim=(-1,6))    #или ax.set_xlim(xmin=,xmax=)
+# ax.grid()
+# ax.yaxis.set_major_locator(NullLocator())      #ушли горизонтальные линии
+# ax.yaxis.set_major_locator(LinearLocator(10))     #ось y разбилась на 10 равных частей
+# ax.xaxis.set_major_locator(MultipleLocator(2.5))  #через какое знач будет стоять метка
+
+x=np.arange(-np.pi/2,np.pi,0.1)
+ax.plot(x,np.sin(x))
+# ax.grid()
+# ax.xaxis.set_major_locator(IndexLocator(base=0.5,offset=0.57))      #как Multiple, но можно задать начальное значение
+#FixedLocator([1,3,5,-2])   конкретные точки
+# ax.xaxis.set_major_locator(LogLocator(base=2))      #логарифмический масштаб
+#MaxNLocator(5)  максимальное кол-во рисок (необязательно будет 5), он будет будет подбирать удобное кол-во, чтобы были ровные числа
+ax.minorticks_on()
+ax.grid(which="major",lw=2)
+ax.grid(which="minor")
 
 plt.show()

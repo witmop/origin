@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.gridspec import GridSpec
 from matplotlib.ticker import NullLocator,LinearLocator,MultipleLocator,IndexLocator,FixedLocator,LogLocator
+import matplotlib.ticker as mtc
 
 # print(matplotlib.get_backend())
 
@@ -90,8 +91,8 @@ from matplotlib.ticker import NullLocator,LinearLocator,MultipleLocator,IndexLoc
 
 #Граничные значения, метки осей
 
-fig=plt.figure(figsize=(7,4))
-ax=fig.add_subplot()
+# fig=plt.figure(figsize=(7,4))
+# ax=fig.add_subplot()
 # ax.plot(np.arange(1,5,0.25))
 # ax.set(xlim=(-5,30),ylim=(-1,6))    #или ax.set_xlim(xmin=,xmax=)
 # ax.grid()
@@ -99,15 +100,35 @@ ax=fig.add_subplot()
 # ax.yaxis.set_major_locator(LinearLocator(10))     #ось y разбилась на 10 равных частей
 # ax.xaxis.set_major_locator(MultipleLocator(2.5))  #через какое знач будет стоять метка
 
-x=np.arange(-np.pi/2,np.pi,0.1)
-ax.plot(x,np.sin(x))
+# x=np.arange(-np.pi/2,np.pi,0.1)
+# ax.plot(x,np.sin(x))
 # ax.grid()
 # ax.xaxis.set_major_locator(IndexLocator(base=0.5,offset=0.57))      #как Multiple, но можно задать начальное значение
 #FixedLocator([1,3,5,-2])   конкретные точки
 # ax.xaxis.set_major_locator(LogLocator(base=2))      #логарифмический масштаб
 #MaxNLocator(5)  максимальное кол-во рисок (необязательно будет 5), он будет будет подбирать удобное кол-во, чтобы были ровные числа
-ax.minorticks_on()
-ax.grid(which="major",lw=2)
-ax.grid(which="minor")
+# ax.minorticks_on()  #включение доп сетки
+# ax.grid(which="major",lw=2)
+# ax.grid(which="minor")  #ax.xaxis.set_minor_locator(...)
 
-plt.show()
+# plt.show()
+
+
+#Формат отображения
+
+def format_func(x,pos):
+    return f"[{x}]" if x<0 else f"({x})"
+
+fig=plt.figure(figsize=(7,4))
+ax=fig.add_subplot()
+x=np.arange(-np.pi/2,np.pi,0.1)
+ax.plot(x,np.sin(x))
+# ax.xaxis.set_major_formatter(mtc.NullFormatter())     пропадут значения по Ox
+# ax.yaxis.set_major_formatter(mtc.FormatStrFormatter("%d"))      #округление чисел
+# ax.yaxis.set_major_formatter(mtc.FuncFormatter(format_func))        #можно вставить свою функцию
+# ax.yaxis.set_major_formatter(mtc.ScalarFormatter())     #выносит большную степень например 10**10(по умолчанию) можно сделать .set_power_limits()
+ax.yaxis.set_major_formatter(mtc.FixedFormatter(["a","b","c","d","g"]))    #как назвать отображаемые значения
+
+
+plt.grid()
+plt.show() 

@@ -172,17 +172,47 @@ import matplotlib.patches as ptc
 
 #Легенда и фигуры на графиках
 
-fig=plt.figure(figsize=(7,4))
+# fig=plt.figure(figsize=(7,4))
+# ax=fig.add_subplot()
+
+# l1=Line2D([1,2,5],[2,5,8])
+# rect=ptc.Rectangle((0,0),10,5,facecolor="darkgreen")
+
+# ax.plot(np.arange(0,5,0.25),"--o",label="line 1")
+# ax.plot(np.arange(0,10,0.5),":s",label = "line 2")
+# ax.add_line(l1)
+# #если add_line - единственный график, то нужно указать ax.set(xlim=(...),ylim=(...)) иначе на графике будут значение по умолчанию от 0 до 1
+# ax.add_patch(rect)
+
+# plt.legend(["1","2"],bbox_to_anchor=(0.2,0.7),framealpha=0.5)       #label игнорируется
+# plt.show()  
+
+
+#Виды графиков
+
+fig=plt.figure(figsize=(10,5))
 ax=fig.add_subplot()
 
-l1=Line2D([1,2,5],[2,5,8])
-rect=ptc.Rectangle((0,0),10,5,facecolor="darkgreen")
+#Ступенчатый график
+# x=np.arange(0,10)
+# ax.step(x,x)    #where=(...)
 
-ax.plot(np.arange(0,5,0.25),"--o",label="line 1")
-ax.plot(np.arange(0,10,0.5),":s",label = "line 2")
-ax.add_line(l1)
-#если add_line - единственный график, то нужно указать ax.set(xlim=(...),ylim=(...)) иначе на графике будут значение по умолчанию от 0 до 1
-ax.add_patch(rect)
+#Стековый график
+x=np.arange(-2,2,0.1)
+# y1=np.array([-y**2 for y in x]) + 8
+# y2=np.array([-y**2 for y in x]) + 8
+# y3=np.array([-y**2 for y in x]) + 8
+# ax.stackplot(x,y1,y2,y3)
 
-plt.legend(["1","2"],bbox_to_anchor=(0.2,0.7),framealpha=0.5)       #label игнорируется
-plt.show()  
+#Stem график
+# x=np.arange(-np.pi,np.pi,0.2)
+# y=np.cos(x)
+# ax.stem(x,y,"--r",bottom=0.3)
+
+#Scatter график
+x=np.random.normal(0,2,100)
+y=np.random.normal(0,2,100)
+ax.scatter(x,y,s=50,c="g",linewidth=1,marker="s",edgecolors="r")
+
+plt.grid()
+plt.show()

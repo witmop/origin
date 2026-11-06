@@ -136,13 +136,33 @@ import matplotlib.ticker as mtc
 
 #Логарифмический масштаб
 
-fig=plt.figure(figsize=(7,4))
-ax=fig.add_subplot()
-x=np.arange(-10*np.pi,10*np.pi,0.5)
-y=np.sinc(x)*np.exp(-abs(x/10))
-# ax.semilogy(x,y)        #логарифмический мастштаб по оси y 
-ax.plot(x,y)
-ax.set_yscale("log",base=10,subs=[2,9])        #логарифмический масштаб с основанием 10
+# fig=plt.figure(figsize=(7,4))
+# ax=fig.add_subplot()
+# x=np.arange(-10*np.pi,10*np.pi,0.5)
+# y=np.sinc(x)*np.exp(-abs(x/10))
+# # ax.semilogy(x,y)        #логарифмический мастштаб по оси y 
+# ax.plot(x,y)
+# ax.set_yscale("log",base=10,subs=[2,9])        #логарифмический масштаб с основанием 10
 
+# plt.grid()
+# plt.show()
+
+
+#Оформление графиков
+fig=plt.figure(figsize=(7,4),facecolor="#eee")      #или fig.set(facecolor="...")
+ax=fig.add_subplot()
+plt.figtext(0.5,0.5,"Текст в середине окна",fontsize=13,color="darkred")
+
+x=np.arange(-5,5,0.1)
+y1=x**2+1
+y2=(x*10)**0.5
+ax.plot(x,y1,x,y2)
+ax.annotate("Аннотация",xy=(-2,2),xytext=(-3,10),
+            arrowprops={"facecolor":"grey","shrink":0.1})
+ax.text(-4,25,"Текст в коорд. осях",bbox={"boxstyle":"darrow","facecolor":"blue"})
+ax.set(facecolor="darkgreen",alpha=0.5)
+
+plt.xlabel("Ox")
+plt.title("Заголовк")
 plt.grid()
 plt.show()

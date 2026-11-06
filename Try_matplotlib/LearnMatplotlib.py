@@ -4,6 +4,8 @@ import numpy as np
 from matplotlib.gridspec import GridSpec
 from matplotlib.ticker import NullLocator,LinearLocator,MultipleLocator,IndexLocator,FixedLocator,LogLocator
 import matplotlib.ticker as mtc
+from matplotlib.lines import Line2D
+import matplotlib.patches as ptc 
 
 # print(matplotlib.get_backend())
 
@@ -149,20 +151,38 @@ import matplotlib.ticker as mtc
 
 
 #Оформление графиков
-fig=plt.figure(figsize=(7,4),facecolor="#eee")      #или fig.set(facecolor="...")
+# fig=plt.figure(figsize=(7,4),facecolor="#eee")      #или fig.set(facecolor="...")
+# ax=fig.add_subplot()
+# plt.figtext(0.5,0.5,"Текст в середине окна",fontsize=13,color="darkred")
+
+# x=np.arange(-5,5,0.1)
+# y1=x**2+1
+# y2=(x*10)**0.5
+# ax.plot(x,y1,x,y2)
+# ax.annotate("Аннотация",xy=(-2,2),xytext=(-3,10),
+#             arrowprops={"facecolor":"grey","shrink":0.1})
+# ax.text(-4,25,"Текст в коорд. осях",bbox={"boxstyle":"darrow","facecolor":"blue"})
+# ax.set(facecolor="darkgreen")
+
+# plt.xlabel("Ox")
+# plt.title("Заголовк")
+# plt.grid()
+# plt.show()
+
+
+#Легенда и фигуры на графиках
+
+fig=plt.figure(figsize=(7,4))
 ax=fig.add_subplot()
-plt.figtext(0.5,0.5,"Текст в середине окна",fontsize=13,color="darkred")
 
-x=np.arange(-5,5,0.1)
-y1=x**2+1
-y2=(x*10)**0.5
-ax.plot(x,y1,x,y2)
-ax.annotate("Аннотация",xy=(-2,2),xytext=(-3,10),
-            arrowprops={"facecolor":"grey","shrink":0.1})
-ax.text(-4,25,"Текст в коорд. осях",bbox={"boxstyle":"darrow","facecolor":"blue"})
-ax.set(facecolor="darkgreen",alpha=0.5)
+l1=Line2D([1,2,5],[2,5,8])
+rect=ptc.Rectangle((0,0),10,5,facecolor="darkgreen")
 
-plt.xlabel("Ox")
-plt.title("Заголовк")
-plt.grid()
-plt.show()
+ax.plot(np.arange(0,5,0.25),"--o",label="line 1")
+ax.plot(np.arange(0,10,0.5),":s",label = "line 2")
+ax.add_line(l1)
+#если add_line - единственный график, то нужно указать ax.set(xlim=(...),ylim=(...)) иначе на графике будут значение по умолчанию от 0 до 1
+ax.add_patch(rect)
+
+plt.legend(["1","2"],bbox_to_anchor=(0.2,0.7),framealpha=0.5)       #label игнорируется
+plt.show()  

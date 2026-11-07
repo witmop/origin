@@ -35,7 +35,7 @@
 
 - **pandas: очистка DataFrame** (`Try_Pandas/cleaning_df.py`) — `drop_duplicates`, `dropna(ignore_index=True)`, фильтрация аномалий через `between` и булевы маски, `reset_index`, переименование столбцов, новые признаки `Age` / `km_year`, `map` для трансмиссии, категории пробега через `apply`, объединение редких марок в `Rare` (доля ≤ 1%) и сохранение результата в `cars_process.csv`.
 - **matplotlib: первый конспект** (`Try_matplotlib/LearnMatplotlib.py`) — `plot` со стилями линий и маркеров, `fill_between`, несколько осей (`subplot`, `subplots`, `add_axes`, `GridSpec` с `width_ratios` / `height_ratios`), локаторы (`NullLocator`, `LinearLocator`, `MultipleLocator`, `IndexLocator`, `FixedLocator`, `LogLocator`, `MaxNLocator`), форматтеры (`NullFormatter`, `FormatStrFormatter`, `FuncFormatter`, `ScalarFormatter`, `FixedFormatter`), логарифмический масштаб (`semilogy`, `set_yscale`), оформление (`annotate`, `text`, `figtext`, фон и подписи), легенда и фигуры (`Line2D`, `Rectangle`, `add_line`, `add_patch`) и виды графиков (`step`, `stackplot`, `stem`, `scatter`).
-- **requests: первые запросы к API** (`Requests/server_requests.py`) — POST / PUT / DELETE / GET через `requests`, JSON-payload и заголовки `Authorization: Bearer`, `Accept`, `Content-Type` на примере API Weeek.
+- **requests: первые запросы к API** (`Requests/server_requests.py`) — POST / PUT / DELETE / GET через `requests`, JSON-payload и заголовки `Authorization: Bearer`, `Accept`, `Content-Type` на примере API Weeek. Токен читается из переменной окружения `WEEEK_TOKEN`, в коде его нет.
 - **C++: калькулятор на `if / else`** (`Try_C++/Calculator_v2.cpp`) — `float`, ввод двух чисел и знака операции, цепочка `if / else if`, отдельная проверка деления на ноль.
 - **C++: случайные числа** (`Try_C++/Learn_C++.cpp`) — `srand(time(NULL))`, `rand() % 20` и диапазон `1..20`.
 - **LeetCode: 2558 и 1385** — `pickGifts` (жадно берём подарки из самой большой кучи, `int(sqrt(max))`) и `findTheDistanceValue` (проверка расстояния между элементами двух массивов с запоминанием уже проверенных значений).
@@ -103,7 +103,7 @@
 | `Try_Pandas/Учу pandas.py` | Чтение CSV, деление колонок на числовые и категориальные, фильтрация и очистка выбросов, стандартизация и нормализация, `value_counts`, объединение редких категорий, кодирование через `.cat.codes` и `get_dummies`, новые признаки (`Age`, `km_year`). |
 | `Try_Pandas/cleaning_df.py` | Пайплайн очистки датасета: удаление дубликатов и пропусков, фильтрация аномалий через `between` (год, пробег, объём двигателя, цена), `reset_index`, переименование столбцов, новые признаки `Age` / `km_year`, `map` для трансмиссии, категории пробега через `apply`, редкие марки → `Rare` и сохранение в `cars_process.csv`. |
 | `Try_matplotlib/LearnMatplotlib.py` | Конспект по matplotlib (начат 04.11.2026), почти всё закомментировано как шпаргалка: `plot` и стили линий / маркеров, `fill_between`, несколько осей (`subplot`, `subplots`, `add_axes`, `GridSpec`), пределы и локаторы (`NullLocator`, `LinearLocator`, `MultipleLocator`, `IndexLocator`, `FixedLocator`, `LogLocator`, `MaxNLocator`, minor ticks), форматтеры (`NullFormatter`, `FormatStrFormatter`, `FuncFormatter`, `ScalarFormatter`, `FixedFormatter`), логарифмический масштаб (`semilogy`, `set_yscale`), оформление (`figtext`, `annotate`, `text`, фон и подписи), легенда и фигуры (`Line2D`, `Rectangle`, `add_line`, `add_patch`) и виды графиков (`step`, `stackplot`, `stem`, `scatter`). |
-| `Requests/server_requests.py` | Первые запросы к API Weeek через `requests`: POST / PUT / DELETE / GET, JSON-payload, заголовки `Authorization: Bearer`, `Accept` и `Content-Type`. Все запросы закомментированы — включайте нужный блок. |
+| `Requests/server_requests.py` | Первые запросы к API Weeek через `requests`: POST / PUT / DELETE / GET, JSON-payload, заголовки `Authorization: Bearer`, `Accept` и `Content-Type`. Токен берётся из переменной окружения `WEEEK_TOKEN`. Все запросы закомментированы — включайте нужный блок. |
 | `leetcode/13. Roman to Integer.py` | [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/) — перевод римского числа в арабское: сравнение соседних символов через стек, вычитание меньшего из большего. |
 | `leetcode/20.ValidParentheses.py` | [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) — проверка корректности скобок с помощью стека. |
 | `leetcode/28._Find_the_Index...py` | [28. Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) — поиск первого вхождения подстроки. |
@@ -168,7 +168,8 @@ python Try_Pandas/cleaning_df.py        # чистит cars.csv и пишет ca
 python Try_Pandas/LearnPandas.py        # конспект, почти всё закомментировано
 python Try_matplotlib/LearnMatplotlib.py  # конспект, почти всё закомментировано
 
-# запросы к API (нужен requests)
+# запросы к API (нужен requests; токен — в WEEEK_TOKEN)
+export WEEEK_TOKEN="ваш_токен"          # Windows PowerShell: $env:WEEEK_TOKEN="ваш_токен"
 python Requests/server_requests.py      # все запросы закомментированы — включите нужный блок
 ```
 
@@ -200,9 +201,9 @@ g++ -std=c++17 Try_C++/Learn_C++.cpp -o random_numbers
 > **Про `Learn_C++.cpp`.** Если компилятор не видит `srand` / `time`, добавьте `#include <ctime>` —
 > в комментарии к файлу это тоже отмечено.
 
-> **Про токен в `Requests/server_requests.py`.** Токен вписан прямо в код и закомментирован
-> вместе с запросами. Для реальных проектов его стоит хранить в переменной окружения или
-> `.env`, а не в репозитории.
+> **Про токен в `Requests/server_requests.py`.** Токен читается из переменной окружения
+> `WEEEK_TOKEN`, поэтому в коде и репозитории его нет. Перед запуском задайте переменную:
+> `export WEEEK_TOKEN="..."` в Linux/macOS или `$env:WEEEK_TOKEN="..."` в PowerShell.
 
 > **Про кодировки имён.** В путях есть кириллица, а в двух именах файлов — невидимый
 > подвох: в `сars_no_dup.csv` и `Encryption Сaesar.py` первая буква — кириллическая
@@ -241,7 +242,8 @@ g++ -std=c++17 Try_C++/Learn_C++.cpp -o random_numbers
 - [x] Настроить сборку C++ в VS Code (`g++` через `tasks.json`, сам `.vscode/` в `.gitignore`)
 - [ ] Разобраться с отладкой C++ в VS Code
 - [ ] Продолжить matplotlib: 3D-графики, сохранение в файлы, свои стили
-- [ ] Доделать `Requests/`: вынести токен в переменные окружения и обработать коды ответов
+- [x] Вынести токен Weeek в переменную окружения `WEEEK_TOKEN` (в коде секретов нет)
+- [ ] Доделать `Requests/`: обработать коды ответов и ошибки
 
 ## 📚 Источники
 

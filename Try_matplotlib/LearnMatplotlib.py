@@ -190,15 +190,15 @@ import matplotlib.patches as ptc
 
 #Виды графиков
 
-fig=plt.figure(figsize=(10,5))
-ax=fig.add_subplot()
+# fig=plt.figure(figsize=(10,5))
+# ax=fig.add_subplot()
 
 #Ступенчатый график
 # x=np.arange(0,10)
 # ax.step(x,x)    #where=(...)
 
 #Стековый график
-x=np.arange(-2,2,0.1)
+# x=np.arange(-2,2,0.1)
 # y1=np.array([-y**2 for y in x]) + 8
 # y2=np.array([-y**2 for y in x]) + 8
 # y3=np.array([-y**2 for y in x]) + 8
@@ -210,9 +210,38 @@ x=np.arange(-2,2,0.1)
 # ax.stem(x,y,"--r",bottom=0.3)
 
 #Scatter график
-x=np.random.normal(0,2,100)
-y=np.random.normal(0,2,100)
-ax.scatter(x,y,s=50,c="g",linewidth=1,marker="s",edgecolors="r")
+# x=np.random.normal(0,2,100)
+# y=np.random.normal(0,2,100)
+# ax.scatter(x,y,s=50,c="g",linewidth=1,marker="s",edgecolors="r")
 
-plt.grid()
+# plt.grid()
+# plt.show()
+
+
+#Гистограммы, столбчатые, круговвые диаграммы
+
+fig=plt.figure(figsize=(7,4))
+ax=fig.add_subplot()
+
+# x=np.random.normal(0,2,250)
+# ax.hist(x,50)       #второе знач. кол-во столбцов(интервалов)
+# x=[f"H{i+1}" for i in range(10)]
+# y=np.random.randint(-20,20,len(x))
+# ax.bar(x,y,width=0.5,linewidth=2,edgecolor="r",yerr=2,bottom=10)     #гистрограмма через bar
+# ax.grid()
+
+# x=np.arange(10)
+# y1=np.random.randint(3,20,len(x))
+# y2=np.random.randint(3,20,len(x))
+# w=0.3
+# ax.bar(x-w/2,y1,width=w)
+# ax.bar(x+w/2,y2,width=w)        #w нужно чтобы столбцы стояли рядом друг с другом
+
+# plt.show()
+
+vals=[10,40,23,30,5]
+labels=["BMW","Mersedes","Toyota","Citroen","KIA"]
+exp=(0.1,0.2,0,0,0)
+ax.pie(vals,labels=labels,explode=exp,shadow=True,autopct="%.2f",wedgeprops=dict(width=0.5))
+
 plt.show()

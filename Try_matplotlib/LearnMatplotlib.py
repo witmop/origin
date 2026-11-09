@@ -6,6 +6,7 @@ from matplotlib.ticker import NullLocator,LinearLocator,MultipleLocator,IndexLoc
 import matplotlib.ticker as mtc
 from matplotlib.lines import Line2D
 import matplotlib.patches as ptc 
+from PIL import Image
 
 # print(matplotlib.get_backend())
 
@@ -220,8 +221,8 @@ import matplotlib.patches as ptc
 
 #Гистограммы, столбчатые, круговвые диаграммы
 
-fig=plt.figure(figsize=(7,4))
-ax=fig.add_subplot()
+# fig=plt.figure(figsize=(7,4))
+# ax=fig.add_subplot()
 
 # x=np.random.normal(0,2,250)
 # ax.hist(x,50)       #второе знач. кол-во столбцов(интервалов)
@@ -239,9 +240,28 @@ ax=fig.add_subplot()
 
 # plt.show()
 
-vals=[10,40,23,30,5]
-labels=["BMW","Mersedes","Toyota","Citroen","KIA"]
-exp=(0.1,0.2,0,0,0)
-ax.pie(vals,labels=labels,explode=exp,shadow=True,autopct="%.2f",wedgeprops=dict(width=0.5))
+# vals=[10,40,23,30,5]
+# labels=["BMW","Mersedes","Toyota","Citroen","KIA"]
+# exp=(0.1,0.2,0,0,0)
+# ax.pie(vals,labels=labels,explode=exp,shadow=True,autopct="%.2f",wedgeprops=dict(width=0.5))
+
+# plt.show()
+
+
+#Показ изображений и цветовых сеток
+
+#img=Image.open("panda.png")        #если сделать np.arange(Image.open("..."))  то к изображению можно будет применять cmap
+
+#plt.imshow(img)        
+#plt.show()
+
+data=np.random.randint(0,255,(100,100))
+
+# pict=plt.imshow(data,cmap="magma",origin="lower",aspect="equal",alpha=0.7)  #origin=lower переворачиват изображение 
+# plt.colorbar(pict)
+
+# plt.show()
+
+plt.pcolormesh(data,edgecolor="black")
 
 plt.show()

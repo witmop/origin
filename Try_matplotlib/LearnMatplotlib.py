@@ -7,6 +7,7 @@ import matplotlib.ticker as mtc
 from matplotlib.lines import Line2D
 import matplotlib.patches as ptc 
 from PIL import Image
+from mpl_toolkits.mplot3d import Axes3D
 
 # print(matplotlib.get_backend())
 
@@ -255,13 +256,33 @@ from PIL import Image
 #plt.imshow(img)        
 #plt.show()
 
-data=np.random.randint(0,255,(100,100))
+# data=np.random.randint(0,255,(100,100))
 
 # pict=plt.imshow(data,cmap="magma",origin="lower",aspect="equal",alpha=0.7)  #origin=lower переворачиват изображение 
 # plt.colorbar(pict)
 
 # plt.show()
 
-plt.pcolormesh(data,edgecolor="black")
+# plt.pcolormesh(data,edgecolor="black")
+
+# plt.show()
+
+
+#Трёхмерные графики
+
+fig=plt.figure(figsize=(7,4))
+# ax_3d=Axes3D(fig)
+ax_3d=fig.add_subplot(projection="3d")
+# x=np.linspace(0,10,50)
+# z=np.cos(x)
+# ax_3d.plot(x,x,z)
+# ax_3d.set_xlabel("Ox")
+# ax_3d.set_ylabel("Oy")
+# ax_3d.set_zlabel("Oz")
+x=np.arange(-2*np.pi,2*np.pi,0.2)
+y=np.arange(-2*np.pi,2*np.pi,0.2)
+xgrid,ygrid=np.meshgrid(x,y)
+zgrid=np.sin(xgrid)*np.sin(ygrid)/(xgrid*ygrid)
+ax_3d.plot_surface(xgrid,ygrid,zgrid,rstride=5,cstride=5,cmap="magma")   #или plot_wireframe
 
 plt.show()

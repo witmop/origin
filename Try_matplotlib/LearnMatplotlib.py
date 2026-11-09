@@ -8,6 +8,8 @@ from matplotlib.lines import Line2D
 import matplotlib.patches as ptc 
 from PIL import Image
 from mpl_toolkits.mplot3d import Axes3D
+import time
+from matplotlib.animation import FuncAnimation
 
 # print(matplotlib.get_backend())
 
@@ -270,19 +272,56 @@ from mpl_toolkits.mplot3d import Axes3D
 
 #Трёхмерные графики
 
-fig=plt.figure(figsize=(7,4))
+# fig=plt.figure(figsize=(7,4))
 # ax_3d=Axes3D(fig)
-ax_3d=fig.add_subplot(projection="3d")
+# ax_3d=fig.add_subplot(projection="3d")
 # x=np.linspace(0,10,50)
 # z=np.cos(x)
 # ax_3d.plot(x,x,z)
 # ax_3d.set_xlabel("Ox")
 # ax_3d.set_ylabel("Oy")
 # ax_3d.set_zlabel("Oz")
-x=np.arange(-2*np.pi,2*np.pi,0.2)
-y=np.arange(-2*np.pi,2*np.pi,0.2)
-xgrid,ygrid=np.meshgrid(x,y)
-zgrid=np.sin(xgrid)*np.sin(ygrid)/(xgrid*ygrid)
-ax_3d.plot_surface(xgrid,ygrid,zgrid,rstride=5,cstride=5,cmap="magma")   #или plot_wireframe
+# x=np.arange(-2*np.pi,2*np.pi,0.2)
+# y=np.arange(-2*np.pi,2*np.pi,0.2)
+# xgrid,ygrid=np.meshgrid(x,y)
+# zgrid=np.sin(xgrid)*np.sin(ygrid)/(xgrid*ygrid)
+# ax_3d.plot_surface(xgrid,ygrid,zgrid,rstride=5,cstride=5,cmap="magma")   #или plot_wireframe
 
+# plt.show()
+
+
+#Анимации графиков
+
+def update_cos(frame,line,x):
+    line.set_ydata(np.cos(x+frame))
+    return [line]
+
+phasa=np.arange(0,4*np.pi,0.1)
+plt.ion()
+fig,ax=plt.subplots()
+
+x=np.arange(-2*np.pi,2*np.pi,0.1)
+y=np.cos(x)
+line,=ax.plot(x,y)
+
+# for delay in np.arange(0,np.pi,0.1):
+#     y=np.cos(x+delay)
+
+#     line.set_ydata(y)
+
+#     plt.draw()
+#     plt.gcf().canvas.flush_events()
+#     time.sleep(0.02)
+
+animation=FuncAnimation(
+    fig,
+    func=update_cos,
+    frames=phasa,
+    fargs=(line,x),
+    interval=30,
+    blit=True,
+    repeat=False)
+
+plt.ioff()
 plt.show()
+

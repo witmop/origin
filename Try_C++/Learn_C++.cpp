@@ -11,19 +11,30 @@ using namespace std;
 // }
 
 // Циклы
+// int main(){
+//     for (int i=0;i<12;i+=2){
+//         cout<<"Cycles for: "<<i<<endl;
+//     }
+//     int j=1;
+//     while (j<33){
+//         j*=2;
+//         cout<<"Cycles while: "<<j<<endl;
+//     }
+//     int k=100;
+//     do {            //отличие от while в том что цикл в любом случае сработает хотя бы 1 раз
+//         k-=10;
+//         cout<<"Cycles do while: "<<k<<endl; 
+//     } while(k<10);
+//     return 0;
+// }
+
+
+// Операторы в циклах
 int main(){
-    for (int i=0;i<12;i+=2){
-        cout<<"Cycles for: "<<i<<endl;
+    for (int i=0;i<15;i+=2){
+        cout<<"EL: "<<i<<endl;
+        // if (i==10){
+        //     break;
+        // }
     }
-    int j=1;
-    while (j<33){
-        j*=2;
-        cout<<"Cycles while: "<<j<<endl;
-    }
-    int k=100;
-    do {            //отличие от while в том что цикл в любом случае сработает хотя бы 1 раз
-        k-=10;
-        cout<<"Cycles do while: "<<k<<endl; 
-    } while(k<10);
-    return 0;
 }

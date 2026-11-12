@@ -1,5 +1,6 @@
 // Вывод случайных чисел
 #include <iostream>
+#include <cmath>
 // Если возникает ошибка возможно нужно #include <time.h>
 using namespace std;
 
@@ -30,11 +31,51 @@ using namespace std;
 
 
 // Операторы в циклах
+// int main(){
+//     for (int i=0;i<15;i+=2){
+//         cout<<"EL: "<<i<<endl;
+//         // if (i==10){
+//         //     break;
+//         // }
+//     }
+// }
+
+
+// Массивы в данных
+
+// int main(){
+//     int nums[3];
+//     for (int i=0;i<3;i++){
+//         nums[i]=pow(i,2);
+//         cout<<nums[i]<<endl;
+//     }
+//     float nums2[3]={228,322,52};
+//     cout<<nums2[0]<<endl;
+
+//     float numbers[5];
+//     for (int i=0;i<5;i++){
+//     cout<<"Enter number: "<<endl;
+//     cin>>numbers[i];
+//     }
+//     int nums_sum=0;
+//     float min=numbers[0];
+//     for (int el=0; el<5;el++){
+//         nums_sum+=numbers[el];
+//         if (numbers[el]<min){
+//             min=numbers[el];
+//         }
+//     }
+//     cout<<"Сумма "<<nums_sum<<endl;
+//     cout<<"Минимальное число "<<min<<endl;
+//     return 0;
+
+// }
+
+
+// Многомерные массивы
+
 int main(){
-    for (int i=0;i<15;i+=2){
-        cout<<"EL: "<<i<<endl;
-        // if (i==10){
-        //     break;
-        // }
-    }
+    int matrix[3][2]={{1,2},{3,4},{5,6}};
+    cout<<matrix[0][1]<<endl;
+    return 0;
 }

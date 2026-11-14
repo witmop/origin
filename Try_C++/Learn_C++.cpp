@@ -74,8 +74,19 @@ using namespace std;
 
 // Многомерные массивы
 
+// int main(){
+//     int matrix[3][2]={{1,2},{3,4},{5,6}};
+//     cout<<matrix[0][1]<<endl;
+//     return 0;
+// }
+
+
+// Динамический массив данных
+
 int main(){
-    int matrix[3][2]={{1,2},{3,4},{5,6}};
-    cout<<matrix[0][1]<<endl;
+    int *nums=new int[3];
+    nums[0]=45;
+    cout<<nums[0]<<endl;
     return 0;
+
 }

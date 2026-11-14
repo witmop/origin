@@ -1,6 +1,7 @@
 // Вывод случайных чисел
 #include <iostream>
 #include <cmath>
+#include <string>
 // Если возникает ошибка возможно нужно #include <time.h>
 using namespace std;
 
@@ -83,10 +84,29 @@ using namespace std;
 
 // Динамический массив данных
 
-int main(){
-    int *nums=new int[3];
-    nums[0]=45;
-    cout<<nums[0]<<endl;
-    return 0;
+// int main(){
+//     int *nums=new int[3];   // выделили память
+//     nums[0]=45;
+//     cout<<nums[0]<<endl;
+//     delete[] nums;        // очистка памяти или просто delete nums если переменная
 
+//     return 0;
+
+// }
+
+
+// Работа со строками и символами
+
+int main(){
+    char word[]={'H','i'};  //так бы пришлось делать в C
+    for (int i=0;i<2;i++){
+        cout<<word[i];
+    }
+    cout<<endl;
+    string words = "Hello world!";
+    cout<<words<<endl;
+    cout<<words[1]<<endl;
+    getline(cin,words);
+    cout<<"New words: "<<words<<endl;
+    return 0;
 }

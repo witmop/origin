@@ -138,27 +138,64 @@ using namespace std;
 
 // Перегрузка функций
 
-void print(string word){
-    cout<<word<<endl;
-}
+// void print(string word){
+//     cout<<word<<endl;
+// }
 
-void print(int word){
-    cout<<word<<endl;
-}
+// void print(int word){
+//     cout<<word<<endl;
+// }
 
-void add (int a, int b){
-    int res = a+b;
-    print(res);
-}
+// void add (int a, int b){
+//     int res = a+b;
+//     print(res);
+// }
 
-void add(int a, int b, int c){
-    int res= a+b+c;
-    print(res);
+// void add(int a, int b, int c){
+//     int res= a+b+c;
+//     print(res);
+// }
+
+// int main(){
+//     print("some");
+//     add(5,10);
+//     add(11,11,11);
+//     return 0;
+// }
+
+
+// Указатели и ссылки
+
+// int main(){
+//     // Ссылки
+//     int num=10;
+//     int &a=num;     //теперь a не переменная, а ссылка(почти не занимает место), ссылка -указывает на ячейку, где хранятся данные
+//     cout<<&num<<endl;       // выводит ссылку на переменную
+//     cout<<&a<<endl;
+//     // Указатели
+//     int val=12;
+//     int *ptrval=&val;
+//     cout<<&val<<" - "<< val<<endl;
+//     cout<<ptrval<<" - "<<*ptrval<<endl;
+//     *ptrval=20;     // меняем знач. переменной
+//     ptrval=nullptr; //сбрасываем знач. указателя
+//     return 0;
+// }
+// Пример
+
+void minimal(int *arr,int len){            //если сделать (int arr[],int len) то кол-во занимаемой памяти увеличится в 2 раза
+    int min=*arr;       //если работаем с указателями, то в указатель передаётся не ввесь массив, а только первый элемент
+    for (int i=0; i<len;i++){
+        if (min>*(arr+i)){
+            min=*(arr+i);
+        }
+    }
+    cout<<"Minimal: "<<min<<endl;
 }
 
 int main(){
-    print("some");
-    add(5,10);
-    add(11,11,11);
+    int arr[]={5,7,4,5,-2};
+    minimal(arr,5);
+
     return 0;
 }

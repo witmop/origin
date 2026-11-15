@@ -97,16 +97,40 @@ using namespace std;
 
 // Работа со строками и символами
 
+// int main(){
+//     char word[]={'H','i'};  //так бы пришлось делать в C
+//     for (int i=0;i<2;i++){
+//         cout<<word[i];
+//     }
+//     cout<<endl;
+//     string words = "Hello world!";
+//     cout<<words<<endl;
+//     cout<<words[1]<<endl;
+//     getline(cin,words);
+//     cout<<"New words: "<<words<<endl;
+//     return 0;
+// }
+
+
+// Создание функций
+
+// void - если функция ничего не возвращает
+
+void print(string word);        // скелет функции (даёт возможность перенести саму функцию вниз)
+
+int add(int a,int b){
+    return a+b;
+}
+
 int main(){
-    char word[]={'H','i'};  //так бы пришлось делать в C
-    for (int i=0;i<2;i++){
-        cout<<word[i];
-    }
-    cout<<endl;
-    string words = "Hello world!";
-    cout<<words<<endl;
-    cout<<words[1]<<endl;
-    getline(cin,words);
-    cout<<"New words: "<<words<<endl;
+    string func_word="мир";
+    print("пир");       //или print(func_word) 
+    int result;
+    result=add(5,3);
+    cout<<result<<endl;
     return 0;
+}
+
+void print(string word="world"){    
+    cout<<"Hello "<<word<<endl;
 }

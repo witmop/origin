@@ -116,21 +116,49 @@ using namespace std;
 
 // void - если функция ничего не возвращает
 
-void print(string word);        // скелет функции (даёт возможность перенести саму функцию вниз)
+// void print(string word);        // скелет функции (даёт возможность перенести саму функцию вниз)
 
-int add(int a,int b){
-    return a+b;
+// int add(int a,int b){
+//     return a+b;
+// }
+
+// int main(){
+//     string func_word="мир";
+//     print("пир");       //или print(func_word) 
+//     int result;
+//     result=add(5,3);
+//     cout<<result<<endl;
+//     return 0;
+// }
+
+// void print(string word="world"){    
+//     cout<<"Hello "<<word<<endl;
+// }
+
+
+// Перегрузка функций
+
+void print(string word){
+    cout<<word<<endl;
+}
+
+void print(int word){
+    cout<<word<<endl;
+}
+
+void add (int a, int b){
+    int res = a+b;
+    print(res);
+}
+
+void add(int a, int b, int c){
+    int res= a+b+c;
+    print(res);
 }
 
 int main(){
-    string func_word="мир";
-    print("пир");       //или print(func_word) 
-    int result;
-    result=add(5,3);
-    cout<<result<<endl;
+    print("some");
+    add(5,10);
+    add(11,11,11);
     return 0;
-}
-
-void print(string word="world"){    
-    cout<<"Hello "<<word<<endl;
 }

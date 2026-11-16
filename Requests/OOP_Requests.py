@@ -72,6 +72,9 @@ class Teacher(Student):
         response = req.put(url = url,headers = self._headers,json = payload)
         print("Данные об уроке были изменены")
 
+    def delete_lesson(self, lesson_id:int) -> None: 
+        url = f"https://api.weeek.net/public/v1/tm/tasks/{lesson_id}"
+        response=req.delete(url = url, headers=self._headers)
 stud = Student("Иван", "Иванов", 1234)
 tech = Teacher("Василий", "Победоносный", 1000)
 stud.set_token(TOKEN, 9999)

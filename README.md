@@ -31,15 +31,16 @@
 
 ## 🆕 Что нового с прошлого обновления README
 
-Обновление от 12 ноября 2026:
+Обновление от 17 ноября 2026 (с 12 ноября добавлено 11 коммитов):
 
-- **matplotlib: гистограммы и диаграммы** (`Try_matplotlib/LearnMatplotlib.py`) — `hist` с числом интервалов, `bar` с `width` / `linewidth` / `edgecolor` / `yerr` / `bottom`, группировка столбцов через сдвиг `x ± w/2`, `pie` с `labels`, `explode`, `shadow`, `autopct` и `wedgeprops=dict(width=...)`.
-- **matplotlib: изображения и цветовые сетки** — `PIL.Image` и `imshow` (`cmap`, `origin`, `aspect`, `alpha`), `colorbar` для шкалы, `pcolormesh` с `edgecolor`; к изображению тоже можно применять `cmap`.
-- **matplotlib: 3D-графики** — `Axes3D` и `add_subplot(projection="3d")`, 3D-`plot`, `meshgrid` + `plot_surface` (`rstride`, `cstride`, `cmap`) и `plot_wireframe`, подписи осей `set_xlabel` / `set_ylabel` / `set_zlabel`.
-- **matplotlib: анимации** — `FuncAnimation` (`frames`, `fargs`, `interval`, `blit`, `repeat`), `plt.ion` / `plt.ioff`, обновление линии через `set_ydata`, а также ручной вариант с `plt.draw()`, `canvas.flush_events()` и `time.sleep`.
-- **C++: циклы и операторы** (`Try_C++/Learn_C++.cpp`) — `for`, `while`, `do-while` (тело выполняется хотя бы один раз), операторы в циклах (`break` в комментарии); примеры со случайными числами остались закомментированными.
-- **C++: игра «Угадай число»** (`Try_C++/Random_Num.cpp`) — случайное число от 1 до 100 через `srand(time(NULL))` / `rand()`, цикл `while (!stop)`, ввод через `cin` и подсказки «больше / меньше» до совпадения.
-- **LeetCode: 443. String Compression** — сжатие списка символов на месте: подсчёт серий одинаковых символов, запись символа и цифр счётчика в исходный список, возврат новой длины.
+- **C++: массивы и строки** (`Try_C++/Learn_C++.cpp`) — обычные и многомерные массивы, выделение памяти через `new int[3]` и освобождение через `delete[]`, символы `char` и `string`, индексация, `getline(cin, ...)`; старые примеры остаются в файле закомментированными шпаргалками.
+- **C++: функции и перегрузка** (`Try_C++/Learn_C++.cpp`) — прототип функции перед `main`, `void`, аргумент по умолчанию (`print(string word="world")`), несколько версий `print` и `add` с разным набором параметров.
+- **C++: указатели и ссылки** (`Try_C++/Learn_C++.cpp`) — ссылка `int &a = num`, оператор `&` (адрес) и `*` (разыменование), `nullptr`; рабочий пример `minimal(int *arr, int len)` ищет минимум в массиве через указатель.
+- **C++: сортировка пузырьком** (`Try_C++/BubbleSort.cpp`) — ввод `n` строк, сортировка `string` через `swap` с досрочным выходом по флагу `swapped`, вывод отсортированного списка и самого длинного слова.
+- **C++: гигиена репозитория** (`.gitignore`) — скомпилированный бинарник `Try_C++/Learn_C++` удалён из Git, а теперь весь `Try_C++/` игнорируется, кроме `*.cpp`, чтобы бинарники больше не попадали в коммиты.
+- **pandas + ML: обучение модели** (`Try_Pandas/learn_model.py`) — загрузка очищенного CSV, удаление бесполезных колонок, `get_dummies` для категорий, разбиение `train_test_split`, обучение `RandomForestRegressor`, метрики MAE / MAPE на train и validation, топ-5 важных признаков.
+- **Requests: ООП и API Weeek** (`Requests/OOP_Requests.py`) — классы `Student` и `Teacher` (наследование), приватный пароль и проверка через `__check_pass`, установка токена через `set_token`, `check_schedule` (GET), а также `create_lesson` (POST), `update_lesson` (PUT) и `delete_lesson` (DELETE). Значения токена и паролей в примере — заглушки.
+- **Прошлые обновления** (matplotlib, циклы C++, игра «Угадай число», задача 443) остались в истории коммитов.
 
 ## 📁 Структура
 
@@ -47,10 +48,10 @@
 ├── Numpy/                # задачи на NumPy и конспект LearnNumpy.py
 ├── Projects/             # консольные программы: игры, генератор паролей, шифр Цезаря
 ├── Python ООП/           # конспект по объектно-ориентированному Python (LearnOOP.py)
-├── Requests/             # первые запросы к API через библиотеку requests
-├── Try_C++/              # первые программы на C++: циклы, калькуляторы, игра
+├── Requests/             # запросы к API Weeek: server_requests.py и ООП-обвязка OOP_Requests.py
+├── Try_C++/              # C++: калькуляторы, игра, массивы, функции, указатели, сортировка
 ├── Try_matplotlib/       # конспект по matplotlib: графики и оформление
-├── Try_Pandas/           # работа с табличными данными: скрипты и CSV
+├── Try_Pandas/           # табличные данные, очистка CSV и обучение модели
 ├── leetcode/             # решённые задачи LeetCode
 ├── hello.html + style.css
 └── .gitignore
@@ -103,8 +104,10 @@
 | `Try_Pandas/LearnPandas.py` | Конспект по pandas (начат 20.10.2026), почти всё закомментировано как шпаргалка: `Series` и `DataFrame`, выравнивание индексов, чтение `read_csv` и запись `to_csv`, индексы и мультииндексы, работа со столбцами, арифметика, сравнение, фильтрация (`isin`, `query`), пропуски (`dropna` / `fillna`), `drop` и `astype`, доступ `iat` / `at` / `iloc` / `loc`, `unique` / `nunique` / `value_counts` / `sort_values`, `apply`, агрегация `agg`, `groupby`, объединение `concat` / `merge`, скользящие окна `rolling` и даты (`to_datetime`, `date_range`, `.dt`). |
 | `Try_Pandas/Учу pandas.py` | Чтение CSV, деление колонок на числовые и категориальные, фильтрация и очистка выбросов, стандартизация и нормализация, `value_counts`, объединение редких категорий, кодирование через `.cat.codes` и `get_dummies`, новые признаки (`Age`, `km_year`). |
 | `Try_Pandas/cleaning_df.py` | Пайплайн очистки датасета: удаление дубликатов и пропусков, фильтрация аномалий через `between` (год, пробег, объём двигателя, цена), `reset_index`, переименование столбцов, новые признаки `Age` / `km_year`, `map` для трансмиссии, категории пробега через `apply`, редкие марки → `Rare` и сохранение в `cars_process.csv`. |
+| `Try_Pandas/learn_model.py` | Обучение модели на очищенных данных: `read_csv("clean_df.csv")`, удаление `Color` / `ID`, one-hot кодирование категорий через `get_dummies`, `train_test_split` (80/20), `RandomForestRegressor` (50 деревьев, `max_features=0.3`), метрики `mean_absolute_error` / `mean_absolute_percentage_error` для train и validation и топ-5 признаков через `feature_importances_`. `catboost` импортируется, но пока не используется. |
 | `Try_matplotlib/LearnMatplotlib.py` | Конспект по matplotlib (начат 04.11.2026), почти всё закомментировано как шпаргалка: `plot` и стили линий / маркеров, `fill_between`, несколько осей (`subplot`, `subplots`, `add_axes`, `GridSpec`), пределы и локаторы (`NullLocator`, `LinearLocator`, `MultipleLocator`, `IndexLocator`, `FixedLocator`, `LogLocator`, `MaxNLocator`, minor ticks), форматтеры (`NullFormatter`, `FormatStrFormatter`, `FuncFormatter`, `ScalarFormatter`, `FixedFormatter`), логарифмический масштаб (`semilogy`, `set_yscale`), оформление (`figtext`, `annotate`, `text`, фон и подписи), легенда и фигуры (`Line2D`, `Rectangle`, `add_line`, `add_patch`), виды графиков (`step`, `stackplot`, `stem`, `scatter`), гистограммы и диаграммы (`hist`, `bar`, `pie`), изображения и цветовые сетки (`PIL.Image`, `imshow`, `colorbar`, `pcolormesh`), 3D-графики (`Axes3D`, `plot_surface`, `plot_wireframe`, `meshgrid`) и анимации (`FuncAnimation`, `ion` / `ioff`, `set_ydata`, `flush_events`). |
 | `Requests/server_requests.py` | Первые запросы к API Weeek через `requests`: POST / PUT / DELETE / GET, JSON-payload, заголовки `Authorization: Bearer`, `Accept` и `Content-Type`. Токен берётся из переменной окружения `WEEEK_TOKEN`. Все запросы закомментированы — включайте нужный блок. |
+| `Requests/OOP_Requests.py` | Тот же API Weeek, но с классами: `Student` (приватный пароль, `set_token`, `change_name`, `info`, `check_schedule` через GET) и `Teacher` (наследует `Student`, добавляет `create_lesson` / `update_lesson` / `delete_lesson` — POST / PUT / DELETE). Токен и пароли внизу файла пока заглушки, реальных секретов в коде нет. |
 | `leetcode/13. Roman to Integer.py` | [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/) — перевод римского числа в арабское: сравнение соседних символов через стек, вычитание меньшего из большего. |
 | `leetcode/20.ValidParentheses.py` | [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) — проверка корректности скобок с помощью стека. |
 | `leetcode/28._Find_the_Index...py` | [28. Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) — поиск первого вхождения подстроки. |
@@ -118,7 +121,8 @@
 | `Try_C++/FirstProgramm.cpp` | Первая программа на C++: `#include` / `using namespace std`, `int main(int argc, const char *argv[])`, вывод через `cout`, пауза через `cin.get()`, код возврата `return 0`. |
 | `Try_C++/Calculator.cpp` | Первый «полезный» калькулятор на C++: `cin` для двух чисел и знака операции, `switch` по операциям, отдельная проверка деления на ноль, вывод через `cout`. |
 | `Try_C++/Calculator_v2.cpp` | Тот же калькулятор, но через `if / else if`: `float` для чисел, проверка деления на ноль и обработка некорректного знака операции. |
-| `Try_C++/Learn_C++.cpp` | Циклы `for` / `while` / `do-while`, операторы в циклах (`break` в комментарии), а также закомментированные примеры случайных чисел (`srand(time(NULL))`, `rand() % 20`). |
+| `Try_C++/Learn_C++.cpp` | Конспект по C++: циклы `for` / `while` / `do-while`, массивы (обычные, многомерные, динамические через `new` / `delete[]`), строки (`char[]`, `string`, `getline`), функции и их перегрузка, указатели и ссылки; рабочий пример — поиск минимума в массиве функцией `minimal(int *arr, int len)`. Большинство блоков закомментировано как шпаргалка. |
+| `Try_C++/BubbleSort.cpp` | Сортировка пузырьком массива строк: ввод `n` строк в `new string[n]`, обмен через `swap`, досрочный выход по флагу `swapped`, вывод отсортированных строк и самого длинного слова. Файл — фрагмент без `#include` / `using namespace std`: для запуска их нужно добавить. |
 | `Try_C++/Random_Num.cpp` | Игра «Угадай число»: `srand(time(NULL))`, число от 1 до 100, цикл `while (!stop)`, `cin`, подсказки «больше / меньше» и выход при совпадении. |
 | `hello.html` + `style.css` | Первая HTML-страница: минимум разметки, чтобы не забыть, как это выглядит. |
 | `Try_Pandas/cars.csv`, `сars_no_dup.csv` | Датасет с характеристиками автомобилей и его версия без дубликатов; `cleaning_df.py` сохраняет очищенную версию в `cars_process.csv`. |
@@ -138,7 +142,7 @@ python -m venv .venv
 # Linux/macOS: source .venv/bin/activate
 
 # 3. Установить зависимости
-pip install numpy pandas seaborn matplotlib requests pillow accessify
+pip install numpy pandas seaborn matplotlib requests pillow accessify scikit-learn catboost
 ```
 
 Запуск по желанию:
@@ -169,12 +173,14 @@ python "leetcode/3727. Maximum Alternating Sum of Squares.py"
 # работа с данными (нужны pandas и matplotlib)
 python "Try_Pandas/Учу pandas.py"
 python Try_Pandas/cleaning_df.py        # чистит cars.csv и пишет cars_process.csv
+python Try_Pandas/learn_model.py        # обучение RandomForest (нужны scikit-learn и clean_df.csv)
 python Try_Pandas/LearnPandas.py        # конспект, почти всё закомментировано
 python Try_matplotlib/LearnMatplotlib.py  # конспект; в конце запускается анимация
 
-# запросы к API (нужен requests; токен — в WEEEK_TOKEN)
+# запросы к API (нужен requests; токен — в WEEEK_TOKEN для server_requests.py)
 export WEEEK_TOKEN="ваш_токен"          # Windows PowerShell: $env:WEEEK_TOKEN="ваш_токен"
 python Requests/server_requests.py      # все запросы закомментированы — включите нужный блок
+python Requests/OOP_Requests.py         # пример с Student / Teacher, токен и пароли-заглушки
 ```
 
 Для `Try_C++/` нужен компилятор, а не Python:
@@ -200,6 +206,10 @@ g++ -std=c++17 Try_C++/Learn_C++.cpp -o learn_cpp
 # игра «Угадай число»
 g++ -std=c++17 Try_C++/Random_Num.cpp -o random_num
 ./random_num
+
+# сортировка пузырьком (в файле пока нет #include и using namespace std — добавьте перед компиляцией)
+g++ -std=c++17 Try_C++/BubbleSort.cpp -o bubble_sort
+./bubble_sort
 ```
 
 > **Про русский текст в консоли C++.** Подсказки в `Calculator.cpp`, `Calculator_v2.cpp` и `Random_Num.cpp` написаны по-русски,
@@ -212,6 +222,18 @@ g++ -std=c++17 Try_C++/Random_Num.cpp -o random_num
 > **Про токен в `Requests/server_requests.py`.** Токен читается из переменной окружения
 > `WEEEK_TOKEN`, поэтому в коде и репозитории его нет. Перед запуском задайте переменную:
 > `export WEEEK_TOKEN="..."` в Linux/macOS или `$env:WEEEK_TOKEN="..."` в PowerShell.
+> В `Requests/OOP_Requests.py` токен пока берётся из строки `TOKEN = "set your token"`,
+> а пароли заданы прямо в коде — это учебные заглушки; перед реальным использованием
+> стоит переделать их на ввод / переменные окружения.
+
+> **Про `Try_Pandas/learn_model.py`.** Скрипт ожидает файл `clean_df.csv` в текущей
+> папке (сейчас в репозитории есть `cars.csv` и `сars_no_dup.csv`, а `cleaning_df.py`
+> сохраняет `cars_process.csv`) — имя нужно привести к одному виду. Для импорта
+> также нужны `scikit-learn` и `catboost`, хотя по факту обучается только `RandomForestRegressor`.
+
+> **Про бинарники C++.** В `.gitignore` добавлены строки `/Try_C++/*` и
+> `!/Try_C++/*.cpp`: скомпилированные программы в Git больше не попадают,
+> в репозитории остаются только исходники `.cpp`.
 
 > **Про кодировки имён.** В путях есть кириллица, а в двух именах файлов — невидимый
 > подвох: в `сars_no_dup.csv` и `Encryption Сaesar.py` первая буква — кириллическая
@@ -226,13 +248,15 @@ g++ -std=c++17 Try_C++/Random_Num.cpp -o random_num
 ## 🛠 Стек и инструменты
 
 - **Python** — основной язык
-- **C++** — база: `#include`, `main`, потоки `cin` / `cout`, ветвление `switch` / `if-else`, циклы `for` / `while` / `do-while`, `srand` / `rand` (`Try_C++/`)
+- **C++** — база: `#include`, `main`, потоки `cin` / `cout`, ветвление `switch` / `if-else`, циклы `for` / `while` / `do-while`, `srand` / `rand`, массивы и `new` / `delete[]`, `string`, функции и перегрузка, указатели и ссылки, сортировка пузырьком (`Try_C++/`)
 - **NumPy** — массивы, векторные вычисления, `dtype` / `reshape` / broadcasting, `linalg` (`Numpy/`)
-- **pandas** — табличные данные: `Series` / `DataFrame`, индексация, фильтрация и пропуски, `groupby`, `merge` / `concat`, `rolling`, работа с датами, очистка датасета (`Try_Pandas/`)
+- **pandas** — табличные данные: `Series` / `DataFrame`, индексация, фильтрация и пропуски, `groupby`, `merge` / `concat`, `rolling`, работа с датами, очистка датасета и подготовка признаков (`get_dummies`) для модели (`Try_Pandas/`)
 - **matplotlib** — графики: `plot`, `subplot` / `GridSpec`, локаторы и форматтеры, логарифмический масштаб, легенды, `step` / `stackplot` / `stem` / `scatter`, гистограммы и диаграммы (`hist` / `bar` / `pie`), изображения (`imshow` / `pcolormesh` / `colorbar`), 3D (`Axes3D` / `plot_surface` / `plot_wireframe`) и анимации (`FuncAnimation`) (`Try_matplotlib/`)
 - **seaborn** — визуализация поверх matplotlib
 - **Pillow** — загрузка изображений для `imshow` (`PIL.Image.open`)
-- **requests** — HTTP-запросы `GET` / `POST` / `PUT` / `DELETE`, JSON и заголовки авторизации (`Requests/`)
+- **requests** — HTTP-запросы `GET` / `POST` / `PUT` / `DELETE`, JSON и заголовки авторизации, обёртка в классы `Student` / `Teacher` (`Requests/`)
+- **scikit-learn** — `train_test_split`, `RandomForestRegressor`, метрики MAE / MAPE и важность признаков (`Try_Pandas/learn_model.py`)
+- **catboost** — пока только импорт в `learn_model.py`, модель на нём ещё не обучалась
 - **stdlib** — `string`, `random`, `time`, `dataclasses.make_dataclass` — для консольных проектов и конспектов
 - **accessify** — декораторы `@private` / `@protected` для ООП-конспекта
 - **VS Code** + `venv` — рабочее окружение
@@ -249,11 +273,16 @@ g++ -std=c++17 Try_C++/Random_Num.cpp -o random_num
 - [ ] Переписать ООП-конспект в тесты
 - [ ] Продолжить `Try_C++/`: от компиляции через терминал к своим задачам
 - [x] C++: циклы `for` / `while` / `do-while`, `break` и игра «Угадай число»
+- [x] C++: массивы, строки, функции и перегрузка, указатели и ссылки, пузырьковая сортировка
 - [x] Настроить сборку C++ в VS Code (`g++` через `tasks.json`, сам `.vscode/` в `.gitignore`)
+- [x] Исключить скомпилированные бинарники C++ из Git через `.gitignore`
 - [ ] Разобраться с отладкой C++ в VS Code
 - [ ] Продолжить matplotlib: сохранение в файлы, свои стили и интерактивные графики
 - [x] Вынести токен Weeek в переменную окружения `WEEEK_TOKEN` (в коде секретов нет)
+- [x] ООП для API Weeek: классы `Student` / `Teacher` и все четыре HTTP-метода в `OOP_Requests.py`
+- [ ] Убрать заглушки токена и паролей из `OOP_Requests.py`: читать их из окружения / ввода
 - [ ] Доделать `Requests/`: обработать коды ответов и ошибки
+- [ ] Привести `learn_model.py` к запуску: согласовать имя `clean_df.csv` с выходом `cleaning_df.py`
 
 ## 📚 Источники
 
@@ -266,6 +295,7 @@ g++ -std=c++17 Try_C++/Random_Num.cpp -o random_num
 - [Анимации matplotlib](https://matplotlib.org/stable/api/animation_api.html) — `FuncAnimation`
 - [Документация Pillow](https://pillow.readthedocs.io/) — загрузка изображений для `imshow`
 - [Документация requests](https://requests.readthedocs.io/) — HTTP-запросы, JSON и заголовки
+- [Документация scikit-learn](https://scikit-learn.org/stable/) — `train_test_split`, `RandomForestRegressor` и метрики
 - [cppreference.com](https://en.cppreference.com/) — справка по C++
 - [Группировка и агрегация Pandas](https://pandas.pydata.org/docs/user_guide/groupby.html)
 

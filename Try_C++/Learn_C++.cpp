@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <fstream>
 // Если возникает ошибка возможно нужно #include <time.h>
 using namespace std;
 
@@ -183,19 +184,41 @@ using namespace std;
 // }
 // Пример
 
-void minimal(int *arr,int len){            //если сделать (int arr[],int len) то кол-во занимаемой памяти увеличится в 2 раза
-    int min=*arr;       //если работаем с указателями, то в указатель передаётся не ввесь массив, а только первый элемент
-    for (int i=0; i<len;i++){
-        if (min>*(arr+i)){
-            min=*(arr+i);
-        }
-    }
-    cout<<"Minimal: "<<min<<endl;
-}
+// void minimal(int *arr,int len){            //если сделать (int arr[],int len) то кол-во занимаемой памяти увеличится в 2 раза
+//     int min=*arr;       //если работаем с указателями, то в указатель передаётся не ввесь массив, а только первый элемент
+//     for (int i=0; i<len;i++){
+//         if (min>*(arr+i)){
+//             min=*(arr+i);
+//         }
+//     }
+//     cout<<"Minimal: "<<min<<endl;
+// }
+
+// int main(){
+//     int arr[]={5,7,4,5,-2};
+//     minimal(arr,5);
+
+//     return 0;
+// }
+
+
+// Работа с файлами
 
 int main(){
-    int arr[]={5,7,4,5,-2};
-    minimal(arr,5);
+    // ofstream file("test.txt",ios_base::out);     записываем данные
+    // if (file.is_open()){    //на всякий случай проверяем открыт ли файл             
+    //     file<<"Hello world";
+    //     file.close();
+    // }     
+     
+    ifstream file("test.txt");
+    // string temp;
+    // file >> temp;    так считается только первое слово
+    // cout<<temp<<endl;
+    char temp[100];
+    file.getline(temp,100);
+    cout<<temp<<endl;
+    file.close();
 
     return 0;
 }

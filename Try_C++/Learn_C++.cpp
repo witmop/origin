@@ -226,32 +226,63 @@ using namespace std;
 
 // Структуры данных
 
-struct Point {
-    int x,y;
+// struct Point {
+//     int x,y;
 
+// };
+
+// struct Tree {
+//     string name;
+//     int ages;
+//     bool is_alive;
+//     float height;
+//     Point place;
+
+//     void get_info(){
+//         cout<<"Name: "<<name<<endl;
+//     }
+
+// };
+
+// int main(){
+//     Tree dub;
+//     dub.name="Дуб";
+//     dub.ages=24;
+//     cout<<dub.name<<endl;
+//     dub.get_info();
+//     dub.place.x=10;
+//     dub.place.y=5;
+//     cout<<dub.place.x<<endl;
+//     return 0;
+// }
+
+
+// Перечисления
+
+enum Options{       //Options - просто название перечисления
+    open = 4,      // номер первого перечисления = 4, следующее +1
+    close,
+    wait,
+    del
 };
 
-struct Tree {
+struct File{
+    float weight;
     string name;
-    int ages;
-    bool is_alive;
-    float height;
-    Point place;
-
-    void get_info(){
-        cout<<"Name: "<<name<<endl;
-    }
+    Options options;
 
 };
 
 int main(){
-    Tree dub;
-    dub.name="Дуб";
-    dub.ages=24;
-    cout<<dub.name<<endl;
-    dub.get_info();
-    dub.place.x=10;
-    dub.place.y=5;
-    cout<<dub.place.x<<endl;
+    File my_file;
+    my_file.weight=3.5;
+    my_file.name="text.txt";
+    my_file.options=Options::close;
+    cout<<my_file.options<<endl;        //номер значения в перечислении
+    if (my_file.options==Options::close){
+        cout<<"File is close"<<endl;
+        
+    }
     return 0;
+
 }

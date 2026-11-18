@@ -204,21 +204,54 @@ using namespace std;
 
 // Работа с файлами
 
-int main(){
-    // ofstream file("test.txt",ios_base::out);     записываем данные
-    // if (file.is_open()){    //на всякий случай проверяем открыт ли файл             
-    //     file<<"Hello world";
-    //     file.close();
-    // }     
+// int main(){
+//     // ofstream file("test.txt",ios_base::out);     записываем данные
+//     // if (file.is_open()){    //на всякий случай проверяем открыт ли файл             
+//     //     file<<"Hello world";
+//     //     file.close();
+//     // }     
      
-    ifstream file("test.txt");
-    // string temp;
-    // file >> temp;    так считается только первое слово
-    // cout<<temp<<endl;
-    char temp[100];
-    file.getline(temp,100);
-    cout<<temp<<endl;
-    file.close();
+//     ifstream file("test.txt");
+//     // string temp;
+//     // file >> temp;    так считается только первое слово
+//     // cout<<temp<<endl;
+//     char temp[100];
+//     file.getline(temp,100);
+//     cout<<temp<<endl;
+//     file.close();
 
+//     return 0;
+// }
+
+
+// Структуры данных
+
+struct Point {
+    int x,y;
+
+};
+
+struct Tree {
+    string name;
+    int ages;
+    bool is_alive;
+    float height;
+    Point place;
+
+    void get_info(){
+        cout<<"Name: "<<name<<endl;
+    }
+
+};
+
+int main(){
+    Tree dub;
+    dub.name="Дуб";
+    dub.ages=24;
+    cout<<dub.name<<endl;
+    dub.get_info();
+    dub.place.x=10;
+    dub.place.y=5;
+    cout<<dub.place.x<<endl;
     return 0;
 }

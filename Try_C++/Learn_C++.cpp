@@ -259,30 +259,48 @@ using namespace std;
 
 // Перечисления
 
-enum Options{       //Options - просто название перечисления
-    open = 4,      // номер первого перечисления = 4, следующее +1
-    close,
-    wait,
-    del
-};
+// enum Options{       //Options - просто название перечисления
+//     open = 4,      // номер первого перечисления = 4, следующее +1
+//     close,
+//     wait,
+//     del
+// };
 
-struct File{
-    float weight;
-    string name;
-    Options options;
+// struct File{
+//     float weight;
+//     string name;
+//     Options options;
 
-};
+// };
+
+// int main(){
+//     File my_file;
+//     my_file.weight=3.5;
+//     my_file.name="text.txt";
+//     my_file.options=Options::close;
+//     cout<<my_file.options<<endl;        //номер значения в перечислении
+//     if (my_file.options==Options::close){
+//         cout<<"File is close"<<endl;
+        
+//     }
+//     return 0;
+
+// }
+
+
+// Обработка исключений
+
+void divide(float a,float b){
+    if(b==0) throw(100);       //throw("строка") не проходит, нужно выбрасывать число
+    cout<<a/b<<endl;
+}
 
 int main(){
-    File my_file;
-    my_file.weight=3.5;
-    my_file.name="text.txt";
-    my_file.options=Options::close;
-    cout<<my_file.options<<endl;        //номер значения в перечислении
-    if (my_file.options==Options::close){
-        cout<<"File is close"<<endl;
-        
+    try{
+        divide(6,0);
+    }
+    catch(int err){
+        if (err==100) cout<<"error: Division by zero"<<endl;
     }
     return 0;
-
 }

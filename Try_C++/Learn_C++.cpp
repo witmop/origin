@@ -290,17 +290,35 @@ using namespace std;
 
 // Обработка исключений
 
-void divide(float a,float b){
-    if(b==0) throw(100);       //throw("строка") не проходит, нужно выбрасывать число
-    cout<<a/b<<endl;
-}
+// void divide(float a,float b){
+//     if(b==0) throw(100);       //throw("строка") не проходит, нужно выбрасывать число
+//     cout<<a/b<<endl;
+// }
 
+// int main(){
+//     try{
+//         divide(6,0);
+//     }
+//     catch(int err){
+//         if (err==100) cout<<"error: Division by zero"<<endl;
+//     }
+//     return 0;
+// }
+
+
+// Встроенные функции C++
+
+#include <cstring>
+#include <cmath>
 int main(){
-    try{
-        divide(6,0);
-    }
-    catch(int err){
-        if (err==100) cout<<"error: Division by zero"<<endl;
-    }
+    string str1 = "Hello";
+    string str2 = "world";
+    str1.append(str2);
+    str1.pop_back();        //удаляет последний символ
+    str1.push_back('!');        //добавляет последний символ
+    cout<<str1<<endl;
+    // str1.resize(5);      обрезает строк до n символов
+    cout<<str1.length()<<endl;
+    
     return 0;
 }

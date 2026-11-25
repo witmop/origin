@@ -6,11 +6,15 @@
 <body>
     <h1>Список персонажей</h1>
     <ul>
-        <li>ID: {{ id }}</li>
-        <li>Name: {{character.name}}</li>
-        <li>Gender: {{character.gender}} </li>
-        <li>Height: {{character.height}}</li>
-        <li>Weight: {{character.mass}}</li>
+        {% for character in characters %}
+            <span>
+            <li>ID: {{ character.id }}</li>
+            <li>Name: {{character.name}}</li>
+            <li>Gender: {{character.gender}} </li>
+            <li>Height: {{character.height}}</li>
+            <li>Weight: {{character.mass}}</li>
+            </span>
+        {% endfor %}
     </ul>
 </body>
 </html>

@@ -6,13 +6,17 @@ from random import randint
 
 
 def random_character():
-    rand_id=randint(1,83)
-    response = req.get(url = f"https://swapi.info/api/people/{rand_id}")
-    data = response.json()
-    return {"id":rand_id,"character_info":data}    
+    result=[]
+    for i in range(5):
+        rand_id=randint(1,83)
+        response = req.get(url = f"https://swapi.info/api/people/{rand_id}")
+        data = response.json()
+        data["id"] = rand_id
+        result.append(data)
+    return result
 
 
 def main(request):
     result = random_character()
-    context = {"id":result["id"],"character":result["character_info"] }
+    context = {"characters":result}
     return render(request,"main_page.html",context)

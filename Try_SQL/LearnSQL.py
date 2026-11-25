@@ -19,20 +19,29 @@ import pandas as pd
 
 # Заропсы SELECT INSERT
 
-with sq.connect("saper.db") as con:
-    cur = con.cursor()
-    # cur.execute("INSERT INTO users (name,old,score) VALUES('Фёдор',32,200)")
-    # cur.execute("INSERT INTO users (name,old,score) VALUES('Николай',22,500)")
-    cur.execute("SELECT name,old,score FROM users")
-    cur.execute("SELECT * FROM users WHERE score<1000   ")
-    print(pd.DataFrame(cur.execute("SELECT * FROM users WHERE score BETWEEN 500 AND 1000")))
-    cur.execute("SELECT * FROM users WHERE old<20 AND SCORE<900")   #в конце можно записать ORDER BY (название колонки) - включает сортирвоку если добавить DESC - обратная сортировка
-    #если добавить LIMIT (число) - кол-во записей или 
+# with sq.connect("saper.db") as con:
+#     cur = con.cursor()
+#     # cur.execute("INSERT INTO users (name,old,score) VALUES('Фёдор',32,200)")
+#     # cur.execute("INSERT INTO users (name,old,score) VALUES('Николай',22,500)")
+#     cur.execute("SELECT name,old,score FROM users")
+#     cur.execute("SELECT * FROM users WHERE score<1000   ")
+#     print(pd.DataFrame(cur.execute("SELECT * FROM users WHERE score BETWEEN 500 AND 1000")))
+#     cur.execute("SELECT * FROM users WHERE old<20 AND SCORE<900")   #в конце можно записать ORDER BY (название колонки) - включает сортирвоку если добавить DESC - обратная сортировка
+#     #если добавить LIMIT (число) - кол-во записей или 
 
-    cur.execute("SELECT * FROM users WHERE sex==1 and old<=25 ORDER BY old DESC LIMIT 1")
-    # result = cur.fetchall()     #для получение упорядоч. списка
-    # cur.fetchone() - выбирает первую запись
-    # cur.fetchmany(число) - выбирает опр число записей
-    # #Альтернатива fetchall (экономит память)
-    for result in cur:
-        print(result)
+#     cur.execute("SELECT * FROM users WHERE sex==1 and old<=25 ORDER BY old DESC LIMIT 1")
+#     # result = cur.fetchall()     #для получение упорядоч. списка
+#     # cur.fetchone() - выбирает первую запись
+#     # cur.fetchmany(число) - выбирает опр число записей
+#     # #Альтернатива fetchall (экономит память)
+#     for result in cur:
+#         print(result)
+
+
+# Запросы DELETE/UPDATE
+
+with  sq.connect("saper.db") as con:
+    cur = con.cursor()
+    # cur.execute("UPDATE users SET score = 200 WHERE user_id == 1")
+    # cur.execute("UPDATE users SET score = score+50 WHERE sex == 2")
+    cur.execute("UPDATE users set old = old + 1 WHERE name LIKE 'Фёдор'")

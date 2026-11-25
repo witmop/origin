@@ -9,10 +9,10 @@ def random_character():
     rand_id=randint(1,83)
     response = req.get(url = f"https://swapi.info/api/people/{rand_id}")
     data = response.json()
-    return data    
+    return {"id":rand_id,"character_info":data}    
 
 
 def main(request):
-    data = random_character()
-    context = {"character":data }
+    result = random_character()
+    context = {"id":result["id"],"character":result["character_info"] }
     return render(request,"main_page.html",context)

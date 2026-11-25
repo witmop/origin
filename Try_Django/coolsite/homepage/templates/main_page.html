@@ -1,19 +1,189 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Данные из API</title>
+    <meta charset="UTF-8">
+    <title>Данные из API — Star Wars</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000;
+            color: #FFE81F;
+            font-family: 'Orbitron', 'Courier New', monospace;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        /* Звёздное небо */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+                radial-gradient(1px 1px at 60% 70%, #fff, transparent),
+                radial-gradient(1px 1px at 80% 10%, #fff, transparent),
+                radial-gradient(2px 2px at 40% 90%, #fff, transparent),
+                radial-gradient(1px 1px at 90% 50%, #fff, transparent),
+                radial-gradient(1px 1px at 15% 80%, #fff, transparent),
+                radial-gradient(2px 2px at 50% 20%, #fff, transparent),
+                radial-gradient(1px 1px at 70% 40%, #fff, transparent),
+                radial-gradient(1px 1px at 30% 60%, #fff, transparent);
+            background-size: 200% 200%;
+            animation: stars 120s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes stars {
+            from { background-position: 0 0; }
+            to   { background-position: 200% 200%; }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            color: #FFE81F;
+            text-transform: uppercase;
+            text-shadow:
+                0 0 10px #FFE81F,
+                0 0 20px #FFE81F,
+                0 0 40px #ff8800,
+                0 0 80px #ff8800;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+            animation: flicker 4s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%, 100% { text-shadow: 0 0 10px #FFE81F, 0 0 20px #FFE81F, 0 0 40px #ff8800; }
+            50%      { text-shadow: 0 0 5px #FFE81F, 0 0 10px #FFE81F, 0 0 20px #ff8800; }
+        }
+
+        ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        li {
+            background: rgba(10, 20, 40, 0.75);
+            border: 1px solid #4aa8ff;
+            border-radius: 12px;
+            padding: 22px;
+            position: relative;
+            backdrop-filter: blur(4px);
+            box-shadow:
+                0 0 15px rgba(74, 168, 255, 0.4),
+                inset 0 0 20px rgba(74, 168, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        li::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #4aa8ff, transparent, #FFE81F, transparent);
+            border-radius: 12px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        li:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow:
+                0 0 30px rgba(74, 168, 255, 0.8),
+                inset 0 0 30px rgba(74, 168, 255, 0.2);
+        }
+
+        li:hover::before {
+            opacity: 1;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(74, 168, 255, 0.3);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: #4aa8ff;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .value {
+            color: #FFE81F;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .name-row {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #FFE81F;
+            text-align: center;
+            padding: 10px 0 15px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #FFE81F;
+            text-shadow: 0 0 8px rgba(255, 232, 31, 0.6);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; letter-spacing: 4px; }
+            ul { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Список персонажей</h1>
+    <h1>★ Список персонажей ★</h1>
     <ul>
         {% for character in characters %}
-            <span>
-            <li>ID: {{ character.id }}</li>
-            <li>Name: {{character.name}}</li>
-            <li>Gender: {{character.gender}} </li>
-            <li>Height: {{character.height}}</li>
-            <li>Weight: {{character.mass}}</li>
-            </span>
+            <li>
+                <div class="name-row">{{ character.name }}</div>
+                <div class="row">
+                    <span class="label">ID</span>
+                    <span class="value">{{ character.id }}</span>
+                </div>
+                <div class="row">
+                    <span class="label">Пол</span>
+                    <span class="value">{{ character.gender }}</span>
+                </div>
+                <div class="row">
+                    <span class="label">Рост</span>
+                    <span class="value">{{ character.height }} см</span>
+                </div>
+                <div class="row">
+                    <span class="label">Масса</span>
+                    <span class="value">{{ character.mass }} кг</span>
+                </div>
+            </li>
         {% endfor %}
     </ul>
 </body>

@@ -7,7 +7,7 @@ from random import randint
 
 def random_character():
     result=[]
-    for i in range(5):
+    for i in range(10):
         rand_id=randint(1,83)
         response = req.get(url = f"https://swapi.info/api/people/{rand_id}")
         data = response.json()

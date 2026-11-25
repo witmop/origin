@@ -310,15 +310,40 @@ using namespace std;
 
 #include <cstring>
 #include <cmath>
-int main(){
-    string str1 = "Hello";
-    string str2 = "world";
-    str1.append(str2);
-    str1.pop_back();        //удаляет последний символ
-    str1.push_back('!');        //добавляет последний символ
-    cout<<str1<<endl;
-    // str1.resize(5);      обрезает строк до n символов
-    cout<<str1.length()<<endl;
+// int main(){
+//     string str1 = "Hello";
+//     string str2 = "world";
+//     str1.append(str2);
+//     str1.pop_back();        //удаляет последний символ
+//     str1.push_back('!');        //добавляет последний символ
+//     cout<<str1<<endl;
+//     // str1.resize(5);      обрезает строк до n символов
+//     cout<<str1.length()<<endl;
     
+//     return 0;
+// }
+
+
+// ООП
+
+class Building{
+private:
+    int year;
+    string type;
+public:
+    void set_data(int y,string t){
+        year = y;
+        type = t;
+    }
+    void  get_info(){
+        cout<< "Type: "<<type<<" Year: "<<year<<endl;
+    }
+
+};
+
+int main(){
+    Building school;
+    school.set_data(2000,"Школа");
+    school.get_info();
     return 0;
 }

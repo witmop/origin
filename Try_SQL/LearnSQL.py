@@ -53,12 +53,37 @@ import pandas as pd
 
 #Агрегирование и группировка GROUP BY
 
+# with sq.connect("saper.db") as con:
+#     cur = con.cursor()
+#     # cur.execute("INSERT INTO users (name,old,score) VALUES('Пётр', 22,350)")
+#     cur.execute("SELECT count(old) as count FROM users WHERE old == 22")     #возвращает кол-во  (as count) просто меняет название поля
+#     cur.execute("SELECT count(DISTINCT old) as old FROM users")     #DISTINCT смотри кол-во уникальных значений
+#     cur.execute("SELECT old,sum(score) as result_score FROM users GROUP BY old ORDER BY result_score") #считает общую сумму с учётом возраста + сортировка по возраст. суммы очков
+#     cur.execute("SELECT * FROM users")
+#     result = cur.fetchall()
+#     print(result)
+
+
+# Оператор JOIN
+
 with sq.connect("saper.db") as con:
     cur = con.cursor()
-    # cur.execute("INSERT INTO users (name,old,score) VALUES('Пётр', 22,350)")
-    cur.execute("SELECT count(old) as count FROM users WHERE old == 22")     #возвращает кол-во  (as count) просто меняет название поля
-    cur.execute("SELECT count(DISTINCT old) as old FROM users")     #DISTINCT смотри кол-во уникальных значений
-    cur.execute("SELECT old,sum(score) as result_score FROM users GROUP BY old ORDER BY result_score")
-    cur.execute("SELECT * FROM users")
+    # cur.execute("CREATE TABLE IF NOT EXISTS games (user_id INTEGER, score INTEGER, time INTEGER)")
+    # cur.execute("INSERT INTO games (user_id,score,time) VALUES(1,200,10000)")
+    # cur.execute("INSERT INTO games (user_id,score,time) VALUES(1,300,11000)")
+    # cur.execute("INSERT INTO games (user_id,score,time) VALUES(2,400,12000)")
+    # cur.execute("INSERT INTO games (user_id,score,time) VALUES(1,500,10300)")
+    # cur.execute("INSERT INTO games (user_id,score,time) VALUES(3,150,21000)")
+    # cur.execute("SELECT * FROM games")
+    # result = cur.fetchall()
+    # for el in result:
+    #     print(el)
+    cur.execute("SELECT name,sex,games.score FROM games LEFT JOIN users ON games.user_id = users.user_id")  #можно делать RIGHT/LEFT JOIN (по умолчанию INNER JOIN)
+    # result = cur.fetchall()
+    # for el in result:
+    #     print(el)       #Получаем какие игры сыграл какой игрок и сколько очков набрал за 1 игру
+
+    cur.execute("SELECT name,sex, sum(games.score) as score FROM games JOIN users ON games.user_id = users.user_id GROUP BY user_id ORDER BY score DESC")
     result = cur.fetchall()
-    print(result)
+    for el in result:
+        print(el)

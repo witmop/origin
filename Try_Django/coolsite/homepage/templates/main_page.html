@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -92,6 +93,8 @@
                 inset 0 0 20px rgba(74, 168, 255, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         li::before {
@@ -125,10 +128,6 @@
             letter-spacing: 1px;
         }
 
-        .row:last-child {
-            border-bottom: none;
-        }
-
         .label {
             color: #4aa8ff;
             text-transform: uppercase;
@@ -155,6 +154,41 @@
             text-transform: uppercase;
         }
 
+        /* --- Блок с фото: отдельный, вне flex-строк --- */
+        .photo-block {
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .photo {
+            display: block;
+            width: 100%;
+            height: 240px;               /* фиксированная высота — карточки одинаковые */
+            object-fit: cover;           /* картинка обрезается, а не растягивается */
+            object-position: center top;
+            border-radius: 8px;
+            border: 1px solid rgba(74, 168, 255, 0.5);
+            background: rgba(74, 168, 255, 0.08);
+        }
+
+        /* Заглушка вместо битой картинки */
+        .no-photo {
+            display: none;
+            width: 100%;
+            height: 240px;
+            border-radius: 8px;
+            border: 1px dashed rgba(74, 168, 255, 0.5);
+            background: rgba(74, 168, 255, 0.08);
+            color: #4aa8ff;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+
         @media (max-width: 600px) {
             h1 { font-size: 2rem; letter-spacing: 4px; }
             ul { grid-template-columns: 1fr; }
@@ -164,9 +198,10 @@
 <body>
     <h1>★ Список персонажей ★</h1>
     <ul>
-        {% for character in characters %}
+        {% for character in characters|slice:":12" %}
             <li>
                 <div class="name-row">{{ character.name }}</div>
+
                 <div class="row">
                     <span class="label">ID</span>
                     <span class="value">{{ character.id }}</span>
@@ -183,10 +218,14 @@
                     <span class="label">Масса</span>
                     <span class="value">{{ character.mass }} кг</span>
                 </div>
-                <div class = "row" >
-                    <span class = "label"> Фото</span>
-                    {% load static %}
-                    <img src = "{% static 'pictures/'%}{{character.id}}.jpg",alt = "Картинка не найдена">
+
+                <div class="photo-block">
+                    <span class="label">Фото</span>
+                    <img class="photo"
+                         src="{% static 'pictures/' %}{{ character.id }}.jpg"
+                         alt="{{ character.name }}"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="no-photo">Фото отсутствует</div>
                 </div>
             </li>
         {% endfor %}

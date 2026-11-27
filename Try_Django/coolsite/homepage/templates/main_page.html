@@ -183,6 +183,11 @@
                     <span class="label">Масса</span>
                     <span class="value">{{ character.mass }} кг</span>
                 </div>
+                <div class = "row" >
+                    <span class = "label"> Фото</span>
+                    {% load static %}
+                    <img src = "{% static 'pictures/'%}{{character.id}}.jpg",alt = "Картинка не найдена">
+                </div>
             </li>
         {% endfor %}
     </ul>

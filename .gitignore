@@ -1,3 +1,4 @@
 .vscode/
 /Try_C++/*
 !/Try_C++/*.cpp
+__pycache__/

@@ -31,13 +31,14 @@
 
 ## 🆕 Что нового с прошлого обновления README
 
-Обновление от 20 ноября 2026 (с 17 ноября добавлено 4 коммита):
+Обновление от 28 ноября 2026 (с 20 ноября добавлено 19 коммитов):
 
-- **C++: работа с файлами** (`Try_C++/Learn_C++.cpp`, добавлен `#include <fstream>`) — `ofstream` для записи (`ios_base::out`, проверка `is_open()`, `close()`), `ifstream` для чтения, чтение по словам через `file >> temp` и построчно через `file.getline(temp, 100)`; примеры пока в комментариях.
-- **C++: структуры данных** (`Try_C++/Learn_C++.cpp`) — `struct Point` с полями `x` / `y`, `struct Tree` со строками, числами, флагом, вложенной структурой `Point` и методом `get_info()`; в `main` создаётся объект `Tree dub` и заполняются его поля.
-- **C++: перечисления** (`Try_C++/Learn_C++.cpp`) — `enum Options` с явным стартом `open = 4` и автоувеличением остальных значений, обращение `Options::close`, вывод числового значения и сравнение в `if`; `enum` встроен в `struct File`.
-- **C++: обработка исключений** (`Try_C++/Learn_C++.cpp`) — рабочий пример `divide(float a, float b)` бросает числовой код `throw(100)` при делении на ноль, а `try / catch(int err)` перехватывает его и печатает `error: Division by zero`. Это теперь активный `main`; прежний пример с `minimal()` ушёл в комментарии.
-- **Прошлые обновления** (C++-конспект указателей и сортировки, обучение RandomForest, ООП для API Weeek, matplotlib) остались в истории коммитов.
+- **C++: встроенные функции и ООП** (`Try_C++/Learn_C++.cpp`) — `append` / `pop_back` / `push_back` / `resize` / `length` для `string` (пример в комментариях), а также класс `Building` с приватными полями `year` / `type`, публичными `set_data()` и `get_info()`; активный `main` создаёт объект и выводит информацию о здании. Прежний пример с исключениями (`throw(100)` / `catch`) теперь закомментирован, добавлены `#include <cstring>` и `#include <cmath>`.
+- **SQL: база данных и запросы** (`Try_SQL/LearnSQL.py`, `Try_SQL/saper.db`) — `sqlite3`, создание таблицы `users` через `CREATE TABLE IF NOT EXISTS`, `INSERT` / `SELECT` с `WHERE`, `BETWEEN`, `ORDER BY` / `DESC`, `LIMIT`, выборка через `fetchall` / `fetchone` / `fetchmany`, `UPDATE` / `DELETE` с `LIKE`, агрегаты `count` / `count(DISTINCT ...)` / `sum`, `GROUP BY` и `JOIN` / `LEFT JOIN`. Активный блок — запрос с `JOIN` и группировкой очков по игрокам; датасет `marvel-wikia-data.csv` лежит рядом.
+- **Django: первый сайт** (`Try_Django/coolsite/`) — проект Django 6.1.3 с приложением `homepage`: `views.py` делает 12 случайных запросов к swapi.info (`randint(1, 83)`, id 17 пропускается, `set()` не даёт карточкам повторяться), шаблон `main_page.html` оформляет карточки в стиле «звёздных войн» (тёмный фон, CSS-анимации, сетка, поля ID / пол / рост / масса и фото), `STATICFILES_DIRS` подключает папку `static`, корневой URL отдаёт `homepage`.
+- **Django: фотографии персонажей** (`coolsite/static/pictures/`) — 82 файла `{id}.jpg` и скрипт `download_image.py`, который скачивает изображения через API akabab.github.io; на странице стоит заглушка `onerror` для отсутствующих фото.
+- **Git-гигиена** (`.gitignore`) — добавлен `__pycache__/`, чтобы новые Python-кэши не попадали в коммиты.
+- **Прошлые обновления** (C++-конспект файлов, структур, перечислений и исключений, RandomForest, API Weeek, matplotlib) остались в истории коммитов.
 
 ## 📁 Структура
 
@@ -47,6 +48,8 @@
 ├── Python ООП/           # конспект по объектно-ориентированному Python (LearnOOP.py)
 ├── Requests/             # запросы к API Weeek: server_requests.py и ООП-обвязка OOP_Requests.py
 ├── Try_C++/              # C++: калькуляторы, игра, массивы, функции, указатели, сортировка, файлы, структуры
+├── Try_Django/           # первый сайт на Django: проект coolsite, приложение homepage, API и фото
+├── Try_SQL/              # конспект по SQLite: запросы к saper.db и датасет Marvel
 ├── Try_matplotlib/       # конспект по matplotlib: графики и оформление
 ├── Try_Pandas/           # табличные данные, очистка CSV и обучение модели
 ├── leetcode/             # решённые задачи LeetCode
@@ -105,6 +108,11 @@
 | `Try_matplotlib/LearnMatplotlib.py` | Конспект по matplotlib (начат 04.11.2026), почти всё закомментировано как шпаргалка: `plot` и стили линий / маркеров, `fill_between`, несколько осей (`subplot`, `subplots`, `add_axes`, `GridSpec`), пределы и локаторы (`NullLocator`, `LinearLocator`, `MultipleLocator`, `IndexLocator`, `FixedLocator`, `LogLocator`, `MaxNLocator`, minor ticks), форматтеры (`NullFormatter`, `FormatStrFormatter`, `FuncFormatter`, `ScalarFormatter`, `FixedFormatter`), логарифмический масштаб (`semilogy`, `set_yscale`), оформление (`figtext`, `annotate`, `text`, фон и подписи), легенда и фигуры (`Line2D`, `Rectangle`, `add_line`, `add_patch`), виды графиков (`step`, `stackplot`, `stem`, `scatter`), гистограммы и диаграммы (`hist`, `bar`, `pie`), изображения и цветовые сетки (`PIL.Image`, `imshow`, `colorbar`, `pcolormesh`), 3D-графики (`Axes3D`, `plot_surface`, `plot_wireframe`, `meshgrid`) и анимации (`FuncAnimation`, `ion` / `ioff`, `set_ydata`, `flush_events`). |
 | `Requests/server_requests.py` | Первые запросы к API Weeek через `requests`: POST / PUT / DELETE / GET, JSON-payload, заголовки `Authorization: Bearer`, `Accept` и `Content-Type`. Токен берётся из переменной окружения `WEEEK_TOKEN`. Все запросы закомментированы — включайте нужный блок. |
 | `Requests/OOP_Requests.py` | Тот же API Weeek, но с классами: `Student` (приватный пароль, `set_token`, `change_name`, `info`, `check_schedule` через GET) и `Teacher` (наследует `Student`, добавляет `create_lesson` / `update_lesson` / `delete_lesson` — POST / PUT / DELETE). Токен и пароли внизу файла пока заглушки, реальных секретов в коде нет. |
+| `Try_SQL/LearnSQL.py` | Конспект по SQLite (начат 24.11.2026), почти всё закомментировано как шпаргалка: `connect` и `with sq.connect(...)`, `CREATE TABLE`, `INSERT` / `SELECT` / `UPDATE` / `DELETE`, `WHERE` / `BETWEEN` / `LIKE`, `ORDER BY` / `DESC` / `LIMIT`, `fetchall` / `fetchone` / `fetchmany`, агрегаты `count` / `DISTINCT` / `sum`, `GROUP BY`, `JOIN` / `LEFT JOIN`. Активный блок выводит сумму очков по игрокам из `JOIN` таблиц `games` и `users`. |
+| `Try_SQL/saper.db`, `Try_SQL/marvel-wikia-data.csv` | База SQLite с таблицами `users` и `games` для примеров запросов и исходный датасет Marvel по персонажам. |
+| `Try_Django/coolsite/` | Проект Django 6.1.3: `manage.py`, пакет `coolsite` (`settings.py` с SQLite и `STATICFILES_DIRS`, `urls.py`, `wsgi.py`, `asgi.py`), приложение `homepage` (`views.py`, `urls.py`, шаблон `templates/main_page.html`) и пока пустая `db.sqlite3`. |
+| `Try_Django/coolsite/coolsite/static/pictures/` | 82 изображения персонажей (`1.jpg` … `83.jpg`, без 17-го) и `download_image.py`: запросы к `akabab.github.io/starwars-api` и сохранение фото в `{id}.jpg`. |
+| `Try_Django/LearnDjango.py` | Пока пустой файл-заготовка под конспект по Django. |
 | `leetcode/13. Roman to Integer.py` | [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/) — перевод римского числа в арабское: сравнение соседних символов через стек, вычитание меньшего из большего. |
 | `leetcode/20.ValidParentheses.py` | [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) — проверка корректности скобок с помощью стека. |
 | `leetcode/28._Find_the_Index...py` | [28. Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) — поиск первого вхождения подстроки. |
@@ -118,7 +126,7 @@
 | `Try_C++/FirstProgramm.cpp` | Первая программа на C++: `#include` / `using namespace std`, `int main(int argc, const char *argv[])`, вывод через `cout`, пауза через `cin.get()`, код возврата `return 0`. |
 | `Try_C++/Calculator.cpp` | Первый «полезный» калькулятор на C++: `cin` для двух чисел и знака операции, `switch` по операциям, отдельная проверка деления на ноль, вывод через `cout`. |
 | `Try_C++/Calculator_v2.cpp` | Тот же калькулятор, но через `if / else if`: `float` для чисел, проверка деления на ноль и обработка некорректного знака операции. |
-| `Try_C++/Learn_C++.cpp` | Самый большой конспект по C++: циклы `for` / `while` / `do-while`, массивы (обычные, многомерные, динамические через `new` / `delete[]`), строки (`char[]`, `string`, `getline`), функции и их перегрузка, указатели и ссылки (`minimal(int *arr, int len)`), файлы (`ofstream` / `ifstream`, `getline`), структуры (`Point`, `Tree`), перечисления (`enum Options`) и исключения. Активный `main` проверяет деление на ноль через `throw(100)` и `catch(int err)`; остальные блоки закомментированы как шпаргалка. |
+| `Try_C++/Learn_C++.cpp` | Самый большой конспект по C++: циклы `for` / `while` / `do-while`, массивы (обычные, многомерные, динамические через `new` / `delete[]`), строки (`char[]`, `string`, `getline`, `append` / `pop_back` / `push_back` / `resize` / `length`), функции и их перегрузка, указатели и ссылки (`minimal(int *arr, int len)`), файлы (`ofstream` / `ifstream`, `getline`), структуры (`Point`, `Tree`), перечисления (`enum Options`), исключения (`throw(100)` / `catch`) и ООП (класс `Building` с `private`-полями и методами `set_data()` / `get_info()`). Активный `main` создаёт объект `Building` и печатает его данные; старые блоки закомментированы как шпаргалка. |
 | `Try_C++/BubbleSort.cpp` | Сортировка пузырьком массива строк: ввод `n` строк в `new string[n]`, обмен через `swap`, досрочный выход по флагу `swapped`, вывод отсортированных строк и самого длинного слова. Файл — фрагмент без `#include` / `using namespace std`: для запуска их нужно добавить. |
 | `Try_C++/Random_Num.cpp` | Игра «Угадай число»: `srand(time(NULL))`, число от 1 до 100, цикл `while (!stop)`, `cin`, подсказки «больше / меньше» и выход при совпадении. |
 | `hello.html` + `style.css` | Первая HTML-страница: минимум разметки, чтобы не забыть, как это выглядит. |
@@ -139,7 +147,7 @@ python -m venv .venv
 # Linux/macOS: source .venv/bin/activate
 
 # 3. Установить зависимости
-pip install numpy pandas seaborn matplotlib requests pillow accessify scikit-learn catboost
+pip install numpy pandas seaborn matplotlib requests pillow accessify scikit-learn catboost django
 ```
 
 Запуск по желанию:
@@ -167,6 +175,9 @@ python "leetcode/804. Unique Morse Code Words.py"
 python "leetcode/1385. Find the Distance Value Between Two Arrays.py"
 python "leetcode/3727. Maximum Alternating Sum of Squares.py"
 
+# SQL: конспект запросов к SQLite (активный блок — JOIN + GROUP BY)
+python Try_SQL/LearnSQL.py             # активный блок читает уже готовую Try_SQL/saper.db
+
 # работа с данными (нужны pandas и matplotlib)
 python "Try_Pandas/Учу pandas.py"
 python Try_Pandas/cleaning_df.py        # чистит cars.csv и пишет cars_process.csv
@@ -178,6 +189,10 @@ python Try_matplotlib/LearnMatplotlib.py  # конспект; в конце за
 export WEEEK_TOKEN="ваш_токен"          # Windows PowerShell: $env:WEEEK_TOKEN="ваш_токен"
 python Requests/server_requests.py      # все запросы закомментированы — включите нужный блок
 python Requests/OOP_Requests.py         # пример с Student / Teacher, токен и пароли-заглушки
+
+# Django: сайт со случайными персонажами Star Wars (нужен django и интернет для API)
+cd Try_Django/coolsite
+python manage.py runserver              # http://127.0.0.1:8000/
 ```
 
 Для `Try_C++/` нужен компилятор, а не Python:
@@ -196,8 +211,8 @@ g++ -std=c++17 Try_C++/Calculator.cpp -o calculator
 g++ -std=c++17 Try_C++/Calculator_v2.cpp -o calculator_v2
 ./calculator_v2
 
-# конспект: циклам, массивам, функциям, структурам и файлам посвящены закомментированные блоки;
-# активный main показывает обработку исключений — на делении на ноль выведет "error: Division by zero"
+# конспект: циклам, массивам, файлам, перечислениям и исключениям посвящены закомментированные блоки;
+# активный main показывает класс Building (создание объекта и вывод get_info())
 g++ -std=c++17 Try_C++/Learn_C++.cpp -o learn_cpp
 ./learn_cpp
 
@@ -233,6 +248,14 @@ g++ -std=c++17 Try_C++/BubbleSort.cpp -o bubble_sort
 > `!/Try_C++/*.cpp`: скомпилированные программы в Git больше не попадают,
 > в репозитории остаются только исходники `.cpp`.
 
+> **Про Django.** `SECRET_KEY` в `settings.py` сгенерирован `django-admin` для разработки —
+> для реального развёртывания его нужно заменить и вынести в переменные окружения,
+> а `DEBUG` выключить. Сайт при каждом запросе обращается к внешним API (swapi.info),
+> поэтому без интернета карточки не появятся; фото уже лежат в `static/pictures/`.
+
+> **Про `__pycache__`.** Папки добавлены в `.gitignore`, но `.pyc`-файлы, попавшие в Git
+> до этого, всё ещё отслеживаются — чтобы убрать их из репозитория, нужно `git rm --cached`.
+
 > **Про кодировки имён.** В путях есть кириллица, а в двух именах файлов — невидимый
 > подвох: в `сars_no_dup.csv` и `Encryption Сaesar.py` первая буква — кириллическая
 > (`с` и `С`), хотя выглядит как латинская. Из-за этого `cd`, `git mv` и запуск
@@ -255,6 +278,9 @@ g++ -std=c++17 Try_C++/BubbleSort.cpp -o bubble_sort
 - **requests** — HTTP-запросы `GET` / `POST` / `PUT` / `DELETE`, JSON и заголовки авторизации, обёртка в классы `Student` / `Teacher` (`Requests/`)
 - **scikit-learn** — `train_test_split`, `RandomForestRegressor`, метрики MAE / MAPE и важность признаков (`Try_Pandas/learn_model.py`)
 - **catboost** — пока только импорт в `learn_model.py`, модель на нём ещё не обучалась
+- **SQLite / sqlite3** — создание таблиц, `SELECT` / `INSERT` / `UPDATE` / `DELETE`, агрегаты, `GROUP BY` и `JOIN` (`Try_SQL/`)
+- **Django** — проект `coolsite`, приложение `homepage`, шаблоны, статические файлы и запросы к внешним API (`Try_Django/`)
+- **HTML / CSS** — шаблон карточек персонажей, сетка, анимации и адаптивная вёрстка (`homepage/templates/main_page.html`)
 - **stdlib** — `string`, `random`, `time`, `dataclasses.make_dataclass` — для консольных проектов и конспектов
 - **accessify** — декораторы `@private` / `@protected` для ООП-конспекта
 - **VS Code** + `venv` — рабочее окружение
@@ -273,7 +299,8 @@ g++ -std=c++17 Try_C++/BubbleSort.cpp -o bubble_sort
 - [x] C++: циклы `for` / `while` / `do-while`, `break` и игра «Угадай число»
 - [x] C++: массивы, строки, функции и перегрузка, указатели и ссылки, пузырьковая сортировка
 - [x] C++: работа с файлами, структуры, перечисления и обработка исключений
-- [ ] Раскомментировать и довести до рабочего вида примеры из конспекта C++ (пока активен только пример с исключениями)
+- [x] C++: встроенные функции строк и ООП (класс `Building`)
+- [ ] Раскомментировать и довести до рабочего вида примеры из конспекта C++ (сейчас активен только пример с ООП)
 - [x] Настроить сборку C++ в VS Code (`g++` через `tasks.json`, сам `.vscode/` в `.gitignore`)
 - [x] Исключить скомпилированные бинарники C++ из Git через `.gitignore`
 - [ ] Разобраться с отладкой C++ в VS Code
@@ -283,6 +310,11 @@ g++ -std=c++17 Try_C++/BubbleSort.cpp -o bubble_sort
 - [ ] Убрать заглушки токена и паролей из `OOP_Requests.py`: читать их из окружения / ввода
 - [ ] Доделать `Requests/`: обработать коды ответов и ошибки
 - [ ] Привести `learn_model.py` к запуску: согласовать имя `clean_df.csv` с выходом `cleaning_df.py`
+- [x] SQL: база `saper.db`, запросы `SELECT` / `INSERT` / `UPDATE` / `DELETE`, агрегаты, `GROUP BY` и `JOIN`
+- [ ] Продолжить SQL: подключить базу к pandas и разобрать подзапросы и индексы
+- [x] Django: первый сайт с карточками персонажей из swapi.info и локальными фото
+- [ ] Развить `Try_Django/`: свои страницы, модель в `homepage/models.py` и сохранение данных в БД
+- [ ] Убрать из Git отслеживаемые `.pyc`-файлы и вынести `SECRET_KEY` Django в окружение
 
 ## 📚 Источники
 
@@ -297,6 +329,10 @@ g++ -std=c++17 Try_C++/BubbleSort.cpp -o bubble_sort
 - [Документация requests](https://requests.readthedocs.io/) — HTTP-запросы, JSON и заголовки
 - [Документация scikit-learn](https://scikit-learn.org/stable/) — `train_test_split`, `RandomForestRegressor` и метрики
 - [cppreference.com](https://en.cppreference.com/) — справка по C++
+- [Документация SQLite](https://www.sqlite.org/lang.html) — синтаксис запросов SQL
+- [Документация Django](https://docs.djangoproject.com/) — проект, приложения, шаблоны и статические файлы
+- [SWAPI](https://swapi.info/) — API персонажей Star Wars для сайта на Django
+- [Star Wars API (akabab)](https://akabab.github.io/starwars-api/) — изображения персонажей
 - [Группировка и агрегация Pandas](https://pandas.pydata.org/docs/user_guide/groupby.html)
 
 ## 👤 Контакты
